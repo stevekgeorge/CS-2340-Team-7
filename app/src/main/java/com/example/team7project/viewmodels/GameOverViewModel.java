@@ -2,31 +2,21 @@ package com.example.team7project.viewmodels;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.lifecycle.ViewModel;
 
+import com.example.team7project.models.GameOverDataModel;
+
+import java.util.HashMap;
 import java.util.Map;
 
-public class GameOverViewModel extends BaseObservable {
-    @Bindable
-    private String PlayerName;
+public class GameOverViewModel extends ViewModel {
+    public GameOverDataModel GameOverData;
 
-    @Bindable
-    private Integer PlayerScore;
-
-    @Bindable
-    private Map<String, Integer> HighScores;
-
-    @Bindable
-    public String getPlayerName() {
-        return PlayerName;
+    public GameOverViewModel() {
+        GameOverData = new GameOverDataModel(0, new HashMap<String, Integer>(), "Original");
     }
 
-    @Bindable
-    public Integer getPlayerScore() {
-        return PlayerScore;
-    }
-
-    @Bindable
-    public Map<String, Integer> getHighScores() {
-        return HighScores;
+    public void Test() {
+        GameOverData.SetPlayerName("New Name");
     }
 }
