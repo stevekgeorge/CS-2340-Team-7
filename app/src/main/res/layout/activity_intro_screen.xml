@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IntroScreen">
+
+    <ImageView
+        android:id="@+id/wallpaperImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/IntroScreen"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="52dp" />
+
+    <Button
+        android:id="@+id/startButton7"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="293dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="64dp"
+        android:text="Continue"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#8BC34A"
+        android:textColorLink="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/introTextView"
+        android:layout_width="376dp"
+        android:layout_height="121dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="192dp"
+        android:text="In the not-so-distant future, the once prestigious campus of Georgia Tech now stands as a grim reminder of the chaos that unfolded. A nuclear fallout has occurred, as a survivor, you must navigate the terrain defeating what once was your fellow mascot, Buzz!"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="195dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="76dp"
+        android:text="Georgia Tech Nuclear Apocalypse"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameInput"
+        android:layout_width="254dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="440dp"
+        android:text="Please input your name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="281dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="188dp"
+        android:inputType="textCapSentences|textAutoCorrect"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/introTextView" />
+
+    <RadioGroup
+        android:id="@+id/difficultyRadioGroup"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="520dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/message">
+
+        <RadioButton
+            android:id="@+id/easyRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Easy" />
+
+        <RadioButton
+            android:id="@+id/mediumRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium" />
+
+        <RadioButton
+            android:id="@+id/hardRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hard" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
