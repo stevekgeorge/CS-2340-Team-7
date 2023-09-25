@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.content.Intent;
@@ -57,7 +58,8 @@ public class IntroScreen extends AppCompatActivity {
                 String playerName = name.getText().toString();
                 int selectedDifficultyId = difficulty.getCheckedRadioButtonId();
                 viewModel.SetPlayerName(playerName);
-                viewModel.SetDifficulty(String.valueOf(selectedDifficultyId));
+                RadioButton button = (RadioButton)findViewById(selectedDifficultyId);
+                viewModel.SetDifficulty(String.valueOf(button.getText()));
             }
         });
     }

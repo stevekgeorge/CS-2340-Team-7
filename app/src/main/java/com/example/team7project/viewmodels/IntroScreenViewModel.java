@@ -34,13 +34,7 @@ public class IntroScreenViewModel extends ViewModel {
         if (Difficulty == "-1") {
             StatusMessage.setValue("Please fill out the difficulty field.");
         } else {
-            if (Difficulty.equals("2131230895")) {
-                IntroScreenData.Difficulty = "Easy";
-            } else if (Difficulty.equals("2131230996")) {
-                IntroScreenData.Difficulty = "Medium";
-            } else if (Difficulty.equals("2131230935")){
-                IntroScreenData.Difficulty = "Hard";
-            }
+            IntroScreenData.Difficulty = Difficulty;
             if (IntroScreenData.PlayerName != "") {
                 Proceed();
             }
