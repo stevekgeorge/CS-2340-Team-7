@@ -28,9 +28,18 @@ public class GameScreen extends AppCompatActivity {
         mainBinding.setViewModel(viewModel);
 
         Intent intent = getIntent();
+        String startHealth = "0";
+        if (intent.getStringExtra("difficulty").equals("Easy")) {
+            startHealth = "500 HP";
+        } else if (intent.getStringExtra("difficulty").equals("Medium")) {
+            startHealth = "250 HP";
+        } else if (intent.getStringExtra("difficulty").equals("Hard")) {
+            startHealth = "100 HP";
+        }
+
         viewModel.SetData(new GameScreenDataModel(
                 intent.getStringExtra("playerName"),
-                intent.getStringExtra("difficulty"), "100 HP",
+                intent.getStringExtra("difficulty"), startHealth,
                 intent.getStringExtra("selectedCharacter").equals("Sword Master Sid") ? 0 : 1,
                 intent.getStringExtra("selectedCharacter").equals("The Purple Persian") ? 0 : 1,
                 intent.getStringExtra("selectedCharacter").equals("General Gabe") ? 0 : 1));
