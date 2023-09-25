@@ -43,9 +43,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="14dp"
-            android:text="@{viewModel.GameOverData.PlayerName}"
+            android:text="Game Over"
             android:textAlignment="center"
             android:textSize="24sp"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/finalScoreLabel"
             app:layout_constraintStart_toStartOf="@+id/finalScoreLabel"
             app:layout_constraintTop_toBottomOf="@+id/gameOverLabel" />
@@ -89,15 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </TableLayout>
-
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="Test"
-            android:text="test"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="284dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
