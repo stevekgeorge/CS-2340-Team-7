@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/PlayerSelectScreen"
+        android:src="@drawable/playerselectscreen"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
@@ -79,7 +79,7 @@
         android:background="@null"
         android:onClick="onCharacterButtonClick"
         android:scaleType="fitCenter"
-        android:src="@drawable/SwordMasterSid"
+        android:src="@drawable/swordmastersid"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +93,7 @@
         android:background="@null"
         android:onClick="onCharacterButtonClick"
         android:scaleType="fitCenter"
-        android:src="@drawable/GeneralGabe"
+        android:src="@drawable/generalgabe"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -107,7 +107,7 @@
         android:background="@null"
         android:onClick="onCharacterButtonClick"
         android:scaleType="fitCenter"
-        android:src="@drawable/ThePurplePersian"
+        android:src="@drawable/thepurplepersian"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

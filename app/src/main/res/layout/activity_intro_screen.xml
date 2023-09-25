@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/IntroScreen"
+        android:src="@drawable/introscreen"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="52dp" />
 
@@ -56,7 +56,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/nameInput"
         android:layout_width="254dp"
         android:layout_height="26dp"
         android:layout_marginStart="92dp"
@@ -87,7 +86,7 @@
         tools:layout_editor_absoluteY="520dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/message">
+        app:layout_constraintTop_toBottomOf="@id/nameInput">
 
         <RadioButton
             android:id="@+id/easyRadioButton"
