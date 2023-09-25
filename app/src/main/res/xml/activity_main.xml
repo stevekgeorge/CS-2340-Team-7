@@ -20,8 +20,7 @@
         android:id="@+id/wallpaperImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/Sprint1StartScreen" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/introTextView"
@@ -49,18 +48,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/startButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="247dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="180dp"
-        android:src="@drawable/Sprint1Button"
-        android:text="Start"
-        android:textColorHighlight="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/introTextView" />
+<!--    <Button-->
+<!--        android:id="@+id/startButton"-->
+<!--        style="@style/Widget.AppCompat.Button.Colored"-->
+<!--        android:layout_width="247dp"-->
+<!--        android:layout_height="53dp"-->
+<!--        android:layout_marginTop="180dp"-->
+<!--        android:src="@drawable/sprint1button"-->
+<!--        android:text="Start"-->
+<!--        android:textColorHighlight="#000000"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/introTextView" />-->
 
     <EditText
         android:id="@+id/message"
