@@ -40,11 +40,8 @@ public class IntroScreen extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 if (s != "") {
-                    Toast.makeText(IntroScreen.this, s, Toast.LENGTH_SHORT).show();
                     if (s.substring(0, 6).equals("START.")) {
                         Intent intent = new Intent(IntroScreen.this, PlayerSelectScreen.class);
-                        intent.putExtra("playerName", viewModel.IntroScreenData.PlayerName);
-                        intent.putExtra("difficulty", viewModel.IntroScreenData.Difficulty);
                         startActivity(intent);
                     }
                 }

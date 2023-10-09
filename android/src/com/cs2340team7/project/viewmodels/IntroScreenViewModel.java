@@ -4,23 +4,32 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cs2340team7.project.models.IntroScreenDataModel;
+import com.cs2340team7.project.models.GameDataModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class IntroScreenViewModel extends ViewModel {
-    public IntroScreenDataModel IntroScreenData;
+    public GameDataModel GameData;
     private MutableLiveData<String> StatusMessage;
+    private Map<String, Integer> Difficulties;
 
     public IntroScreenViewModel() {
-        IntroScreenData = new IntroScreenDataModel("", "-1");
+        GameData = GameDataModel.getData();
         StatusMessage = new MutableLiveData<>();
+
+        Difficulties = new HashMap<>();
+        Difficulties.put("Easy", 500);
+        Difficulties.put("Medium", 250);
+        Difficulties.put("Hard", 100);
     }
 
     public void SetPlayerName(String PlayerName) {
         if (PlayerName.isEmpty()) {
             StatusMessage.setValue("Please fill out the name field.");
         } else {
-            IntroScreenData.PlayerName = PlayerName;
-            if (IntroScreenData.Difficulty != "-1") {
+            GameData.PlayerName = PlayerName;
+            if (GameData.Difficulty != "-1") {
                 Proceed();
             }
         }
@@ -34,17 +43,17 @@ public class IntroScreenViewModel extends ViewModel {
         if (Difficulty == "-1") {
             StatusMessage.setValue("Please fill out the difficulty field.");
         } else {
-            IntroScreenData.Difficulty = Difficulty;
-            if (IntroScreenData.PlayerName != "") {
+            GameData.Difficulty = Difficulty;
+            GameData.MaxHealth = Difficulties.get(Difficulty);
+            GameData.CurrentHealth = GameData.MaxHealth;
+            if (GameData.PlayerName != "") {
                 Proceed();
             }
         }
     }
 
     public void Proceed() {
-        // Handle the data (e.g., pass it to the next activity)
-        // For simplicity, we'll just show a Toast message here
-        String message = "START. Player Name: " + IntroScreenData.PlayerName + "\nDifficulty: " + IntroScreenData.Difficulty;
+        String message = "START. Player Name: " + GameData.PlayerName + "\nDifficulty: " + GameData.Difficulty;
         StatusMessage.setValue(message);
     }
 }

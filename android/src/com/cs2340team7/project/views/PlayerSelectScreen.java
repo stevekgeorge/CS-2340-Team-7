@@ -32,29 +32,24 @@ public class PlayerSelectScreen extends AppCompatActivity {
         ImageButton character3Button = findViewById(R.id.character3Button);
 
         BeginIntent = new Intent(PlayerSelectScreen.this, GameScreen.class);
-        BeginIntent.putExtra("playerName", getIntent().getStringExtra("playerName"));
-        BeginIntent.putExtra("difficulty", getIntent().getStringExtra("difficulty"));
         character1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("Sword Master Sid");
-                BeginIntent.putExtra("selectedCharacter", "Sword Master Sid");
+                viewModel.SetSelectedPlayer("Sid");
                 startActivity(BeginIntent);
             }
         });
         character2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("General Gabe");
-                BeginIntent.putExtra("selectedCharacter", "General Gabe");
+                viewModel.SetSelectedPlayer("Gabe");
                 startActivity(BeginIntent);
             }
         });
         character3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("The Purple Persian");
-                BeginIntent.putExtra("selectedCharacter", "The Purple Persian");
+                viewModel.SetSelectedPlayer("Persian");
                 startActivity(BeginIntent);
             }
         });

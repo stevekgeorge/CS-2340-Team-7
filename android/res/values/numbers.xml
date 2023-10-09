@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <integer name="EasyStartingHealth">500</integer>
+    <integer name="MediumStartingHealth">250</integer>
+    <integer name="HardStartingHealth">100</integer>
+</resources>

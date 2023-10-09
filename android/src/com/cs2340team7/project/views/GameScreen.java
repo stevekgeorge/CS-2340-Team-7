@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 
 import com.cs2340team7.project.R;
 import com.cs2340team7.project.databinding.ActivityGameScreenBinding;
-import com.cs2340team7.project.models.GameScreenDataModel;
 import com.cs2340team7.project.viewmodels.GameScreenViewModel;
 
 public class GameScreen extends AppCompatActivity {
@@ -23,23 +22,6 @@ public class GameScreen extends AppCompatActivity {
         mainBinding.setLifecycleOwner(this);
         viewModel = new GameScreenViewModel();
         mainBinding.setViewModel(viewModel);
-
-        Intent intent = getIntent();
-        String startHealth = "0";
-        if (intent.getStringExtra("difficulty").equals("Easy")) {
-            startHealth = "500 HP";
-        } else if (intent.getStringExtra("difficulty").equals("Medium")) {
-            startHealth = "250 HP";
-        } else if (intent.getStringExtra("difficulty").equals("Hard")) {
-            startHealth = "100 HP";
-        }
-
-        viewModel.SetData(new GameScreenDataModel(
-                intent.getStringExtra("playerName"),
-                intent.getStringExtra("difficulty"), startHealth,
-                intent.getStringExtra("selectedCharacter").equals("Sword Master Sid") ? 0 : 1,
-                intent.getStringExtra("selectedCharacter").equals("The Purple Persian") ? 0 : 1,
-                intent.getStringExtra("selectedCharacter").equals("General Gabe") ? 0 : 1));
     }
 
     public void end(View v) {

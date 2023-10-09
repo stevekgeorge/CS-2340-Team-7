@@ -27,8 +27,4 @@ public class GameOverScreen extends AppCompatActivity {
         viewModel = new GameOverViewModel();
         mainBinding.setViewModel(viewModel);
     }
-
-    public void Test(View v) {
-        viewModel.Test();
-    }
 }

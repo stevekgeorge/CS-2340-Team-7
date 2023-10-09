@@ -1,18 +1,17 @@
 package com.cs2340team7.project.viewmodels;
 
-import androidx.databinding.Bindable;
 import androidx.lifecycle.ViewModel;
 
-import com.cs2340team7.project.models.PlayerSelectDataModel;
+import com.cs2340team7.project.models.GameDataModel;
 
 public class PlayerSelectViewModel extends ViewModel {
-    public PlayerSelectDataModel PlayerSelectData;
+    public GameDataModel GameData;
 
     public PlayerSelectViewModel() {
-        PlayerSelectData = new PlayerSelectDataModel();
+        GameData = GameDataModel.getData();
     }
 
     public void SetSelectedPlayer(String Selected) {
-        PlayerSelectData.SelectedPlayer = Selected;
+        GameData.Character = Selected;
     }
 }
