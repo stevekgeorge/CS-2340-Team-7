@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <data>
+    <variable
+        name="viewModel"
+        type="com.cs2340team7.project.viewmodels.IntroScreenViewModel" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context=".views.IntroScreen">
+
+    <ImageView
+        android:id="@+id/wallpaperImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/introscreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/startButton7"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginRight="59dp"
+        android:layout_marginBottom="63dp"
+        android:text="Continue"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#8BC34A"
+        android:textColorLink="#9C27B0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/difficultyRadioGroup" />
+
+    <TextView
+        android:id="@+id/introTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginBottom="124dp"
+        android:text="In the not-so-distant future, the once prestigious campus of Georgia Tech now stands as a grim reminder of the chaos that unfolded. A nuclear fallout has occurred, as a survivor, you must navigate the terrain defeating what once was your fellow mascot, Buzz!"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nameInputLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="195dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginBottom="37dp"
+        android:text="Georgia Tech Nuclear Apocalypse"
+        android:textAllCaps="false"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/introTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameInputLabel"
+        android:layout_width="254dp"
+        android:layout_height="0dp"
+        android:text="Please input your name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/nameInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/introTextView" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginEnd="65dp"
+        android:gravity="center"
+        android:layout_marginRight="65dp"
+        android:layout_marginBottom="13dp"
+        android:inputType="textCapSentences|textAutoCorrect"
+        app:layout_constraintBottom_toTopOf="@+id/difficultyRadioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInputLabel" />
+
+    <RadioGroup
+        android:id="@+id/difficultyRadioGroup"
+        android:layout_width="214dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="52dp"
+        android:checkedButton="@+id/easyRadioButton"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/startButton7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput">
+
+      <RadioButton
+          android:id="@+id/easyRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Easy" />
+
+      <RadioButton
+          android:id="@+id/mediumRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Medium" />
+
+      <RadioButton
+          android:id="@+id/hardRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Hard" />
+    </RadioGroup>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
