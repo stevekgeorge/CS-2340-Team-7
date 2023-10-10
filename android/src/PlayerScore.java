@@ -1,17 +1,19 @@
 
+import com.cs2340team7.project.models.GameDataModel;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class PlayerScore {
-    public int score;
     public Timer timer;
+    public GameDataModel GameData;
 
     public PlayerScore(int score) {
-        this.score = score;
+        GameData.CurrentScore = score;
         startDecrease();
     }
     public int getScore() {
-        return score;
+        return GameData.CurrentScore;
     }
     public void startDecrease() {
         timer = new Timer();
@@ -24,8 +26,8 @@ public class PlayerScore {
 
     }
     public void decreaseScore() {
-        if (score > 0) {
-            score--;
+        if (GameData.CurrentScore > 0) {
+            GameData.CurrentScore--;
         } else {
             timer.cancel();
         }
