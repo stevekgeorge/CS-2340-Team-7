@@ -14,6 +14,8 @@ public class GameDataModel extends BaseObservable {
     public int CurrentHealth;
     @Bindable
     public String Character;
+    @Bindable
+    public int CurrentLevel;
 
     private static GameDataModel data;
     private GameDataModel() {
@@ -22,6 +24,7 @@ public class GameDataModel extends BaseObservable {
         MaxHealth = 0;
         CurrentHealth = 0;
         Character = "";
+        CurrentLevel = 1;
     }
 
     public static GameDataModel getData() {

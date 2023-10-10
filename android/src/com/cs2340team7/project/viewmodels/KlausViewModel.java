@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.cs2340team7.project.models.GameDataModel;
 
-public class TechGreenViewModel extends ViewModel {
+public class KlausViewModel extends ViewModel {
     GameDataModel GameData;
-    public TechGreenViewModel() {
+    public KlausViewModel() {
         GameData = GameDataModel.getData();
     }
 
     public void AdvanceLevel() {
-        GameData.CurrentLevel = 2;
+        GameData.CurrentLevel = 3;
     }
 }
