@@ -17,29 +17,29 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
-import com.cs2340team7.project.viewmodels.TechGreenViewModel;
+import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
-public class Klaus extends ApplicationAdapter {
+public class Skiles extends ApplicationAdapter {
     Context context;
     Stage stage;
     TiledMap map;
     OrthographicCamera camera;
     TiledMapRenderer mapRenderer;
     TextButton nextButton;
-    KlausViewModel model;
+    SkilesViewModel model;
 
-    public Klaus(Context context) {
+    public Skiles(Context context) {
         this.context = context;
     }
 
     @Override
     public void create() {
-        model = new KlausViewModel();
+        model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 1000, 800);
         camera.update();
-        map = new TmxMapLoader().load("Klausmapp.tmx");
+        map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage();
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -60,7 +60,7 @@ public class Klaus extends ApplicationAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 model.AdvanceLevel();
-                Intent nextLevel = new Intent(context, GameScreenLauncher.class);
+                Intent nextLevel = new Intent(context, GameOverScreen.class);
                 context.startActivity(nextLevel);
             }
         });
