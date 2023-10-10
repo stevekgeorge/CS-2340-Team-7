@@ -13,4 +13,16 @@ public class SkilesViewModel extends ViewModel {
     public void AdvanceLevel() {
         GameData.CurrentLevel = -1;
     }
+
+    public void SetScore(int Score) {
+        GameData.CurrentScore = Score;
+    }
+
+    public String GetPlayerName() {
+        return GameData.PlayerName;
+    }
+
+    public int GetScore() {
+        return GameData.CurrentScore;
+    }
 }

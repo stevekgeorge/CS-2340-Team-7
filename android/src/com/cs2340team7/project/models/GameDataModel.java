@@ -16,15 +16,12 @@ public class GameDataModel extends BaseObservable {
     public String Character;
     @Bindable
     public int CurrentLevel;
+    @Bindable
+    public int CurrentScore;
 
     private static GameDataModel data;
     private GameDataModel() {
-        PlayerName = "";
-        Difficulty = "";
-        MaxHealth = 0;
-        CurrentHealth = 0;
-        Character = "";
-        CurrentLevel = 1;
+        Clear();
     }
 
     public static GameDataModel getData() {
@@ -32,5 +29,15 @@ public class GameDataModel extends BaseObservable {
             data = new GameDataModel();
         }
         return data;
+    }
+
+    public void Clear() {
+        PlayerName = "";
+        Difficulty = "";
+        MaxHealth = 0;
+        CurrentHealth = 0;
+        Character = "";
+        CurrentLevel = 1;
+        CurrentScore = 0;
     }
 }

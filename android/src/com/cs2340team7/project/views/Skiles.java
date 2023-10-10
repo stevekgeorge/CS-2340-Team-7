@@ -16,8 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.cs2340team7.project.Leaderboard;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
+
+import java.util.Calendar;
+import java.util.Random;
 
 public class Skiles extends ApplicationAdapter {
     Context context;
@@ -60,6 +64,12 @@ public class Skiles extends ApplicationAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 model.AdvanceLevel();
+                Random rand = new Random();
+                model.SetScore(rand.nextInt(100));
+
+                Leaderboard board = Leaderboard.GetLeaderboard();
+                board.AddEntry(model.GetPlayerName(), model.GetScore(), Calendar.getInstance().getTime());
+
                 Intent nextLevel = new Intent(context, GameOverScreen.class);
                 context.startActivity(nextLevel);
             }

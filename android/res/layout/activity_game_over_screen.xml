@@ -8,6 +8,7 @@
             name="viewModel"
             type="com.cs2340team7.project.viewmodels.GameOverViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,11 +18,11 @@
             android:id="@+id/gameOverLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="53dp"
-            android:layout_marginBottom="47dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="13dp"
             android:text="Game Over"
             android:textSize="48sp"
-            app:layout_constraintBottom_toTopOf="@+id/playerNameLabel"
+            app:layout_constraintBottom_toTopOf="@+id/finalScoreLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,37 +31,37 @@
             android:id="@+id/finalScoreLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginLeft="34dp"
+            android:layout_marginBottom="17dp"
             android:text="Final Score"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/finalScoreDisplayLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playerNameLabel" />
+            app:layout_constraintStart_toStartOf="@+id/gameOverLabel"
+            app:layout_constraintTop_toBottomOf="@+id/gameOverLabel" />
 
         <TextView
             android:id="@+id/playerNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="14dp"
+            android:gravity="center"
             android:text="Game Over"
             android:textAlignment="center"
-            android:gravity="center"
             android:textSize="24sp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/finalScoreLabel"
-            app:layout_constraintStart_toStartOf="@+id/finalScoreLabel"
-            app:layout_constraintTop_toBottomOf="@+id/gameOverLabel"
-            android:layout_marginLeft="16dp" />
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/finalScoreDisplayLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="29dp"
-            android:text="0"
-            android:textAlignment="center"
+            android:layout_marginBottom="17dp"
             android:gravity="center"
+            android:text="@{String.valueOf(viewModel.GameData.CurrentScore)}"
+            android:textAlignment="center"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/leaderboard"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,28 +72,33 @@
             android:id="@+id/leaderboard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="70dp"
+            android:stretchColumns="*"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/finalScoreDisplayLabel">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"></TableRow>
         </TableLayout>
+
+        <Button
+            android:id="@+id/restart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:onClick="restart"
+            android:text="Restart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

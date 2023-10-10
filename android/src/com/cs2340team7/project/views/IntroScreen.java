@@ -43,6 +43,8 @@ public class IntroScreen extends AppCompatActivity {
                     if (s.substring(0, 6).equals("START.")) {
                         Intent intent = new Intent(IntroScreen.this, PlayerSelectScreen.class);
                         startActivity(intent);
+                    } else {
+                        Toast.makeText(getBaseContext(), s, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
