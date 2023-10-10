@@ -31,7 +31,7 @@ public class PlayerSelectScreen extends AppCompatActivity {
         ImageButton character2Button = findViewById(R.id.character2Button);
         ImageButton character3Button = findViewById(R.id.character3Button);
 
-        BeginIntent = new Intent(PlayerSelectScreen.this, GameScreen.class);
+        BeginIntent = new Intent(PlayerSelectScreen.this, GameScreenLauncher.class);
         character1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -37,6 +37,11 @@ xmlns:tools="http://schemas.android.com/tools">
         android:name="com.cs2340team7.project.views.GameOverScreen"
         android:theme="@style/Theme.AppCompat.Light"
         android:exported="false" />
+    <activity
+        android:name="com.cs2340team7.project.views.GameScreenLauncher"
+        android:theme="@style/Theme.AppCompat.Light"
+        android:exported="false"
+        />
 </application>
 
 </manifest>
