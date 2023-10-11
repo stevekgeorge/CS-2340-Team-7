@@ -1,13 +1,10 @@
 package com.cs2340team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import androidx.lifecycle.Observer;
-import androidx.test.annotation.UiThreadTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.cs2340team7.project.models.GameDataModel;
@@ -15,8 +12,6 @@ import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
-import com.cs2340team7.project.views.GameOverScreen;
-import com.cs2340team7.project.views.IntroScreen;
 
 import junit.framework.TestCase;
 
@@ -106,5 +101,32 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
         assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
         assertEquals(GameDataModel.getData().CurrentScore, 20);
+    }
+
+    @Test
+    public void testCharacterIsConsistentAcrossLevels() {
+        GameDataModel dataModel = GameDataModel.getData();
+        String Character = dataModel.Character;
+        dataModel.CurrentLevel = 1;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = 2;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = 3;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = -1;
+        assertEquals(dataModel.Character, Character);
+    }
+
+    public void testHealthIsConsistentAcrossLevels() {
+        GameDataModel dataModel = GameDataModel.getData();
+        String Character = dataModel.Character;
+        dataModel.CurrentLevel = 1;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = 2;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = 3;
+        assertEquals(dataModel.Character, Character);
+        dataModel.CurrentLevel = -1;
+        assertEquals(dataModel.Character, Character);
     }
 }
