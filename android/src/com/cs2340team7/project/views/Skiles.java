@@ -66,7 +66,7 @@ public class Skiles extends ApplicationAdapter {
                 model.AdvanceLevel();
 
                 Leaderboard board = Leaderboard.GetLeaderboard();
-                board.AddEntry(model.GetPlayerName(), model.GetScore(), Calendar.getInstance().getTime());
+                board.AddEntry(model.GetPlayerName(), model.GetScore(), model.GetTime());
 
                 Intent nextLevel = new Intent(context, GameOverScreen.class);
                 context.startActivity(nextLevel);

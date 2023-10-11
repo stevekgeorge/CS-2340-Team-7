@@ -20,7 +20,7 @@ public class Leaderboard {
         return Leaderboard;
     }
 
-    public void AddEntry(String PlayerName, int Score, Date Date) {
+    public void AddEntry(String PlayerName, int Score, String Date) {
         Entries.add(new LeaderboardEntry(PlayerName, Score, Date));
         Collections.sort(Entries);
     }
@@ -36,9 +36,9 @@ public class Leaderboard {
     public class LeaderboardEntry implements Comparable {
         public String PlayerName;
         public int Score;
-        public Date Date;
+        public String Date;
 
-        public LeaderboardEntry(String PlayerName, int Score, Date Date) {
+        public LeaderboardEntry(String PlayerName, int Score, String Date) {
             this.PlayerName = PlayerName;
             this.Score = Score;
             this.Date = Date;

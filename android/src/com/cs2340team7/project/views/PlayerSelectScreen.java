@@ -13,6 +13,9 @@ import com.cs2340team7.project.R;
 import com.cs2340team7.project.databinding.ActivityIntroScreenBinding;
 import com.cs2340team7.project.databinding.ActivityPlayerSelectScreenBinding;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class PlayerSelectScreen extends AppCompatActivity {
 
     private ActivityPlayerSelectScreenBinding mainBinding;
@@ -36,6 +39,7 @@ public class PlayerSelectScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewModel.SetSelectedPlayer("Sid");
+                viewModel.GameData.StartTime = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().getTime()).toString();
                 startActivity(BeginIntent);
             }
         });
@@ -43,6 +47,7 @@ public class PlayerSelectScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewModel.SetSelectedPlayer("Gabe");
+                viewModel.GameData.StartTime = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().getTime()).toString();
                 startActivity(BeginIntent);
             }
         });
@@ -50,6 +55,7 @@ public class PlayerSelectScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 viewModel.SetSelectedPlayer("Persian");
+                viewModel.GameData.StartTime = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Calendar.getInstance().getTime()).toString();
                 startActivity(BeginIntent);
             }
         });

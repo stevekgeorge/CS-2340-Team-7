@@ -25,4 +25,6 @@ public class SkilesViewModel extends ViewModel {
     public int GetScore() {
         return GameData.CurrentScore;
     }
+
+    public String GetTime() {return GameData.StartTime;}
 }

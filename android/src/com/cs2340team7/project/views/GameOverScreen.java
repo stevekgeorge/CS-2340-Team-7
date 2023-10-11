@@ -49,9 +49,7 @@ public class GameOverScreen extends AppCompatActivity {
 
             name.setText(entry.PlayerName);
             score.setText(String.valueOf(entry.Score));
-
-            String dateFormatted = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(entry.Date).toString();
-            date.setText(dateFormatted);
+            date.setText(entry.Date);
 
             row.addView(name);
             row.addView(score);

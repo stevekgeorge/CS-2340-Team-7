@@ -3,6 +3,8 @@ package com.cs2340team7.project.models;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import java.util.Date;
+
 public class GameDataModel extends BaseObservable {
     @Bindable
     public String PlayerName;
@@ -18,6 +20,8 @@ public class GameDataModel extends BaseObservable {
     public int CurrentLevel;
     @Bindable
     public int CurrentScore;
+    @Bindable
+    public String StartTime;
 
     private static GameDataModel data;
     private GameDataModel() {

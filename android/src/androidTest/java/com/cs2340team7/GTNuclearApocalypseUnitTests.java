@@ -15,6 +15,7 @@ import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 
 import junit.framework.TestCase;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -49,11 +50,12 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testLeaderboardDecreasingOrder() {
         Leaderboard board = Leaderboard.GetLeaderboard();
-        board.AddEntry("Steve", 50, new Date());
-        board.AddEntry("Gabe", 80, new Date());
-        board.AddEntry("Ava", 60, new Date());
-        board.AddEntry("Ethan", 10, new Date());
-        board.AddEntry("Eric", 70, new Date());
+        Calendar cal = Calendar.getInstance();
+        board.AddEntry("Steve", 50, "1/1/1970 12:00 AM");
+        board.AddEntry("Gabe", 80, "1/1/1970 12:00 AM");
+        board.AddEntry("Ava", 60, "1/1/1970 12:00 AM");
+        board.AddEntry("Ethan", 10, "1/1/1970 12:00 AM");
+        board.AddEntry("Eric", 70, "1/1/1970 12:00 AM");
 
         assertEquals(board.GetEntries().get(0).PlayerName, "Gabe");
         assertEquals(board.GetEntries().get(1).PlayerName, "Eric");
@@ -88,10 +90,10 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         player.startDecrease();
 
         Leaderboard.GetLeaderboard().Clear();
-        Leaderboard.GetLeaderboard().AddEntry("Ethan", 2003, new Date());
-        Leaderboard.GetLeaderboard().AddEntry("Sneha", 2002, new Date());
-        Leaderboard.GetLeaderboard().AddEntry("Rishab", 2000, new Date());
-        Leaderboard.GetLeaderboard().AddEntry("Tish",  1998, new Date());
+        Leaderboard.GetLeaderboard().AddEntry("Ethan", 2003, "1/1/1970 12:00 AM");
+        Leaderboard.GetLeaderboard().AddEntry("Sneha", 2002, "1/1/1970 12:00 AM");
+        Leaderboard.GetLeaderboard().AddEntry("Rishab", 2000, "1/1/1970 12:00 AM");
+        Leaderboard.GetLeaderboard().AddEntry("Tish",  1998, "1/1/1970 12:00 AM");
 
         GameOverViewModel model = new GameOverViewModel();
         assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
