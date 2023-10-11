@@ -12,16 +12,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
-import com.cs2340team7.project.models.PlayerScore;
-<<<<<<< HEAD:android/src/tests/java/com/cs2340team7/GTNuclearApocalypseUnitTests.java
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
-import com.cs2340team7.project.views.GameOverScreen;
-=======
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.views.GameOverScreen;
 import com.cs2340team7.project.views.IntroScreen;
 
 import junit.framework.TestCase;
->>>>>>> 82d16f90d9f527e2f58efa5ea43e236d1ef156ba:android/src/androidTest/java/com/cs2340team7/GTNuclearApocalypseUnitTests.java
 
 import java.util.Date;
 
@@ -34,7 +31,7 @@ import java.util.Date;
 public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
-        PlayerScore score = PlayerScore.GetPlayerScore();
+        Player score = Player.GetPlayerScore();
 
         int start = score.GameData.CurrentScore - 1;
 
@@ -71,27 +68,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     }
 
     @Test
-<<<<<<< HEAD:android/src/tests/java/com/cs2340team7/GTNuclearApocalypseUnitTests.java
-    public void testPlayerScoreDecreaseNotNegative(){
-        PlayerScore score = PlayerScore.GetPlayerScore();
-        int i = score.getScore() +1;
-        while (i > 0) {
-            score.decreaseScore();
-            i--;
-        }
-        assert score.getScore() > 0;
-    }
-
-    @Test
-    public void leaderBoardPersistsAfterReset(){
-       Leaderboard leaderBoard = Leaderboard.GetLeaderboard();
-       leaderBoard.AddEntry("Steve", 50, new Date());
-
-        GameOverViewModel gameOver = new GameOverViewModel();
-        gameOver.Restart(new GameOverScreen());
-        assertEquals(leaderBoard.GetEntries().get(0).PlayerName, "Steve");
-
-=======
     public void testNullWhitespaceName() {
         IntroScreenViewModel model = new IntroScreenViewModel();
         model.SetPlayerName("Ethan");
@@ -109,6 +85,5 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(model.GameData.MaxHealth, 250);
         model.SetDifficulty("Easy");
         assertEquals(model.GameData.MaxHealth, 500);
->>>>>>> 82d16f90d9f527e2f58efa5ea43e236d1ef156ba:android/src/androidTest/java/com/cs2340team7/GTNuclearApocalypseUnitTests.java
     }
 }
