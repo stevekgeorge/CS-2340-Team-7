@@ -34,7 +34,6 @@ public class GameOverScreen extends AppCompatActivity {
 
         TableLayout leaderboard = findViewById(R.id.leaderboard);
         List<Leaderboard.LeaderboardEntry> entries = Leaderboard.GetLeaderboard().GetEntries();
-        Collections.sort(entries);
 
         for (int i = 0; i < Math.min(entries.size(), 10); i++) {
             Leaderboard.LeaderboardEntry entry = entries.get(i);

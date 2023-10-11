@@ -1,6 +1,7 @@
 package com.cs2340team7.project.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class Leaderboard {
 
     public void AddEntry(String PlayerName, int Score, Date Date) {
         Entries.add(new LeaderboardEntry(PlayerName, Score, Date));
+        Collections.sort(Entries);
     }
 
     public List<LeaderboardEntry> GetEntries() {
