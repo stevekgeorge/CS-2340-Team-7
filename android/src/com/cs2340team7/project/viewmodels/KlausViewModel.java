@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class KlausViewModel extends ViewModel {
-    GameDataModel GameData;
+    public GameDataModel GameData;
     public KlausViewModel() {
         GameData = GameDataModel.getData();
     }

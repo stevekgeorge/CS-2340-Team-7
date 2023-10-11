@@ -1,33 +1,25 @@
 package com.cs2340team7.project.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.fonts.Font;
-import android.os.Bundle;
-import android.os.Debug;
-import android.util.Log;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.cs2340team7.project.R;
+import com.cs2340team7.project.PlayerScore;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 public class TechGreen extends ApplicationAdapter {
@@ -38,6 +30,8 @@ public class TechGreen extends ApplicationAdapter {
     TiledMapRenderer mapRenderer;
     TextButton nextButton;
     TechGreenViewModel model;
+    Label score;
+    BitmapFont font;
 
     public TechGreen(Context context) {
         this.context = context;
@@ -46,6 +40,9 @@ public class TechGreen extends ApplicationAdapter {
     @Override
     public void create() {
         model = new TechGreenViewModel();
+
+        font = new BitmapFont();
+        font.getData().setScale(5);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 800);
@@ -76,13 +73,26 @@ public class TechGreen extends ApplicationAdapter {
             }
         });
 
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = font;
+        style.fontColor = Color.WHITE;
+
+        score = new Label("0", style);
+        score.setX(50);
+        score.setY(2100);
+
         stage.addActor(nextButton);
+        stage.addActor(score);
 
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render() {
+        if (score != null) {
+            score.setText(String.valueOf(model.GameData.CurrentScore));
+        }
+
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
