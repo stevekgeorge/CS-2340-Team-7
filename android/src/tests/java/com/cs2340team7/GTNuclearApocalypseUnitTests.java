@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.PlayerScore;
+import com.cs2340team7.project.viewmodels.GameOverViewModel;
+import com.cs2340team7.project.views.GameOverScreen;
 
 import java.util.Date;
 
@@ -54,5 +56,27 @@ public class GTNuclearApocalypseUnitTests {
         assertEquals(board.GetEntries().get(2).PlayerName, "Ava");
         assertEquals(board.GetEntries().get(3).PlayerName, "Steve");
         assertEquals(board.GetEntries().get(4).PlayerName, "Ethan");
+    }
+
+    @Test
+    public void testPlayerScoreDecreaseNotNegative(){
+        PlayerScore score = PlayerScore.GetPlayerScore();
+        int i = score.getScore() +1;
+        while (i > 0) {
+            score.decreaseScore();
+            i--;
+        }
+        assert score.getScore() > 0;
+    }
+
+    @Test
+    public void leaderBoardPersistsAfterReset(){
+       Leaderboard leaderBoard = Leaderboard.GetLeaderboard();
+       leaderBoard.AddEntry("Steve", 50, new Date());
+
+        GameOverViewModel gameOver = new GameOverViewModel();
+        gameOver.Restart(new GameOverScreen());
+        assertEquals(leaderBoard.GetEntries().get(0).PlayerName, "Steve");
+
     }
 }
