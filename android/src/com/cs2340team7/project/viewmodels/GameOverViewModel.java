@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import androidx.lifecycle.ViewModel;
 
+import com.cs2340team7.project.PlayerScore;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.views.IntroScreen;
 
@@ -19,6 +20,7 @@ public class GameOverViewModel extends ViewModel {
 
     public void Restart(Context context) {
         GameData.Clear();
+        PlayerScore.GetPlayerScore().stopDecrease();
         Intent intent = new Intent(context, IntroScreen.class);
         context.startActivity(intent);
     }
