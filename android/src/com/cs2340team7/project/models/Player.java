@@ -35,7 +35,7 @@ public class Player extends ViewModel {
             public void run() {
                 decreaseScore();
             }
-        }, 0, 3000);
+        }, 3000, 3000);
 
     }
     public void decreaseScore() {

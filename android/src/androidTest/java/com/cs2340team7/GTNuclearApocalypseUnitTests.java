@@ -28,7 +28,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     public void testPlayerScoreDecrease() {
         Player score = Player.GetPlayerScore();
 
-        int start = score.GameData.CurrentScore - 1;
+        int start = score.GameData.CurrentScore;
 
         score.startDecrease();
         try {
@@ -117,6 +117,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(dataModel.Character, Character);
     }
 
+    @Test
     public void testHealthIsConsistentAcrossLevels() {
         GameDataModel dataModel = GameDataModel.getData();
         String Character = dataModel.Character;
@@ -128,5 +129,26 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(dataModel.Character, Character);
         dataModel.CurrentLevel = -1;
         assertEquals(dataModel.Character, Character);
+    }
+
+    @Test
+    public void testPlayerScoreResets() {
+        Player player = Player.GetPlayerScore();
+        player.stopDecrease();
+        int start = player.GameData.CurrentScore;
+        player.startDecrease();
+
+        try {
+            Thread.sleep(3100);
+        } catch (InterruptedException e) {
+            System.out.println("PlayerScore reset test could not be completed.");
+        }
+
+        assertEquals(player.GameData.CurrentScore, start - 1);
+
+        GameOverViewModel model = new GameOverViewModel();
+        model.Restart();
+
+        assertEquals(player.GameData.CurrentScore, start);
     }
 }
