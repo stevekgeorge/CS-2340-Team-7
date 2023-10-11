@@ -64,8 +64,6 @@ public class Skiles extends ApplicationAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 model.AdvanceLevel();
-                Random rand = new Random();
-                model.SetScore(rand.nextInt(100));
 
                 Leaderboard board = Leaderboard.GetLeaderboard();
                 board.AddEntry(model.GetPlayerName(), model.GetScore(), Calendar.getInstance().getTime());
