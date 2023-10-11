@@ -1,8 +1,6 @@
-package com.cs2340team7.project;
+package com.cs2340team7.project.models;
 
 import androidx.lifecycle.ViewModel;
-
-import com.cs2340team7.project.models.GameDataModel;
 
 import java.util.Timer;
 import java.util.TimerTask;

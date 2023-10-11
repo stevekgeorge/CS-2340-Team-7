@@ -1,6 +1,4 @@
-package com.cs2340team7.project;
-
-import android.text.format.Time;
+package com.cs2340team7.project.models;
 
 import java.util.ArrayList;
 import java.util.Date;

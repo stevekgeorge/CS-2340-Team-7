@@ -17,12 +17,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.cs2340team7.project.Leaderboard;
-import com.cs2340team7.project.viewmodels.KlausViewModel;
+import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class Skiles extends ApplicationAdapter {
     Context context;

@@ -1,9 +1,7 @@
 package com.cs2340team7.project.views;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ViewDataBinding;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.cs2340team7.project.Leaderboard;
+import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.databinding.ActivityGameOverScreenBinding;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.R;

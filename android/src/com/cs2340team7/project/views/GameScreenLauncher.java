@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.cs2340team7.project.PlayerScore;
+import com.cs2340team7.project.models.PlayerScore;
 import com.cs2340team7.project.viewmodels.GameScreenLauncherViewModel;
 
 public class GameScreenLauncher extends AndroidApplication {

@@ -5,11 +5,9 @@ import android.content.Intent;
 
 import androidx.lifecycle.ViewModel;
 
-import com.cs2340team7.project.PlayerScore;
+import com.cs2340team7.project.models.PlayerScore;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.views.IntroScreen;
-
-import java.util.HashMap;
 
 public class GameOverViewModel extends ViewModel {
     public GameDataModel GameData;
