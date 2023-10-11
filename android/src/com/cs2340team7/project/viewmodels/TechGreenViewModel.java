@@ -9,7 +9,6 @@ public class TechGreenViewModel extends ViewModel {
     public TechGreenViewModel() {
         GameData = GameDataModel.getData();
     }
-
     public void AdvanceLevel() {
         GameData.CurrentLevel = 2;
     }
