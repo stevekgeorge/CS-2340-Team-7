@@ -1,3 +1,4 @@
+package com.cs2340team7.project;
 
 import com.cs2340team7.project.models.GameDataModel;
 
@@ -9,6 +10,7 @@ public class PlayerScore {
     public GameDataModel GameData;
 
     public PlayerScore() {
+        GameData = GameDataModel.getData();
         GameData.CurrentScore = 20;
         startDecrease();
     }
