@@ -5,23 +5,23 @@ import androidx.lifecycle.ViewModel;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class PlayerScore extends ViewModel {
+public class Player extends ViewModel {
     public Timer timer;
     public GameDataModel GameData;
     public Boolean running;
 
-    private static PlayerScore PlayerScore;
-    private PlayerScore() {
+    private static Player Player;
+    private Player() {
         GameData = GameDataModel.getData();
         GameData.CurrentScore = 20;
         running = false;
     }
 
-    public static PlayerScore GetPlayerScore() {
-        if (PlayerScore == null) {
-            PlayerScore = new PlayerScore();
+    public static Player GetPlayerScore() {
+        if (Player == null) {
+            Player = new Player();
         }
-        return PlayerScore;
+        return Player;
     }
 
     public int getScore() {
