@@ -47,4 +47,9 @@ public class PlayerScore extends ViewModel {
             timer.cancel();
         }
     }
+    public void stopDecrease() {
+        running = false;
+        timer.cancel();
+        GameData.CurrentScore = 20;
+    }
 }
