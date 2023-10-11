@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
@@ -27,6 +28,7 @@ public class Klaus extends ApplicationAdapter {
     TiledMapRenderer mapRenderer;
     TextButton nextButton;
     KlausViewModel model;
+    Label score;
 
     public Klaus(Context context) {
         this.context = context;
@@ -65,13 +67,26 @@ public class Klaus extends ApplicationAdapter {
             }
         });
 
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = font;
+        style.fontColor = Color.WHITE;
+
+        score = new Label("0", style);
+        score.setX(50);
+        score.setY(2100);
+
         stage.addActor(nextButton);
+        stage.addActor(score);
 
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void render() {
+        if (score != null) {
+            score.setText(String.valueOf(model.GameData.CurrentScore));
+        }
+
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
