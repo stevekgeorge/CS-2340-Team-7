@@ -1,5 +1,6 @@
 package com.cs2340team7;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -35,7 +36,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         score.startDecrease();
         try {
             Thread.sleep(6100);
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("PlayerScore countdown test could not be completed.");
         }
 
@@ -71,5 +72,16 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(model.GameData.PlayerName, "Ethan");
         model.SetPlayerName("");
         assertEquals(model.GameData.PlayerName, "Ethan");
+    }
+
+    @Test
+    public void testHealth() {
+        IntroScreenViewModel model = new IntroScreenViewModel();
+        model.SetDifficulty("Hard");
+        assertEquals(model.GameData.MaxHealth, 100);
+        model.SetDifficulty("Medium");
+        assertEquals(model.GameData.MaxHealth, 250);
+        model.SetDifficulty("Easy");
+        assertEquals(model.GameData.MaxHealth, 500);
     }
 }
