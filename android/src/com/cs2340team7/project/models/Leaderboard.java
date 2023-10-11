@@ -29,6 +29,10 @@ public class Leaderboard {
         return Entries;
     }
 
+    public void Clear() {
+        Entries = new ArrayList<>();
+    }
+
     public class LeaderboardEntry implements Comparable {
         public String PlayerName;
         public int Score;

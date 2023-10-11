@@ -12,8 +12,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
-import com.cs2340team7.project.models.PlayerScore;
+import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.views.GameOverScreen;
 import com.cs2340team7.project.views.IntroScreen;
 
 import junit.framework.TestCase;
@@ -29,7 +31,7 @@ import java.util.Date;
 public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
-        PlayerScore score = PlayerScore.GetPlayerScore();
+        Player score = Player.GetPlayerScore();
 
         int start = score.GameData.CurrentScore - 1;
 
@@ -83,5 +85,26 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(model.GameData.MaxHealth, 250);
         model.SetDifficulty("Easy");
         assertEquals(model.GameData.MaxHealth, 500);
+    }
+
+    @Test
+    public void testLeaderboardUponRestart() {
+        Player player = Player.GetPlayerScore();
+        player.startDecrease();
+
+        Leaderboard.GetLeaderboard().Clear();
+        Leaderboard.GetLeaderboard().AddEntry("Ethan", 2003, new Date());
+        Leaderboard.GetLeaderboard().AddEntry("Sneha", 2002, new Date());
+        Leaderboard.GetLeaderboard().AddEntry("Rishab", 2000, new Date());
+        Leaderboard.GetLeaderboard().AddEntry("Tish",  1998, new Date());
+
+        GameOverViewModel model = new GameOverViewModel();
+        assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
+        assertNotEquals(GameDataModel.getData().CurrentScore, 0);
+
+        model.Restart();
+
+        assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
+        assertEquals(GameDataModel.getData().CurrentScore, 20);
     }
 }

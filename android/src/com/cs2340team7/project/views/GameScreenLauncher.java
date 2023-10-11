@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.cs2340team7.project.models.PlayerScore;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameScreenLauncherViewModel;
 
 public class GameScreenLauncher extends AndroidApplication {
@@ -17,8 +17,8 @@ public class GameScreenLauncher extends AndroidApplication {
         model = new GameScreenLauncherViewModel();
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        if (!PlayerScore.GetPlayerScore().running) {
-            PlayerScore.GetPlayerScore().startDecrease();
+        if (!Player.GetPlayerScore().running) {
+            Player.GetPlayerScore().startDecrease();
         }
 
         if (model.GetCurrentLevel() == 1) {
