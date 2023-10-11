@@ -19,10 +19,10 @@
             android:id="@+id/playerName"
             android:layout_width="401dp"
             android:layout_height="0dp"
-            android:text="@{viewModel.GameData.PlayerName}"
             android:layout_marginTop="7dp"
-            android:textAlignment="center"
             android:gravity="center"
+            android:text="@{viewModel.GameData.PlayerName}"
+            android:textAlignment="center"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,28 +33,28 @@
             android:layout_width="396dp"
             android:layout_height="46dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@{viewModel.GameData.Difficulty}"
-            android:layout_marginTop="16dp"
             android:textAlignment="center"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="@+id/playerName"
-            app:layout_constraintTop_toBottomOf="@+id/playerName"
-            android:layout_marginLeft="4dp" />
+            app:layout_constraintTop_toBottomOf="@+id/playerName" />
 
         <TextView
             android:id="@+id/startingHealth"
             android:layout_width="387dp"
             android:layout_height="50dp"
             android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="@{viewModel.GameData.MaxHealth + &quot; HP&quot;}"
-            android:layout_marginTop="12dp"
             android:textAlignment="center"
             android:textSize="34sp"
             app:layout_constraintStart_toStartOf="@+id/difficulty"
-            app:layout_constraintTop_toBottomOf="@+id/difficulty"
-            android:layout_marginLeft="4dp" />
+            app:layout_constraintTop_toBottomOf="@+id/difficulty" />
 
         <ImageView
             android:id="@+id/swordmasterSid"
@@ -80,6 +80,9 @@
             android:id="@+id/generalGabe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
             android:visibility="@{viewModel.GameData.Character.equals(&quot;Gabe&quot;) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintStart_toStartOf="@+id/purplePersian"
             app:layout_constraintTop_toTopOf="@+id/purplePersian"
@@ -95,6 +98,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/playerScore"
+            android:layout_width="2dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="205dp"
+            android:layout_marginLeft="205dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="13dp"
+            android:text="Score + @{viewModel.GameData.CurrentScore}"
+            app:layout_constraintBottom_toTopOf="@+id/playerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

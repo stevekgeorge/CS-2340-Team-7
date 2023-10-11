@@ -8,8 +8,8 @@ public class PlayerScore {
     public Timer timer;
     public GameDataModel GameData;
 
-    public PlayerScore(int score) {
-        GameData.CurrentScore = score;
+    public PlayerScore() {
+        GameData.CurrentScore = 20;
         startDecrease();
     }
     public int getScore() {
