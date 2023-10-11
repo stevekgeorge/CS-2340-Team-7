@@ -35,6 +35,7 @@ public class IntroScreen extends AppCompatActivity {
         name = findViewById(R.id.nameInput);
         difficulty = findViewById(R.id.difficultyRadioGroup);
         Button continueButton = findViewById(R.id.startButton7);
+        Button exitButton = findViewById(R.id.exitButton);
 
         viewModel.GetStatusMessage().observe(this, new Observer<String>() {
             @Override
@@ -59,6 +60,13 @@ public class IntroScreen extends AppCompatActivity {
                 viewModel.SetPlayerName(playerName);
                 RadioButton button = (RadioButton)findViewById(selectedDifficultyId);
                 viewModel.SetDifficulty(String.valueOf(button.getText()));
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
