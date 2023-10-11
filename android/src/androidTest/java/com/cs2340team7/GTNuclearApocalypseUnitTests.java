@@ -1,12 +1,21 @@
-package tests.java.com.cs2340team7;
+package com.cs2340team7;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
+
+import androidx.lifecycle.Observer;
+import androidx.test.annotation.UiThreadTest;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.PlayerScore;
+import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.views.IntroScreen;
+
+import junit.framework.TestCase;
 
 import java.util.Date;
 
@@ -15,21 +24,20 @@ import java.util.Date;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class GTNuclearApocalypseUnitTests {
+@RunWith(AndroidJUnit4.class)
+public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
         PlayerScore score = PlayerScore.GetPlayerScore();
+
+        int start = score.GameData.CurrentScore - 1;
+
         score.startDecrease();
-
-        int start = score.GameData.CurrentScore;
-
         try {
-            Thread.sleep(6000);
+            Thread.sleep(6100);
         } catch (InterruptedException e){
             System.out.println("PlayerScore countdown test could not be completed.");
         }
-
-        score.stopDecrease();
 
         int end = score.GameData.CurrentScore;
 
@@ -54,5 +62,14 @@ public class GTNuclearApocalypseUnitTests {
         assertEquals(board.GetEntries().get(2).PlayerName, "Ava");
         assertEquals(board.GetEntries().get(3).PlayerName, "Steve");
         assertEquals(board.GetEntries().get(4).PlayerName, "Ethan");
+    }
+
+    @Test
+    public void testNullWhitespaceName() {
+        IntroScreenViewModel model = new IntroScreenViewModel();
+        model.SetPlayerName("Ethan");
+        assertEquals(model.GameData.PlayerName, "Ethan");
+        model.SetPlayerName("");
+        assertEquals(model.GameData.PlayerName, "Ethan");
     }
 }
