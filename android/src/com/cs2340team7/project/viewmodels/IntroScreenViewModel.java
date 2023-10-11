@@ -26,7 +26,7 @@ public class IntroScreenViewModel extends ViewModel {
 
     public void SetPlayerName(String PlayerName) {
         if (PlayerName.isEmpty()) {
-            StatusMessage.setValue("Please fill out the name field.");
+            StatusMessage.postValue("Please fill out the name field.");
         } else {
             GameData.PlayerName = PlayerName;
             if (GameData.Difficulty != "-1") {
@@ -41,7 +41,7 @@ public class IntroScreenViewModel extends ViewModel {
 
     public void SetDifficulty (String Difficulty) {
         if (Difficulty == "-1") {
-            StatusMessage.setValue("Please fill out the difficulty field.");
+            StatusMessage.postValue("Please fill out the difficulty field.");
         } else {
             GameData.Difficulty = Difficulty;
             GameData.MaxHealth = Difficulties.get(Difficulty);
@@ -54,7 +54,7 @@ public class IntroScreenViewModel extends ViewModel {
 
     public void Proceed() {
         String message = "START. Player Name: " + GameData.PlayerName + "\nDifficulty: " + GameData.Difficulty;
-        StatusMessage.setValue(message);
+        StatusMessage.postValue(message);
     }
 }
 
