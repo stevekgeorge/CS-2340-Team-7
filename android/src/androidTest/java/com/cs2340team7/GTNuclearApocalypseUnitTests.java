@@ -1,5 +1,6 @@
 package com.cs2340team7;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -152,5 +153,52 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         model.Restart();
 
         assertEquals(player.GameData.CurrentScore, start);
+    }
+
+    @Test
+    public void testCorrectTimeStamps() {
+        Leaderboard board = Leaderboard.GetLeaderboard();
+        Calendar cal = Calendar.getInstance();
+        board.AddEntry("Steve", 5555, "8/15/1947 12:00 AM");
+        board.AddEntry("Steven", 8888, "8/16/1947 12:00 AM");
+        board.AddEntry("Stephen", 7777, "8/17/1947 12:00 AM");
+        board.AddEntry("Stevie", 9999, "8/18/1947 12:00 AM");
+        board.AddEntry("Stefan", 4444, "8/19/1947 12:00 AM");
+
+        assertEquals(board.GetEntries().get(0).Date, "8/18/1947 12:00 AM");
+        assertEquals(board.GetEntries().get(1).Date, "8/16/1947 12:00 AM");
+        assertEquals(board.GetEntries().get(2).Date, "8/17/1947 12:00 AM");
+        assertEquals(board.GetEntries().get(3).Date, "8/15/1947 12:00 AM");
+        assertEquals(board.GetEntries().get(4).Date, "8/19/1947 12:00 AM");
+    }
+
+    @Test
+    public void testTopTenAttempts() {
+        Leaderboard board = Leaderboard.GetLeaderboard();
+        Calendar cal = Calendar.getInstance();
+        board.AddEntry("Steve", 9999, "8/15/1947 12:00 AM");
+        board.AddEntry("Steven", 8888, "8/16/1947 12:00 AM");
+        board.AddEntry("Stephen", 7777, "8/17/1947 12:00 AM");
+        board.AddEntry("Stevie", 6666, "8/18/1947 12:00 AM");
+        board.AddEntry("Stefan", 5555, "8/19/1947 12:00 AM");
+        board.AddEntry("Stephanus", 4444, "8/19/1947 12:00 AM");
+        board.AddEntry("Steffen", 3333, "8/19/1947 12:00 AM");
+        board.AddEntry("Stefanus", 2222, "8/19/1947 12:00 AM");
+        board.AddEntry("Stephan", 1111, "8/19/1947 12:00 AM");
+        board.AddEntry("Stepan", 999, "8/19/1947 12:00 AM");
+        board.AddEntry("Stefaan", 10000, "8/19/1947 12:00 AM");
+
+        assertEquals(board.GetEntries().get(0).PlayerName, "Stefaan");
+
+
+        assertEquals(board.GetEntries().get(1).PlayerName, "Steve");
+        assertEquals(board.GetEntries().get(2).PlayerName, "Steven");
+        assertEquals(board.GetEntries().get(3).PlayerName, "Stephen");
+        assertEquals(board.GetEntries().get(4).PlayerName, "Stevie");
+        assertEquals(board.GetEntries().get(5).PlayerName, "Stefan");
+        assertEquals(board.GetEntries().get(6).PlayerName, "Stephanus");
+        assertEquals(board.GetEntries().get(7).PlayerName, "Steffen");
+        assertEquals(board.GetEntries().get(8).PlayerName, "Stefanus");
+        assertEquals(board.GetEntries().get(9).PlayerName, "Stephan");
     }
 }
