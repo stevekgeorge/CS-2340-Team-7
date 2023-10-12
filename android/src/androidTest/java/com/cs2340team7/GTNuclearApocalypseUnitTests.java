@@ -50,6 +50,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testLeaderboardDecreasingOrder() {
         Leaderboard board = Leaderboard.getLeaderboard();
+        board.clear();
         Calendar cal = Calendar.getInstance();
         board.addEntry("Steve", 50, "1/1/1970 12:00 AM");
         board.addEntry("Gabe", 80, "1/1/1970 12:00 AM");
@@ -122,8 +123,9 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testHealthIsConsistentAcrossLevels() {
         GameDataModel dataModel = GameDataModel.getData();
+        dataModel.setCurrentHealth(500);
         int health = dataModel.getCurrentHealth();
-        dataModel.setCurrentHealth(1);
+        dataModel.setCurrentLevel(1);
         assertEquals(dataModel.getCurrentHealth(), health);
         dataModel.setCurrentLevel(2);
         assertEquals(dataModel.getCurrentHealth(), health);
@@ -174,6 +176,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testTopTenAttempts() {
         Leaderboard board = Leaderboard.getLeaderboard();
+        board.clear();
         Calendar cal = Calendar.getInstance();
         board.addEntry("Steve", 9999, "8/15/1947 12:00 AM");
         board.addEntry("Steven", 8888, "8/16/1947 12:00 AM");
