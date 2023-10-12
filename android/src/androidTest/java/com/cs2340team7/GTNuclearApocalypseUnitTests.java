@@ -156,48 +156,46 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
     @Test
     public void testCorrectTimeStamps() {
-        Leaderboard board = Leaderboard.GetLeaderboard();
+        Leaderboard board = Leaderboard.getLeaderboard();
         Calendar cal = Calendar.getInstance();
-        board.AddEntry("Steve", 5555, "8/15/1947 12:00 AM");
-        board.AddEntry("Steven", 8888, "8/16/1947 12:00 AM");
-        board.AddEntry("Stephen", 7777, "8/17/1947 12:00 AM");
-        board.AddEntry("Stevie", 9999, "8/18/1947 12:00 AM");
-        board.AddEntry("Stefan", 4444, "8/19/1947 12:00 AM");
+        board.addEntry("Steve", 5555, "8/15/1947 12:00 AM");
+        board.addEntry("Steven", 8888, "8/16/1947 12:00 AM");
+        board.addEntry("Stephen", 7777, "8/17/1947 12:00 AM");
+        board.addEntry("Stevie", 9999, "8/18/1947 12:00 AM");
+        board.addEntry("Stefan", 4444, "8/19/1947 12:00 AM");
 
-        assertEquals(board.GetEntries().get(0).Date, "8/18/1947 12:00 AM");
-        assertEquals(board.GetEntries().get(1).Date, "8/16/1947 12:00 AM");
-        assertEquals(board.GetEntries().get(2).Date, "8/17/1947 12:00 AM");
-        assertEquals(board.GetEntries().get(3).Date, "8/15/1947 12:00 AM");
-        assertEquals(board.GetEntries().get(4).Date, "8/19/1947 12:00 AM");
+        assertEquals(board.getEntries().get(0).getDate(), "8/18/1947 12:00 AM");
+        assertEquals(board.getEntries().get(1).getDate(), "8/16/1947 12:00 AM");
+        assertEquals(board.getEntries().get(2).getDate(), "8/17/1947 12:00 AM");
+        assertEquals(board.getEntries().get(3).getDate(), "8/15/1947 12:00 AM");
+        assertEquals(board.getEntries().get(4).getDate(), "8/19/1947 12:00 AM");
     }
 
     @Test
     public void testTopTenAttempts() {
-        Leaderboard board = Leaderboard.GetLeaderboard();
+        Leaderboard board = Leaderboard.getLeaderboard();
         Calendar cal = Calendar.getInstance();
-        board.AddEntry("Steve", 9999, "8/15/1947 12:00 AM");
-        board.AddEntry("Steven", 8888, "8/16/1947 12:00 AM");
-        board.AddEntry("Stephen", 7777, "8/17/1947 12:00 AM");
-        board.AddEntry("Stevie", 6666, "8/18/1947 12:00 AM");
-        board.AddEntry("Stefan", 5555, "8/19/1947 12:00 AM");
-        board.AddEntry("Stephanus", 4444, "8/19/1947 12:00 AM");
-        board.AddEntry("Steffen", 3333, "8/19/1947 12:00 AM");
-        board.AddEntry("Stefanus", 2222, "8/19/1947 12:00 AM");
-        board.AddEntry("Stephan", 1111, "8/19/1947 12:00 AM");
-        board.AddEntry("Stepan", 999, "8/19/1947 12:00 AM");
-        board.AddEntry("Stefaan", 10000, "8/19/1947 12:00 AM");
+        board.addEntry("Steve", 9999, "8/15/1947 12:00 AM");
+        board.addEntry("Steven", 8888, "8/16/1947 12:00 AM");
+        board.addEntry("Stephen", 7777, "8/17/1947 12:00 AM");
+        board.addEntry("Stevie", 6666, "8/18/1947 12:00 AM");
+        board.addEntry("Stefan", 5555, "8/19/1947 12:00 AM");
+        board.addEntry("Stephanus", 4444, "8/19/1947 12:00 AM");
+        board.addEntry("Steffen", 3333, "8/19/1947 12:00 AM");
+        board.addEntry("Stefanus", 2222, "8/19/1947 12:00 AM");
+        board.addEntry("Stephan", 1111, "8/19/1947 12:00 AM");
+        board.addEntry("Stepan", 999, "8/19/1947 12:00 AM");
+        board.addEntry("Stefaan", 10000, "8/19/1947 12:00 AM");
 
-        assertEquals(board.GetEntries().get(0).PlayerName, "Stefaan");
-
-
-        assertEquals(board.GetEntries().get(1).PlayerName, "Steve");
-        assertEquals(board.GetEntries().get(2).PlayerName, "Steven");
-        assertEquals(board.GetEntries().get(3).PlayerName, "Stephen");
-        assertEquals(board.GetEntries().get(4).PlayerName, "Stevie");
-        assertEquals(board.GetEntries().get(5).PlayerName, "Stefan");
-        assertEquals(board.GetEntries().get(6).PlayerName, "Stephanus");
-        assertEquals(board.GetEntries().get(7).PlayerName, "Steffen");
-        assertEquals(board.GetEntries().get(8).PlayerName, "Stefanus");
-        assertEquals(board.GetEntries().get(9).PlayerName, "Stephan");
+        assertEquals(board.getEntries().get(0).getPlayerName(), "Stefaan");
+        assertEquals(board.getEntries().get(1).getPlayerName(), "Steve");
+        assertEquals(board.getEntries().get(2).getPlayerName(), "Steven");
+        assertEquals(board.getEntries().get(3).getPlayerName(), "Stephen");
+        assertEquals(board.getEntries().get(4).getPlayerName(), "Stevie");
+        assertEquals(board.getEntries().get(5).getPlayerName(), "Stefan");
+        assertEquals(board.getEntries().get(6).getPlayerName(), "Stephanus");
+        assertEquals(board.getEntries().get(7).getPlayerName(), "Steffen");
+        assertEquals(board.getEntries().get(8).getPlayerName(), "Stefanus");
+        assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
 }
