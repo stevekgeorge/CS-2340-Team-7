@@ -16,7 +16,6 @@ import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import junit.framework.TestCase;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -27,9 +26,9 @@ import java.util.Date;
 public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
-        Player score = Player.GetPlayerScore();
+        Player score = Player.getPlayerScore();
 
-        int start = score.GameData.CurrentScore;
+        int start = score.getGameData().getCurrentScore();
 
         score.startDecrease();
         try {
@@ -38,7 +37,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
             System.out.println("PlayerScore countdown test could not be completed.");
         }
 
-        int end = score.GameData.CurrentScore;
+        int end = score.getGameData().getCurrentScore();
 
         if (start >= 3) {
             assertEquals(end, start - 2);
@@ -49,95 +48,95 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
     @Test
     public void testLeaderboardDecreasingOrder() {
-        Leaderboard board = Leaderboard.GetLeaderboard();
+        Leaderboard board = Leaderboard.getLeaderboard();
         Calendar cal = Calendar.getInstance();
-        board.AddEntry("Steve", 50, "1/1/1970 12:00 AM");
-        board.AddEntry("Gabe", 80, "1/1/1970 12:00 AM");
-        board.AddEntry("Ava", 60, "1/1/1970 12:00 AM");
-        board.AddEntry("Ethan", 10, "1/1/1970 12:00 AM");
-        board.AddEntry("Eric", 70, "1/1/1970 12:00 AM");
+        board.addEntry("Steve", 50, "1/1/1970 12:00 AM");
+        board.addEntry("Gabe", 80, "1/1/1970 12:00 AM");
+        board.addEntry("Ava", 60, "1/1/1970 12:00 AM");
+        board.addEntry("Ethan", 10, "1/1/1970 12:00 AM");
+        board.addEntry("Eric", 70, "1/1/1970 12:00 AM");
 
-        assertEquals(board.GetEntries().get(0).PlayerName, "Gabe");
-        assertEquals(board.GetEntries().get(1).PlayerName, "Eric");
-        assertEquals(board.GetEntries().get(2).PlayerName, "Ava");
-        assertEquals(board.GetEntries().get(3).PlayerName, "Steve");
-        assertEquals(board.GetEntries().get(4).PlayerName, "Ethan");
+        assertEquals(board.getEntries().get(0).getPlayerName(), "Gabe");
+        assertEquals(board.getEntries().get(1).getPlayerName(), "Eric");
+        assertEquals(board.getEntries().get(2).getPlayerName(), "Ava");
+        assertEquals(board.getEntries().get(3).getPlayerName(), "Steve");
+        assertEquals(board.getEntries().get(4).getPlayerName(), "Ethan");
     }
 
     @Test
     public void testNullWhitespaceName() {
         IntroScreenViewModel model = new IntroScreenViewModel();
-        model.SetPlayerName("Ethan");
-        assertEquals(model.GameData.PlayerName, "Ethan");
-        model.SetPlayerName("");
-        assertEquals(model.GameData.PlayerName, "Ethan");
+        model.setPlayerName("Ethan");
+        assertEquals(model.getGameData().getPlayerName(), "Ethan");
+        model.setPlayerName("");
+        assertEquals(model.getGameData().getPlayerName(), "Ethan");
     }
 
     @Test
     public void testHealth() {
         IntroScreenViewModel model = new IntroScreenViewModel();
-        model.SetDifficulty("Hard");
-        assertEquals(model.GameData.MaxHealth, 100);
-        model.SetDifficulty("Medium");
-        assertEquals(model.GameData.MaxHealth, 250);
-        model.SetDifficulty("Easy");
-        assertEquals(model.GameData.MaxHealth, 500);
+        model.setDifficulty("Hard");
+        assertEquals(model.getGameData().getMaxHealth(), 100);
+        model.setDifficulty("Medium");
+        assertEquals(model.getGameData().getMaxHealth(), 250);
+        model.setDifficulty("Easy");
+        assertEquals(model.getGameData().getMaxHealth(), 500);
     }
 
     @Test
     public void testLeaderboardUponRestart() {
-        Player player = Player.GetPlayerScore();
+        Player player = Player.getPlayerScore();
         player.startDecrease();
 
-        Leaderboard.GetLeaderboard().Clear();
-        Leaderboard.GetLeaderboard().AddEntry("Ethan", 2003, "1/1/1970 12:00 AM");
-        Leaderboard.GetLeaderboard().AddEntry("Sneha", 2002, "1/1/1970 12:00 AM");
-        Leaderboard.GetLeaderboard().AddEntry("Rishab", 2000, "1/1/1970 12:00 AM");
-        Leaderboard.GetLeaderboard().AddEntry("Tish",  1998, "1/1/1970 12:00 AM");
+        Leaderboard.getLeaderboard().clear();
+        Leaderboard.getLeaderboard().addEntry("Ethan", 2003, "1/1/1970 12:00 AM");
+        Leaderboard.getLeaderboard().addEntry("Sneha", 2002, "1/1/1970 12:00 AM");
+        Leaderboard.getLeaderboard().addEntry("Rishab", 2000, "1/1/1970 12:00 AM");
+        Leaderboard.getLeaderboard().addEntry("Tish",  1998, "1/1/1970 12:00 AM");
 
         GameOverViewModel model = new GameOverViewModel();
-        assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
-        assertNotEquals(GameDataModel.getData().CurrentScore, 0);
+        assertEquals(Leaderboard.getLeaderboard().getEntries().size(), 4);
+        assertNotEquals(GameDataModel.getData().getCurrentScore(), 0);
 
-        model.Restart();
+        model.restart();
 
-        assertEquals(Leaderboard.GetLeaderboard().GetEntries().size(), 4);
-        assertEquals(GameDataModel.getData().CurrentScore, 20);
+        assertEquals(Leaderboard.getLeaderboard().getEntries().size(), 4);
+        assertEquals(GameDataModel.getData().getCurrentScore(), 20);
     }
 
     @Test
     public void testCharacterIsConsistentAcrossLevels() {
         GameDataModel dataModel = GameDataModel.getData();
-        String Character = dataModel.Character;
-        dataModel.CurrentLevel = 1;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = 2;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = 3;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = -1;
-        assertEquals(dataModel.Character, Character);
+        String Character = dataModel.getCharacter();
+        dataModel.setCurrentLevel(1);
+        assertEquals(dataModel.getCharacter(), Character);
+        dataModel.setCurrentLevel(2);
+        assertEquals(dataModel.getCharacter(), Character);
+        dataModel.setCurrentLevel(3);
+        assertEquals(dataModel.getCharacter(), Character);
+        dataModel.setCurrentLevel(-1);
+        assertEquals(dataModel.getCharacter(), Character);
     }
 
     @Test
     public void testHealthIsConsistentAcrossLevels() {
         GameDataModel dataModel = GameDataModel.getData();
-        String Character = dataModel.Character;
-        dataModel.CurrentLevel = 1;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = 2;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = 3;
-        assertEquals(dataModel.Character, Character);
-        dataModel.CurrentLevel = -1;
-        assertEquals(dataModel.Character, Character);
+        int health = dataModel.getCurrentHealth();
+        dataModel.setCurrentHealth(1);
+        assertEquals(dataModel.getCurrentHealth(), health);
+        dataModel.setCurrentLevel(2);
+        assertEquals(dataModel.getCurrentHealth(), health);
+        dataModel.setCurrentLevel(3);
+        assertEquals(dataModel.getCurrentHealth(), health);
+        dataModel.setCurrentLevel(-1);
+        assertEquals(dataModel.getCurrentHealth(), health);
     }
 
     @Test
     public void testPlayerScoreResets() {
-        Player player = Player.GetPlayerScore();
+        Player player = Player.getPlayerScore();
         player.stopDecrease();
-        int start = player.GameData.CurrentScore;
+        int start = player.getGameData().getCurrentScore();
         player.startDecrease();
 
         try {
@@ -146,11 +145,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
             System.out.println("PlayerScore reset test could not be completed.");
         }
 
-        assertEquals(player.GameData.CurrentScore, start - 1);
+        assertEquals(player.getGameData().getCurrentScore(), start - 1);
 
         GameOverViewModel model = new GameOverViewModel();
-        model.Restart();
+        model.restart();
 
-        assertEquals(player.GameData.CurrentScore, start);
+        assertEquals(player.getGameData().getCurrentScore(), start);
     }
 }

@@ -5,12 +5,16 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class KlausViewModel extends ViewModel {
-    public GameDataModel GameData;
+    private GameDataModel gameData;
     public KlausViewModel() {
-        GameData = GameDataModel.getData();
+        gameData = GameDataModel.getData();
     }
 
-    public void AdvanceLevel() {
-        GameData.CurrentLevel = 3;
+    public void advanceLevel() {
+        gameData.setCurrentLevel(3);
+    }
+
+    public GameDataModel getGameData() {
+        return gameData;
     }
 }

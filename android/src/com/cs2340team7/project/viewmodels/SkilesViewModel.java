@@ -5,26 +5,32 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class SkilesViewModel extends ViewModel {
-    public GameDataModel GameData;
+    private GameDataModel gameData;
     public SkilesViewModel() {
-        GameData = GameDataModel.getData();
+        gameData = GameDataModel.getData();
     }
 
-    public void AdvanceLevel() {
-        GameData.CurrentLevel = -1;
+    public void advanceLevel() {
+        gameData.setCurrentLevel(-1);
     }
 
-    public void SetScore(int Score) {
-        GameData.CurrentScore = Score;
+    public void setScore(int score) {
+        gameData.setCurrentScore(score);
     }
 
-    public String GetPlayerName() {
-        return GameData.PlayerName;
+    public GameDataModel getGameData() {
+        return gameData;
     }
 
-    public int GetScore() {
-        return GameData.CurrentScore;
+    public String getPlayerName() {
+        return gameData.getPlayerName();
     }
 
-    public String GetTime() {return GameData.StartTime;}
+    public int getScore() {
+        return gameData.getCurrentScore();
+    }
+
+    public String getTime() {
+        return gameData.getStartTime();
+    }
 }

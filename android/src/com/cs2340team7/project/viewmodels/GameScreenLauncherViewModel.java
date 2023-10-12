@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class GameScreenLauncherViewModel extends ViewModel {
-    private GameDataModel GameData;
+    private GameDataModel gameData;
 
     public GameScreenLauncherViewModel() {
-        GameData = GameDataModel.getData();
+        gameData = GameDataModel.getData();
     }
 
-    public int GetCurrentLevel() {
-        return GameData.CurrentLevel;
+    public int getCurrentLevel() {
+        return gameData.getCurrentLevel();
     }
 }

@@ -10,51 +10,57 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class IntroScreenViewModel extends ViewModel {
-    public GameDataModel GameData;
-    private MutableLiveData<String> StatusMessage;
-    private Map<String, Integer> Difficulties;
+    private GameDataModel gameData;
+    private MutableLiveData<String> statusMessage;
+    private Map<String, Integer> difficulties;
 
     public IntroScreenViewModel() {
-        GameData = GameDataModel.getData();
-        StatusMessage = new MutableLiveData<>();
+        gameData = GameDataModel.getData();
+        statusMessage = new MutableLiveData<>();
 
-        Difficulties = new HashMap<>();
-        Difficulties.put("Easy", 500);
-        Difficulties.put("Medium", 250);
-        Difficulties.put("Hard", 100);
+        difficulties = new HashMap<>();
+        difficulties.put("Easy", 500);
+        difficulties.put("Medium", 250);
+        difficulties.put("Hard", 100);
     }
 
-    public void SetPlayerName(String PlayerName) {
-        if (PlayerName.isEmpty()) {
-            StatusMessage.postValue("Please fill out the name field.");
+    public void setPlayerName(String playerName) {
+        if (playerName.isEmpty()) {
+            statusMessage.postValue("Please fill out the name field.");
         } else {
-            GameData.PlayerName = PlayerName;
-            if (GameData.Difficulty != "-1") {
-                Proceed();
+            gameData.setPlayerName(playerName);
+            if (gameData.getDifficulty() != "-1") {
+                proceed();
             }
         }
     }
 
-    public LiveData<String> GetStatusMessage() {
-        return StatusMessage;
+    public GameDataModel getGameData() {
+        return gameData;
     }
 
-    public void SetDifficulty (String Difficulty) {
-        if (Difficulty == "-1") {
-            StatusMessage.postValue("Please fill out the difficulty field.");
+    public LiveData<String> getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setDifficulty(String difficulty) {
+        if (difficulty == "-1") {
+            statusMessage.postValue("Please fill out the difficulty field.");
         } else {
-            GameData.Difficulty = Difficulty;
-            GameData.MaxHealth = Difficulties.get(Difficulty);
-            GameData.CurrentHealth = GameData.MaxHealth;
-            if (GameData.PlayerName != "") {
-                Proceed();
+            gameData.setDifficulty(difficulty);
+            gameData.setMaxHealth(difficulties.get(difficulty));
+            gameData.setCurrentHealth(gameData.getMaxHealth());
+            if (gameData.getPlayerName() != "") {
+                proceed();
             }
         }
     }
 
-    public void Proceed() {
-        String message = "START. Player Name: " + GameData.PlayerName + "\nDifficulty: " + GameData.Difficulty;
-        StatusMessage.postValue(message);
+    public void proceed() {
+        String message = "START. Player Name: "
+                + gameData.getPlayerName()
+                + "\nDifficulty: " + gameData.getDifficulty();
+        statusMessage.postValue(message);
     }
 }
 

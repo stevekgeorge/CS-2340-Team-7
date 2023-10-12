@@ -20,17 +20,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
-import java.util.Calendar;
-
 public class Skiles extends ApplicationAdapter {
-    Context context;
-    Stage stage;
-    TiledMap map;
-    OrthographicCamera camera;
-    TiledMapRenderer mapRenderer;
-    TextButton nextButton;
-    SkilesViewModel model;
-    Label score;
+    private Context context;
+    private Stage stage;
+    private TiledMap map;
+    private OrthographicCamera camera;
+    private TiledMapRenderer mapRenderer;
+    private TextButton nextButton;
+    private SkilesViewModel model;
+    private Label score;
 
     public Skiles(Context context) {
         this.context = context;
@@ -63,10 +61,10 @@ public class Skiles extends ApplicationAdapter {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.AdvanceLevel();
+                model.advanceLevel();
 
-                Leaderboard board = Leaderboard.GetLeaderboard();
-                board.AddEntry(model.GetPlayerName(), model.GetScore(), model.GetTime());
+                Leaderboard board = Leaderboard.getLeaderboard();
+                board.addEntry(model.getPlayerName(), model.getScore(), model.getTime());
 
                 Intent nextLevel = new Intent(context, GameOverScreen.class);
                 context.startActivity(nextLevel);
@@ -90,7 +88,7 @@ public class Skiles extends ApplicationAdapter {
     @Override
     public void render() {
         if (score != null) {
-            score.setText(String.valueOf(model.GameData.CurrentScore));
+            score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
 
         mapRenderer.setView(camera);
