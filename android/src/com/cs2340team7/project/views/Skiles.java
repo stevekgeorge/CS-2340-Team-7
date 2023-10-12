@@ -39,7 +39,7 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 800);
+        camera.setToOrtho(false, 1000, 1500);
         camera.update();
         map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage();
