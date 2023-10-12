@@ -5,13 +5,17 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class PlayerSelectViewModel extends ViewModel {
-    public GameDataModel GameData;
+    private GameDataModel gameDataModel;
 
     public PlayerSelectViewModel() {
-        GameData = GameDataModel.getData();
+        gameDataModel = GameDataModel.getData();
     }
 
-    public void SetSelectedPlayer(String Selected) {
-        GameData.Character = Selected;
+    public GameDataModel getGameData() {
+        return gameDataModel;
+    }
+
+    public void setSelectedPlayer(String selected) {
+        gameDataModel.setCharacter(selected);
     }
 }

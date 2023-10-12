@@ -6,26 +6,34 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Player extends ViewModel {
-    public Timer timer;
-    public GameDataModel GameData;
-    public Boolean running;
+    private Timer timer;
+    private GameDataModel gameData;
+    private Boolean running;
 
-    private static Player Player;
+    private static Player player;
     private Player() {
-        GameData = GameDataModel.getData();
-        GameData.CurrentScore = 20;
+        gameData = GameDataModel.getData();
+        gameData.setCurrentScore(20);
         running = false;
     }
 
-    public static Player GetPlayerScore() {
-        if (Player == null) {
-            Player = new Player();
+    public GameDataModel getGameData() {
+        return gameData;
+    }
+
+    public boolean getRunning() {
+        return running;
+    }
+
+    public static Player getPlayerScore() {
+        if (player == null) {
+            player = new Player();
         }
-        return Player;
+        return player;
     }
 
     public int getScore() {
-        return GameData.CurrentScore;
+        return gameData.getCurrentScore();
     }
     public void startDecrease() {
         running = true;
@@ -39,8 +47,8 @@ public class Player extends ViewModel {
 
     }
     public void decreaseScore() {
-        if (GameData.CurrentScore > 0) {
-            GameData.CurrentScore--;
+        if (gameData.getCurrentScore() > 0) {
+            gameData.setCurrentScore(gameData.getCurrentScore() - 1);
         } else {
             timer.cancel();
         }
@@ -48,6 +56,6 @@ public class Player extends ViewModel {
     public void stopDecrease() {
         running = false;
         timer.cancel();
-        GameData.CurrentScore = 20;
+        gameData.setCurrentScore(20);
     }
 }

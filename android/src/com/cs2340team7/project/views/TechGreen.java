@@ -20,15 +20,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 public class TechGreen extends ApplicationAdapter {
-    Context context;
-    Stage stage;
-    TiledMap map;
-    OrthographicCamera camera;
-    TiledMapRenderer mapRenderer;
-    TextButton nextButton;
-    TechGreenViewModel model;
-    Label score;
-    BitmapFont font;
+    private Context context;
+    private Stage stage;
+    private TiledMap map;
+    private OrthographicCamera camera;
+    private TiledMapRenderer mapRenderer;
+    private TextButton nextButton;
+    private TechGreenViewModel model;
+    private Label score;
+    private BitmapFont font;
 
     public TechGreen(Context context) {
         this.context = context;
@@ -64,7 +64,7 @@ public class TechGreen extends ApplicationAdapter {
         nextButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                model.AdvanceLevel();
+                model.advanceLevel();
                 Intent nextLevel = new Intent(context, GameScreenLauncher.class);
                 context.startActivity(nextLevel);
             }
@@ -87,7 +87,7 @@ public class TechGreen extends ApplicationAdapter {
     @Override
     public void render() {
         if (score != null) {
-            score.setText(String.valueOf(model.GameData.CurrentScore));
+            score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
 
         mapRenderer.setView(camera);

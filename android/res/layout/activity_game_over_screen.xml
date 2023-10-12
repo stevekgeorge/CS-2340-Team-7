@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="17dp"
             android:gravity="center"
-            android:text="@{String.valueOf(viewModel.GameData.CurrentScore) + &quot;\n&quot; + viewModel.GameData.PlayerName + &quot;\n&quot; + viewModel.GameData.StartTime}"
+            android:text="@{String.valueOf(viewModel.getGameData().getCurrentScore()) + &quot;\n&quot; + viewModel.getGameData().getPlayerName() + &quot;\n&quot; + viewModel.getGameData().getStartTime()}"
             android:textAlignment="center"
             android:textSize="38sp"
             app:layout_constraintBottom_toTopOf="@+id/leaderboard"

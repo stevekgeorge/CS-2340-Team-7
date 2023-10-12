@@ -3,29 +3,20 @@ package com.cs2340team7.project.models;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import java.util.Date;
 
 public class GameDataModel extends BaseObservable {
-    @Bindable
-    public String PlayerName;
-    @Bindable
-    public String Difficulty;
-    @Bindable
-    public int MaxHealth;
-    @Bindable
-    public int CurrentHealth;
-    @Bindable
-    public String Character;
-    @Bindable
-    public int CurrentLevel;
-    @Bindable
-    public int CurrentScore;
-    @Bindable
-    public String StartTime;
+    private String playerName;
+    private String difficulty;
+    private int maxHealth;
+    private int currentHealth;
+    private String character;
+    private int currentLevel;
+    private int currentScore;
+    private String startTime;
 
     private static GameDataModel data;
     private GameDataModel() {
-        Clear();
+        clear();
     }
 
     public static GameDataModel getData() {
@@ -35,13 +26,85 @@ public class GameDataModel extends BaseObservable {
         return data;
     }
 
-    public void Clear() {
-        PlayerName = "";
-        Difficulty = "";
-        MaxHealth = 0;
-        CurrentHealth = 0;
-        Character = "";
-        CurrentLevel = 1;
-        CurrentScore = 0;
+    @Bindable
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    @Bindable
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    @Bindable
+    public int getCurrentScore() {
+        return currentScore;
+    }
+
+    @Bindable
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    @Bindable
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int health) {
+        this.currentHealth = health;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    @Bindable
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
+    }
+
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
+    }
+
+    @Bindable
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    @Bindable
+    public String getCharacter() {
+        return character;
+    }
+
+    public void clear() {
+        playerName = "";
+        difficulty = "";
+        maxHealth = 0;
+        currentHealth = 0;
+        character = "";
+        currentLevel = 1;
+        currentScore = 0;
     }
 }

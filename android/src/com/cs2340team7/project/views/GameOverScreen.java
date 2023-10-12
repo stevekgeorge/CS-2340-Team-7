@@ -14,14 +14,12 @@ import com.cs2340team7.project.databinding.ActivityGameOverScreenBinding;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.R;
 
-import java.text.DateFormat;
-import java.util.Collections;
 import java.util.List;
 
 public class GameOverScreen extends AppCompatActivity {
 
-    ActivityGameOverScreenBinding mainBinding;
-    GameOverViewModel viewModel;
+    private ActivityGameOverScreenBinding mainBinding;
+    private GameOverViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +31,7 @@ public class GameOverScreen extends AppCompatActivity {
         mainBinding.setViewModel(viewModel);
 
         TableLayout leaderboard = findViewById(R.id.leaderboard);
-        List<Leaderboard.LeaderboardEntry> entries = Leaderboard.GetLeaderboard().GetEntries();
+        List<Leaderboard.LeaderboardEntry> entries = Leaderboard.getLeaderboard().getEntries();
 
         for (int i = 0; i < Math.min(entries.size(), 10); i++) {
             Leaderboard.LeaderboardEntry entry = entries.get(i);
@@ -47,9 +45,9 @@ public class GameOverScreen extends AppCompatActivity {
             TextView date = new TextView(this);
             date.setTextSize(20);
 
-            name.setText(entry.PlayerName);
-            score.setText(String.valueOf(entry.Score));
-            date.setText(entry.Date);
+            name.setText(entry.getPlayerName());
+            score.setText(String.valueOf(entry.getScore()));
+            date.setText(entry.getDate());
 
             row.addView(name);
             row.addView(score);
@@ -60,6 +58,6 @@ public class GameOverScreen extends AppCompatActivity {
     }
 
     public void restart(View v) {
-        viewModel.Restart(this);
+        viewModel.restart(this);
     }
 }

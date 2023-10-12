@@ -9,7 +9,7 @@ import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameScreenLauncherViewModel;
 
 public class GameScreenLauncher extends AndroidApplication {
-    GameScreenLauncherViewModel model;
+    private GameScreenLauncherViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,17 +17,17 @@ public class GameScreenLauncher extends AndroidApplication {
         model = new GameScreenLauncherViewModel();
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        if (!Player.GetPlayerScore().running) {
-            Player.GetPlayerScore().startDecrease();
+        if (!Player.getPlayerScore().getRunning()) {
+            Player.getPlayerScore().startDecrease();
         }
 
-        if (model.GetCurrentLevel() == 1) {
+        if (model.getCurrentLevel() == 1) {
             initialize(new TechGreen(this), config);
-        } else if (model.GetCurrentLevel() == 2) {
+        } else if (model.getCurrentLevel() == 2) {
             initialize(new Klaus(this), config);
-        } else if (model.GetCurrentLevel() == 3) {
+        } else if (model.getCurrentLevel() == 3) {
             initialize(new Skiles(this), config);
-        } else if (model.GetCurrentLevel() == -1) {
+        } else if (model.getCurrentLevel() == -1) {
             Intent intent = new Intent(this, GameOverScreen.class);
             startActivity(intent);
         }
