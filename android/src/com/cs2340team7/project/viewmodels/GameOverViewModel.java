@@ -18,12 +18,12 @@ public class GameOverViewModel extends ViewModel {
 
     public void restart() {
         gameData.clear();
-        Player.getPlayerScore().stopDecrease();
+        Player.getPlayer().stopDecrease();
     }
 
     public void restart(Context context) {
         gameData.clear();
-        Player.getPlayerScore().stopDecrease();
+        Player.getPlayer().stopDecrease();
         Intent intent = new Intent(context, IntroScreen.class);
         context.startActivity(intent);
     }

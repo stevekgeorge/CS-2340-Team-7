@@ -25,7 +25,7 @@ public class Player extends ViewModel {
         return running;
     }
 
-    public static Player getPlayerScore() {
+    public static Player getPlayer() {
         if (player == null) {
             player = new Player();
         }
