@@ -17,8 +17,8 @@ public class GameScreenLauncher extends AndroidApplication {
         model = new GameScreenLauncherViewModel();
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        if (!Player.getPlayerScore().getRunning()) {
-            Player.getPlayerScore().startDecrease();
+        if (!Player.getPlayer().getRunning()) {
+            Player.getPlayer().startDecrease();
         }
 
         if (model.getCurrentLevel() == 1) {

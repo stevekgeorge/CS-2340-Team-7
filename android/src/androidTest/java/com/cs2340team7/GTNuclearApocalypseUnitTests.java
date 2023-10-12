@@ -26,7 +26,7 @@ import java.util.Calendar;
 public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
-        Player score = Player.getPlayerScore();
+        Player score = Player.getPlayer();
 
         int start = score.getGameData().getCurrentScore();
 
@@ -85,7 +85,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
     @Test
     public void testLeaderboardUponRestart() {
-        Player player = Player.getPlayerScore();
+        Player player = Player.getPlayer();
         player.startDecrease();
 
         Leaderboard.getLeaderboard().clear();
@@ -134,7 +134,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
     @Test
     public void testPlayerScoreResets() {
-        Player player = Player.getPlayerScore();
+        Player player = Player.getPlayer();
         player.stopDecrease();
         int start = player.getGameData().getCurrentScore();
         player.startDecrease();
