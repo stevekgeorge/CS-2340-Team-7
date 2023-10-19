@@ -9,6 +9,7 @@ public class Player extends ViewModel {
     private Timer timer;
     private GameDataModel gameData;
     private Boolean running;
+    private int x, y;
 
     private static Player player;
     private Player() {
@@ -57,5 +58,15 @@ public class Player extends ViewModel {
         running = false;
         timer.cancel();
         gameData.setCurrentScore(20);
+    }
+    public void updatePosition(int newX, int newY) {
+        this.x = newX;
+        this.y = newY;
+    }
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
     }
 }
