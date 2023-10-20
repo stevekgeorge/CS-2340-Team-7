@@ -12,7 +12,7 @@ public class Player extends ViewModel {
     private int x, y;
 
     private static Player player;
-    private Player() {
+    protected Player() {
         gameData = GameDataModel.getData();
         gameData.setCurrentScore(20);
         running = false;

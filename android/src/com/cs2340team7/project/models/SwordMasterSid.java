@@ -1,10 +1,9 @@
 package com.cs2340team7.project.models;
 import android.view.KeyEvent;
-public class purplePersianMovement implements movementStrategy {
 
-    private static int SPEED = 1;
+public class SwordMasterSid implements movementStrategy {
+    private static int SPEED = 5;
     Player player;
-    @Override
     public void move(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {

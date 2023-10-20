@@ -1,10 +1,17 @@
 package com.cs2340team7.project.models;
 import android.view.KeyEvent;
 
-public class GeneralGabeMovement implements movementStrategy {
-    private static int SPEED = 10;
-    Player player;
+import com.badlogic.gdx.Game;
 
+public class purplePersian implements movementStrategy {
+
+
+    private static int SPEED = 1;
+    Player player;
+    GameDataModel dataModel;
+    String filePath = "android/res/drawable/thepurplepersian.png";
+
+    @Override
     public void move(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {

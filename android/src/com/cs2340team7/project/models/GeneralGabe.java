@@ -1,9 +1,11 @@
 package com.cs2340team7.project.models;
 import android.view.KeyEvent;
 
-public class SwordMasterSidMovement implements movementStrategy {
-    private static int SPEED = 5;
+public class GeneralGabe implements movementStrategy {
+    private static int SPEED = 10;
+
     Player player;
+
     public void move(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
