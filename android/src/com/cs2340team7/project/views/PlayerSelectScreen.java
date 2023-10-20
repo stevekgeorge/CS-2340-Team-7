@@ -10,14 +10,15 @@ import androidx.databinding.DataBindingUtil;
 import com.cs2340team7.project.databinding.ActivityPlayerSelectScreenBinding;
 import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
 import com.cs2340team7.project.R;
-import com.cs2340team7.project.databinding.ActivityIntroScreenBinding;
-import com.cs2340team7.project.databinding.ActivityPlayerSelectScreenBinding;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 
 public class PlayerSelectScreen extends AppCompatActivity {
 
     private ActivityPlayerSelectScreenBinding mainBinding;
     private PlayerSelectViewModel viewModel;
-    private Intent BeginIntent;
+    private Intent beginIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +32,42 @@ public class PlayerSelectScreen extends AppCompatActivity {
         ImageButton character2Button = findViewById(R.id.character2Button);
         ImageButton character3Button = findViewById(R.id.character3Button);
 
-        BeginIntent = new Intent(PlayerSelectScreen.this, GameScreenLauncher.class);
+        beginIntent = new Intent(PlayerSelectScreen.this, GameScreenLauncher.class);
         character1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("Sid");
-                startActivity(BeginIntent);
+                viewModel.setSelectedPlayer("Sid");
+                viewModel.getGameData().setStartTime(
+                        DateFormat.getDateTimeInstance(
+                                DateFormat.SHORT,
+                                DateFormat.SHORT).format(
+                                        Calendar.getInstance().getTime()).toString());
+                startActivity(beginIntent);
             }
         });
         character2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("Gabe");
-                startActivity(BeginIntent);
+                viewModel.setSelectedPlayer("Gabe");
+                viewModel.getGameData().setStartTime(
+                        DateFormat.getDateTimeInstance(
+                                DateFormat.SHORT,
+                                DateFormat.SHORT).format(
+                                        Calendar.getInstance().getTime()).toString());
+
+                startActivity(beginIntent);
             }
         });
         character3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.SetSelectedPlayer("Persian");
-                startActivity(BeginIntent);
+                viewModel.setSelectedPlayer("Persian");
+                viewModel.getGameData().setStartTime(
+                        DateFormat.getDateTimeInstance(
+                                DateFormat.SHORT,
+                                DateFormat.SHORT).format(
+                                        Calendar.getInstance().getTime()).toString());
+                startActivity(beginIntent);
             }
         });
     }

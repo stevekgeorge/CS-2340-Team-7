@@ -37,7 +37,7 @@ public class IntroScreen extends AppCompatActivity {
         Button continueButton = findViewById(R.id.startButton7);
         Button exitButton = findViewById(R.id.exitButton);
 
-        viewModel.GetStatusMessage().observe(this, new Observer<String>() {
+        viewModel.getStatusMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 if (s != "") {
@@ -57,18 +57,16 @@ public class IntroScreen extends AppCompatActivity {
                 // Get user input
                 String playerName = name.getText().toString();
                 int selectedDifficultyId = difficulty.getCheckedRadioButtonId();
-                viewModel.SetPlayerName(playerName);
-                RadioButton button = (RadioButton)findViewById(selectedDifficultyId);
-                viewModel.SetDifficulty(String.valueOf(button.getText()));
+                viewModel.setPlayerName(playerName);
+                RadioButton button = (RadioButton) findViewById(selectedDifficultyId);
+                viewModel.setDifficulty(String.valueOf(button.getText()));
             }
         });
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(intent);
+                System.exit(0);
             }
         });
     }

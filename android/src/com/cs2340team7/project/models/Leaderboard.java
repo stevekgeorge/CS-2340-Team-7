@@ -2,54 +2,65 @@ package com.cs2340team7.project.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class Leaderboard {
-    private List<LeaderboardEntry> Entries;
-    private static Leaderboard Leaderboard;
+    private List<LeaderboardEntry> entries;
+    private static Leaderboard leaderboard;
 
     private Leaderboard() {
-        Entries = new ArrayList<>();
+        entries = new ArrayList<>();
     }
 
-    public static Leaderboard GetLeaderboard() {
-        if (Leaderboard == null) {
-            Leaderboard = new Leaderboard();
+    public static Leaderboard getLeaderboard() {
+        if (leaderboard == null) {
+            leaderboard = new Leaderboard();
         }
-        return Leaderboard;
+        return leaderboard;
     }
 
-    public void AddEntry(String PlayerName, int Score, Date Date) {
-        Entries.add(new LeaderboardEntry(PlayerName, Score, Date));
-        Collections.sort(Entries);
+    public void addEntry(String playerName, int score, String date) {
+        entries.add(new LeaderboardEntry(playerName, score, date));
+        Collections.sort(entries);
     }
 
-    public List<LeaderboardEntry> GetEntries() {
-        return Entries;
+    public List<LeaderboardEntry> getEntries() {
+        return entries;
     }
 
-    public void Clear() {
-        Entries = new ArrayList<>();
+    public void clear() {
+        entries = new ArrayList<>();
     }
 
     public class LeaderboardEntry implements Comparable {
-        public String PlayerName;
-        public int Score;
-        public Date Date;
+        private String playerName;
+        private int score;
+        private String date;
 
-        public LeaderboardEntry(String PlayerName, int Score, Date Date) {
-            this.PlayerName = PlayerName;
-            this.Score = Score;
-            this.Date = Date;
+        public LeaderboardEntry(String playerName, int score, String date) {
+            this.playerName = playerName;
+            this.score = score;
+            this.date = date;
+        }
+
+        public String getPlayerName() {
+            return playerName;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public String getDate() {
+            return date;
         }
 
         @Override
         public int compareTo(Object o) {
             LeaderboardEntry other = (LeaderboardEntry) o;
-            if (this.Score > other.Score) {
+            if (this.score > other.score) {
                 return -1;
-            } else if (this.Score < other.Score) {
+            } else if (this.score < other.score) {
                 return 1;
             } else {
                 return 0;

@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class TechGreenViewModel extends ViewModel {
-    public GameDataModel GameData;
+    private GameDataModel gameData;
     public TechGreenViewModel() {
-        GameData = GameDataModel.getData();
+        gameData = GameDataModel.getData();
     }
-    public void AdvanceLevel() {
-        GameData.CurrentLevel = 2;
+    public void advanceLevel() {
+        gameData.setCurrentLevel(2);
+    }
+    public GameDataModel getGameData() {
+        return gameData;
     }
 }
