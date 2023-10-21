@@ -22,7 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
+import android.util.Log;
 
 public class TechGreen extends ApplicationAdapter {
     private Context context;
@@ -37,6 +39,7 @@ public class TechGreen extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture texture;
     private BitmapFont font;
+    private GameDataModel dataModel;
 
     public TechGreen(Context context) {
         this.context = context;
@@ -92,10 +95,28 @@ public class TechGreen extends ApplicationAdapter {
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
-        FileHandle fileHandle = Gdx.files.internal("thepurplepersian.png");
+        String character = dataModel.getData().getCharacter();
+        String filePath = null;
+        switch (character) {
+            case "Persian" :
+                filePath = "thepurplepersian.png";
+                break;
+            case "Gabe" :
+                filePath = "generalgabe.png";
+                break;
+            case "Sid" :
+                filePath = "swordmastersid.png";
+                break;
+        }
+        //Log.d("character ", filePath);
+        FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
-//        sprite.setPosition(45, 127);
+//        float width = sprite.getWidth();
+//        float height = sprite.getHeight();
+//        Log.d("width", String.valueOf(width));
+//        Log.d("height", String.valueOf(height));
+       //sprite.setSize()
     }
 
     @Override
