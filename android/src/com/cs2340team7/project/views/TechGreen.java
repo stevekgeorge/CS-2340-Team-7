@@ -5,11 +5,16 @@ import android.content.Intent;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,6 +33,9 @@ public class TechGreen extends ApplicationAdapter {
     private TextButton nextButton;
     private TechGreenViewModel model;
     private Label score;
+    private Sprite sprite;
+    private SpriteBatch batch;
+    private Texture texture;
     private BitmapFont font;
 
     public TechGreen(Context context) {
@@ -82,6 +90,12 @@ public class TechGreen extends ApplicationAdapter {
         stage.addActor(score);
 
         Gdx.input.setInputProcessor(stage);
+
+        batch = new SpriteBatch();
+        FileHandle fileHandle = Gdx.files.internal("thepurplepersian.png");
+        texture = new Texture(fileHandle);
+        sprite = new Sprite(texture);
+//        sprite.setPosition(45, 127);
     }
 
     @Override
@@ -89,10 +103,14 @@ public class TechGreen extends ApplicationAdapter {
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
-
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
+
         stage.draw();
+
+        batch.begin();
+        batch.draw(sprite, 0, 0);
+        batch.end();
     }
 }
