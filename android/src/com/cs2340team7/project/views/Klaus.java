@@ -3,6 +3,7 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,13 +12,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-<<<<<<< HEAD
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-=======
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
->>>>>>> 710cdd2133f37bba23b54c5b05b5fcb8bd4a326a
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -29,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.models.GameDataModel;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
@@ -70,6 +67,7 @@ public class Klaus extends ApplicationAdapter {
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -112,6 +110,8 @@ public class Klaus extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
+        //this might cause to glichyness should maybe find better way to init xy
+        model.updatePosition((int)spriteX, (int)spriteY);
         sprite.setSize(320, 320);
     }
 
@@ -130,14 +130,33 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
 
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            spriteX += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-            spriteY += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+            model.move(Player.Direction.LEFT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            model.move(Player.Direction.RIGHT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+            model.move(Player.Direction.UP);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+            model.move(Player.Direction.DOWN);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        System.out.println(spriteX);
+        System.out.println(spriteY);
 
         // Define the destination point's coordinates
         float destinationX = 800; // Replace with your specific coordinates

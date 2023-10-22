@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
@@ -104,6 +105,7 @@ public class Skiles extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
+        model.updatePosition((int)spriteX, (int)spriteY);
         sprite.setSize(320, 320);
     }
 
@@ -122,14 +124,33 @@ public class Skiles extends ApplicationAdapter {
         stage.draw();
 
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            spriteX += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-            spriteY += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+            model.move(Player.Direction.LEFT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            model.move(Player.Direction.RIGHT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+            model.move(Player.Direction.UP);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+            model.move(Player.Direction.DOWN);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        System.out.println(spriteX);
+        System.out.println(spriteY);
 
         // Define the destination point's coordinates
         float destinationX = 750; // Replace with your specific coordinates

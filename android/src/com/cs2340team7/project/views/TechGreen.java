@@ -3,6 +3,7 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -24,9 +25,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.cs2340team7.project.R;
 import com.cs2340team7.project.models.GameDataModel;
 //import com.cs2340team7.project.models.purplePersian;
 import com.cs2340team7.project.models.GeneralGabe;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.SwordMasterSid;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import android.util.Log;
@@ -65,6 +68,8 @@ public class TechGreen extends ApplicationAdapter {
     @Override
     public void create() {
         model = new TechGreenViewModel();
+
+
 
         font = new BitmapFont();
         font.getData().setScale(5);
@@ -120,9 +125,11 @@ public class TechGreen extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
+        model.updatePosition((int)spriteX, (int)spriteY);
         System.out.println("sprite height" + sprite.getHeight());
         sprite.setSize(320, 320);
         System.out.println("sprite height 2" + sprite.getHeight());
+
     }
 
     public void setSprite(Sprite sprite, float x, float y) {
@@ -142,19 +149,42 @@ public class TechGreen extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
+
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT))
-            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            spriteX += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Keys.DPAD_UP))
-            spriteY += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
-            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+            model.move(Player.Direction.LEFT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            model.move(Player.Direction.RIGHT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Keys.DPAD_UP)){
+            model.move(Player.Direction.UP);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN)){
+            model.move(Player.Direction.DOWN);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        System.out.println(spriteX);
+        System.out.println(spriteY);
+
 
         // Define the destination point's coordinates
         float destinationX = 850; // Replace with your specific coordinates
         float destinationY = 1500; // Replace with your specific coordinates
+
+
 
         if (spriteX >= destinationX && spriteY >= destinationY) {
             // Level advancement logic here
