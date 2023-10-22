@@ -1,20 +1,21 @@
 package com.cs2340team7.project.models;
-import android.view.KeyEvent;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 
 public class GeneralGabe implements movementStrategy {
     private static int SPEED = 10;
 
     Player player;
 
-    public void move(KeyEvent keyEvent) {
-        int keyCode = keyEvent.getKeyCode();
-        if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+    @Override
+    public void move() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.updatePosition(player.getX(), player.getY() + SPEED);
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_DOWN) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             player.updatePosition(player.getX(), player.getY() - SPEED);
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_RIGHT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player.updatePosition(player.getX() + SPEED, player.getY());
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_LEFT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             player.updatePosition(player.getX() - SPEED, player.getY());
         }
     }
