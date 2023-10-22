@@ -9,13 +9,14 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.input.*;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -135,25 +136,6 @@ public class TechGreen extends ApplicationAdapter {
         System.out.println("sprite height" + sprite.getHeight());
         sprite.setSize(320, 320);
         System.out.println("sprite height 2" + sprite.getHeight());
-
-
-    }
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // TODO logic to move the player (remember to check collisions)
-        if (keyCode == 19) {
-            //playerView.updatePosition(playerView.getX(), playerView.getY() - SPEED);
-            spriteY -= 5;
-        } else if (keyCode == 20) {
-//            playerView.updatePosition(playerView.getX(), playerView.getY() + SPEED);
-            spriteY += 5;
-        } else if (keyCode == 21) {
-//            playerView.updatePosition(playerView.getX() - SPEED, playerView.getY());
-            spriteX -= 5;
-        } else if (keyCode == 22) {
-//            playerView.updatePosition(playerView.getX() + SPEED, playerView.getY());
-            spriteX += 5;
-        }
-        return true;
     }
 
     public void setSprite(Sprite sprite, float x, float y) {
@@ -173,42 +155,20 @@ public class TechGreen extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
-//        switch (chosenSprite) {
-//            case PERSIAN :
-//                purplePersian pp = new purplePersian();
-//
-//                pp.move(this);
-//                break;
-//            case GABE :
-//                GeneralGabe gg = new GeneralGabe();
-//                gg.move();
-//                break;
-//            case SID :
-//                SwordMasterSid ss = new SwordMasterSid();
-//                ss.move();
-//                break;
-//        }
-        batch.draw(sprite, spriteX, spriteY,spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            System.out.println("man asheghe avam");
-//            spriteY += Gdx.graphics.getDeltaTime() * speed;
-            spriteY += 50;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            spriteY -= 50;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            spriteX += 50;
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            spriteX -= 50;
-        }
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
+        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT))
+            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            spriteX += Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_UP))
+            spriteY += Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
+            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
         batch.end();
-
-
     }
     @Override
     public void dispose() {
         batch.dispose();
         texture.dispose();
-
     }
 }
