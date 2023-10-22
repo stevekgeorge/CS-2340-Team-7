@@ -83,21 +83,6 @@ public class TechGreen extends ApplicationAdapter {
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
-        nextButton = new TextButton("NEXT", textButtonStyle);
-        nextButton.setColor(Color.RED);
-
-        nextButton.setWidth(500);
-        nextButton.setHeight(200);
-
-        nextButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                model.advanceLevel();
-                Intent nextLevel = new Intent(context, GameScreenLauncher.class);
-                context.startActivity(nextLevel);
-            }
-        });
-
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = font;
         style.fontColor = Color.WHITE;
@@ -106,7 +91,6 @@ public class TechGreen extends ApplicationAdapter {
         score.setX(50);
         score.setY(2100);
 
-        stage.addActor(nextButton);
         stage.addActor(score);
 
         Gdx.input.setInputProcessor(stage);
@@ -164,6 +148,17 @@ public class TechGreen extends ApplicationAdapter {
             spriteY += Gdx.graphics.getDeltaTime() * 3000;
         if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
             spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+
+        // Define the destination point's coordinates
+        float destinationX = 850; // Replace with your specific coordinates
+        float destinationY = 1500; // Replace with your specific coordinates
+
+        if (spriteX >= destinationX && spriteY >= destinationY) {
+            // Level advancement logic here
+            model.advanceLevel();
+            Intent nextLevel = new Intent(context, GameScreenLauncher.class);
+            context.startActivity(nextLevel);
+        }
         batch.end();
     }
     @Override
