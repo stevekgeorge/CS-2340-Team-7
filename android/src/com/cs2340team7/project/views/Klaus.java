@@ -8,8 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -29,6 +32,7 @@ public class Klaus extends ApplicationAdapter {
     private KlausViewModel model;
     private Label score;
 
+
     public Klaus(Context context) {
         this.context = context;
     }
@@ -44,6 +48,10 @@ public class Klaus extends ApplicationAdapter {
         stage = new Stage();
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
+
+        //sending tiledMap to GameDataModel who updates the MapSubscribers
+        model.updateMap(map);
+
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();

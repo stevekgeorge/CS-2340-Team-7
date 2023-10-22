@@ -46,6 +46,9 @@ public class Skiles extends ApplicationAdapter {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
+        // sending TiledMap to GameDataModel who updates Subscribers
+        model.updateMap(map);
+
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
         font.getData().setScale(5);

@@ -84,8 +84,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         model.setDifficulty("Easy");
         assertEquals(model.getGameData().getMaxHealth(), 500);
     }
-<<<<<<< HEAD
-=======
 
     @Test
     public void testLeaderboardUponRestart() {
@@ -203,5 +201,4 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(8).getPlayerName(), "Stefanus");
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
->>>>>>> ded653e7767a06a71c68822e530e0c8e855841e2
 }

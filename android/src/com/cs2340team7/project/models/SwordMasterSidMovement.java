@@ -7,13 +7,21 @@ public class SwordMasterSidMovement implements movementStrategy {
     public void move(KeyEvent keyEvent) {
         int keyCode = keyEvent.getKeyCode();
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            player.updatePosition(player.getX(), player.getY() + SPEED);
+            if (player.canMove(player.getX(), player.getY() + SPEED)) {
+                player.updatePosition(player.getX(), player.getY() + SPEED);
+            }
         } else if (keyCode == keyEvent.KEYCODE_DPAD_DOWN) {
-            player.updatePosition(player.getX(), player.getY() - SPEED);
+            if (player.canMove(player.getX(), player.getY() - SPEED)) {
+                player.updatePosition(player.getX(), player.getY() - SPEED);
+            }
         } else if (keyCode == keyEvent.KEYCODE_DPAD_RIGHT) {
-            player.updatePosition(player.getX() + SPEED, player.getY());
+            if (player.canMove(player.getX() + SPEED, player.getY())) {
+                player.updatePosition(player.getX() + SPEED, player.getY() );
+            }
         } else if (keyCode == keyEvent.KEYCODE_DPAD_LEFT) {
-            player.updatePosition(player.getX() - SPEED, player.getY());
+            if (player.canMove(player.getX() - SPEED, player.getY())) {
+                player.updatePosition(player.getX()- SPEED, player.getY());
+            }
         }
     }
 }

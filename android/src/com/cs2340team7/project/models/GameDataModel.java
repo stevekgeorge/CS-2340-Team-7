@@ -3,6 +3,11 @@ package com.cs2340team7.project.models;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 public class GameDataModel extends BaseObservable {
     private String playerName;
@@ -13,6 +18,10 @@ public class GameDataModel extends BaseObservable {
     private int currentLevel;
     private int currentScore;
     private String startTime;
+
+    private TiledMap currentMap;
+
+    private ArrayList<MapSubscriber> MapSubscribers = new ArrayList<MapSubscriber>();
 
     private static GameDataModel data;
     private GameDataModel() {
@@ -98,6 +107,20 @@ public class GameDataModel extends BaseObservable {
         return character;
     }
 
+    public void updateMap(TiledMap map){
+        this.currentMap = map;
+        notifyMapSubscribers();
+    }
+    public void addMapSubscribers(MapSubscriber subscriber){
+        this.MapSubscribers.add(subscriber);
+    }
+
+    private void notifyMapSubscribers(){
+        for(MapSubscriber subscriber: MapSubscribers) {
+            subscriber.updateMap(this.currentMap);
+        }
+    }
+
     public void clear() {
         playerName = "";
         difficulty = "";
@@ -107,4 +130,5 @@ public class GameDataModel extends BaseObservable {
         currentLevel = 1;
         currentScore = 0;
     }
+
 }

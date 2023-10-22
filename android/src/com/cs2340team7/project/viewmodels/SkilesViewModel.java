@@ -2,6 +2,7 @@ package com.cs2340team7.project.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class SkilesViewModel extends ViewModel {
@@ -32,5 +33,8 @@ public class SkilesViewModel extends ViewModel {
 
     public String getTime() {
         return gameData.getStartTime();
+    }
+    public void updateMap(TiledMap map) {
+        gameData.updateMap(map);
     }
 }
