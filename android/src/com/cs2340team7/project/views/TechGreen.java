@@ -48,6 +48,10 @@ public class TechGreen extends ApplicationAdapter {
     private TextButton nextButton;
     private TechGreenViewModel model;
     private Label score;
+    private TextButton up;
+    private TextButton down;
+    private TextButton left;
+    private TextButton right;
     private Sprite sprite;
     private SpriteBatch batch;
     private Texture texture;
@@ -86,6 +90,12 @@ public class TechGreen extends ApplicationAdapter {
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
+        TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
+        BitmapFont fontLarge = new BitmapFont();
+        fontLarge.getData().setScale(15);
+        textButtonStyleLarge.font = fontLarge;
+        textButtonStyleLarge.fontColor = Color.WHITE;
+
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = font;
         style.fontColor = Color.WHITE;
@@ -94,7 +104,25 @@ public class TechGreen extends ApplicationAdapter {
         score.setX(50);
         score.setY(2100);
 
+        up = new TextButton("↑", textButtonStyleLarge);
+        left = new TextButton("←", textButtonStyleLarge);
+        right = new TextButton("→", textButtonStyleLarge);
+        down = new TextButton("↓", textButtonStyleLarge);
+
+        up.setX(220);
+        up.setY(400);
+        left.setX(50);
+        left.setY(200);
+        right.setX(390);
+        right.setY(200);
+        down.setX(220);
+        down.setY(200);
+
         stage.addActor(score);
+        stage.addActor(up);
+        stage.addActor(left);
+        stage.addActor(right);
+        stage.addActor(down);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -143,14 +171,14 @@ public class TechGreen extends ApplicationAdapter {
         stage.draw();
 
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT))
-            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            spriteX += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Keys.DPAD_UP))
-            spriteY += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN))
-            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || left.isPressed())
+            spriteX -= Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed())
+            spriteX += Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_UP) || up.isPressed())
+            spriteY += Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN) || down.isPressed())
+            spriteY -= Gdx.graphics.getDeltaTime() * 1000;
 
         // Define the destination point's coordinates
         float destinationX = 850; // Replace with your specific coordinates

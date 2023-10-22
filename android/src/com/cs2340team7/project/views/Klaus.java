@@ -11,13 +11,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-<<<<<<< HEAD
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-=======
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
->>>>>>> 710cdd2133f37bba23b54c5b05b5fcb8bd4a326a
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -40,6 +35,10 @@ public class Klaus extends ApplicationAdapter {
     private TiledMapRenderer mapRenderer;
     private TextButton nextButton;
     private KlausViewModel model;
+    private TextButton up;
+    private TextButton down;
+    private TextButton left;
+    private TextButton right;
     private Label score;
     private Sprite sprite;
     private SpriteBatch batch;
@@ -78,6 +77,12 @@ public class Klaus extends ApplicationAdapter {
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
+        TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
+        BitmapFont fontLarge = new BitmapFont();
+        fontLarge.getData().setScale(15);
+        textButtonStyleLarge.font = fontLarge;
+        textButtonStyleLarge.fontColor = Color.WHITE;
+
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = font;
         style.fontColor = Color.WHITE;
@@ -85,6 +90,26 @@ public class Klaus extends ApplicationAdapter {
         score = new Label("0", style);
         score.setX(50);
         score.setY(2100);
+
+        up = new TextButton("↑", textButtonStyleLarge);
+        left = new TextButton("←", textButtonStyleLarge);
+        right = new TextButton("→", textButtonStyleLarge);
+        down = new TextButton("↓", textButtonStyleLarge);
+
+        up.setX(220);
+        up.setY(400);
+        left.setX(50);
+        left.setY(200);
+        right.setX(390);
+        right.setY(200);
+        down.setX(220);
+        down.setY(200);
+
+        stage.addActor(score);
+        stage.addActor(up);
+        stage.addActor(left);
+        stage.addActor(right);
+        stage.addActor(down);
 
         stage.addActor(score);
 
@@ -130,14 +155,14 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
 
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-            spriteX -= Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-            spriteX += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-            spriteY += Gdx.graphics.getDeltaTime() * 3000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-            spriteY -= Gdx.graphics.getDeltaTime() * 3000;
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed())
+            spriteX -= Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed())
+            spriteX += Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed())
+            spriteY += Gdx.graphics.getDeltaTime() * 1000;
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed())
+            spriteY -= Gdx.graphics.getDeltaTime() * 1000;
 
         // Define the destination point's coordinates
         float destinationX = 800; // Replace with your specific coordinates
