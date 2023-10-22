@@ -1,30 +1,37 @@
 package com.cs2340team7.project.models;
-import android.view.KeyEvent;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Game;
+import com.cs2340team7.project.views.Klaus;
+import com.cs2340team7.project.views.Skiles;
+import com.cs2340team7.project.views.TechGreen;
 
-import com.badlogic.gdx.maps.tiled.TiledMap;
+public class purplePersian implements movementStrategy {
+    private static int SPEED = 1;
 
-public class GeneralGabeMovement implements movementStrategy {
-    private static int SPEED = 10;
     Player player;
 
-    public void move(KeyEvent keyEvent) {
-        int keyCode = keyEvent.getKeyCode();
-        if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+    @Override
+    public void move() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             if (player.canMove(player.getX(), player.getY() + SPEED)) {
                 player.updatePosition(player.getX(), player.getY() + SPEED);
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_DOWN) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             if (player.canMove(player.getX(), player.getY() - SPEED)) {
                 player.updatePosition(player.getX(), player.getY() - SPEED);
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_RIGHT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             if (player.canMove(player.getX() + SPEED, player.getY())) {
                 player.updatePosition(player.getX() + SPEED, player.getY() );
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_LEFT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if (player.canMove(player.getX() - SPEED, player.getY())) {
                 player.updatePosition(player.getX()- SPEED, player.getY());
             }
         }
     }
-}
+    }
+

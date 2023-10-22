@@ -1,25 +1,27 @@
 package com.cs2340team7.project.models;
 import android.view.KeyEvent;
-public class purplePersianMovement implements movementStrategy {
 
-    private static int SPEED = 1;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
+public class SwordMasterSid implements movementStrategy {
+    private static int SPEED = 5;
     Player player;
     @Override
-    public void move(KeyEvent keyEvent) {
-        int keyCode = keyEvent.getKeyCode();
-        if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+    public void move() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             if (player.canMove(player.getX(), player.getY() + SPEED)) {
                 player.updatePosition(player.getX(), player.getY() + SPEED);
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_DOWN) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             if (player.canMove(player.getX(), player.getY() - SPEED)) {
                 player.updatePosition(player.getX(), player.getY() - SPEED);
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_RIGHT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             if (player.canMove(player.getX() + SPEED, player.getY())) {
                 player.updatePosition(player.getX() + SPEED, player.getY() );
             }
-        } else if (keyCode == keyEvent.KEYCODE_DPAD_LEFT) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if (player.canMove(player.getX() - SPEED, player.getY())) {
                 player.updatePosition(player.getX()- SPEED, player.getY());
             }
