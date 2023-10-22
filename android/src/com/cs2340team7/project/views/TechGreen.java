@@ -77,6 +77,9 @@ public class TechGreen extends ApplicationAdapter {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
+        //sending tiledMap to GameDataModel who updates the MapSubscribers
+        model.updateMap(map);
+
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
         font.getData().setScale(5);

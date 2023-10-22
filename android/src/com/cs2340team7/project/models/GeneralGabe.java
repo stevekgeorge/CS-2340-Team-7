@@ -10,13 +10,21 @@ public class GeneralGabe implements movementStrategy {
     @Override
     public void move() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.updatePosition(player.getX(), player.getY() + SPEED);
+            if (player.canMove(player.getX(), player.getY() + SPEED)) {
+                player.updatePosition(player.getX(), player.getY() + SPEED);
+            }
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.updatePosition(player.getX(), player.getY() - SPEED);
+            if (player.canMove(player.getX(), player.getY() - SPEED)) {
+                player.updatePosition(player.getX(), player.getY() - SPEED);
+            }
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.updatePosition(player.getX() + SPEED, player.getY());
+            if (player.canMove(player.getX() + SPEED, player.getY())) {
+                player.updatePosition(player.getX() + SPEED, player.getY() );
+            }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.updatePosition(player.getX() - SPEED, player.getY());
+            if (player.canMove(player.getX() - SPEED, player.getY())) {
+                player.updatePosition(player.getX()- SPEED, player.getY());
+            }
         }
     }
 }

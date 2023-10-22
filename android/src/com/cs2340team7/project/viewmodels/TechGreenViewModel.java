@@ -2,6 +2,7 @@ package com.cs2340team7.project.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 
 public class TechGreenViewModel extends ViewModel {
@@ -14,5 +15,8 @@ public class TechGreenViewModel extends ViewModel {
     }
     public GameDataModel getGameData() {
         return gameData;
+    }
+    public void updateMap(TiledMap map) {
+        gameData.updateMap(map);
     }
 }
