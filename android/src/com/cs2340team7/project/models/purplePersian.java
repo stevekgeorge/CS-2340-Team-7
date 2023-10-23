@@ -1,13 +1,19 @@
 package com.cs2340team7.project.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Game;
+import com.cs2340team7.project.views.Klaus;
+import com.cs2340team7.project.views.Skiles;
+import com.cs2340team7.project.views.TechGreen;
 
-public class GeneralGabe implements MovementStrategy {
-    private static int SPEED = 10;
+public class PurplePersian implements MovementStrategy {
+    private static int SPEED = 1;
 
     Player player;
 
-    GeneralGabe(Player player){
+    PurplePersian(Player player) {
         this.player = player;
     }
 

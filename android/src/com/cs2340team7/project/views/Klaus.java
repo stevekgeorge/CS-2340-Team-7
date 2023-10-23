@@ -3,6 +3,7 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,7 +21,12 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
 import com.cs2340team7.project.models.GameDataModel;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
 public class Klaus extends ApplicationAdapter {
@@ -45,6 +51,7 @@ public class Klaus extends ApplicationAdapter {
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
+    private Viewport viewport;
 
 
     public Klaus(Context context) {
@@ -56,7 +63,7 @@ public class Klaus extends ApplicationAdapter {
         model = new KlausViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 1024, 1024);
         camera.update();
         map = new TmxMapLoader().load("Klausmapp.tmx");
         stage = new Stage();
@@ -65,6 +72,12 @@ public class Klaus extends ApplicationAdapter {
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+
+        //we make a viewport of size tiles so 32 by 32
+
+        viewport = new ExtendViewport(32, 32, camera);
+
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -136,8 +149,10 @@ public class Klaus extends ApplicationAdapter {
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
-        spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        sprite.setSize(320, 320);
+        spriteY = 400;
+        //this might cause to glichyness should maybe find better way to init xy
+        model.updatePosition((int)spriteX, (int)spriteY);
+        sprite.setSize(160, 160);
     }
 
     @Override
@@ -154,23 +169,36 @@ public class Klaus extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY, sprite.getWidth(),
-                sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
-            spriteX -= Gdx.graphics.getDeltaTime() * 1000;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
-            spriteX += Gdx.graphics.getDeltaTime() * 1000;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
-            spriteY += Gdx.graphics.getDeltaTime() * 1000;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
-            spriteY -= Gdx.graphics.getDeltaTime() * 1000;
+
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+            model.move(Player.Direction.LEFT);
+            spriteX = model.getX();
+            spriteY = model.getY();
         }
 
+
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            model.move(Player.Direction.RIGHT);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+            model.move(Player.Direction.UP);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+            model.move(Player.Direction.DOWN);
+            spriteX = model.getX();
+            spriteY = model.getY();
+        }
+
+
         // Define the destination point's coordinates
-        float destinationX = 800; // Replace with your specific coordinates
+        float destinationX = 900; // Replace with your specific coordinates
         float destinationY = 0; // Replace with your specific coordinates
 
         if (spriteX >= destinationX && spriteY >= destinationY && spriteX <= destinationX + 100) {
