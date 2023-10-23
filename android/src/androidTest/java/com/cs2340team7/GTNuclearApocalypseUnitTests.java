@@ -258,4 +258,15 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //    }
 
 
+    @Test
+    public void advancesLevelUponExit() {
+        TechGreen techGreen = new TechGreen(null);
+        Player player = Player.getPlayer();
+        float exitX = 850;
+        float exitY = 1500;
+
+        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
+            assertEquals(player.getGameData().getCurrentLevel(), 2);
+        }
+    }
 }
