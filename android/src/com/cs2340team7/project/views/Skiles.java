@@ -167,6 +167,7 @@ public class Skiles extends ApplicationAdapter {
         playerSprite.draw(batch);
 
         stage.draw();
+        batch.end();
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
@@ -187,14 +188,17 @@ public class Skiles extends ApplicationAdapter {
         }
 
 
-        if (model.exit()) { //hard coded skiles exit
-
+        if (model.exit()) {
             // Level advancement logic here
             model.advanceLevel();
-            Intent nextLevel = new Intent(context, GameScreenLauncher.class);
+
+            Leaderboard board = Leaderboard.getLeaderboard();
+            board.addEntry(model.getPlayerName(), model.getScore(), model.getTime());
+
+            Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
         }
-        batch.end();
+
     }
     @Override
     public void dispose() {

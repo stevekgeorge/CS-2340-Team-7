@@ -173,6 +173,7 @@ public class TechGreen extends ApplicationAdapter {
         playerSprite.draw(batch);
 
         stage.draw();
+        batch.end();
 
 
         if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || right.isPressed()) {
@@ -199,11 +200,14 @@ public class TechGreen extends ApplicationAdapter {
             Intent nextLevel = new Intent(context, GameScreenLauncher.class);
             context.startActivity(nextLevel);
         }
-        batch.end();
+
     }
     @Override
     public void dispose() {
         batch.dispose();
         texture.dispose();
+        map.dispose();
+        mapRenderer.dispose();
+
     }
 }

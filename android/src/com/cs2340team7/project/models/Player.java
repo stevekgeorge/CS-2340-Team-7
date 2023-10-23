@@ -128,8 +128,14 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
+        int heightConstant;
         int widthConstant =  32;
-        int heightConstant = (Gdx.graphics.getHeight()/ Gdx.graphics.getWidth()) * 32;
+        if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0){
+            heightConstant = (Gdx.graphics.getHeight()/ Gdx.graphics.getWidth()) * 32;
+        }
+        else {
+            heightConstant =  32;
+        }
         if (isX) {
             return (int) pos / widthConstant;
         } else {
@@ -144,7 +150,6 @@ public class Player extends ViewModel implements MapSubscriber {
         this.x = getX();
         this.y =getY();
 
-        Gdx.app.log("MOVEMENT", "canMove was called");
         //expects one and only one of new_x, new_y to be different from current x,y
         //requires that wall tiles have an "isSolid" property and that they are listed on layer 1
         int minNum = 0;
@@ -154,7 +159,7 @@ public class Player extends ViewModel implements MapSubscriber {
         if (this.x == newX) {
             if (this.y <= newY) {
                 minNum = convertCordToCell(this.y, false);
-                maxNum = convertCordToCell(newY , false); //constant for width of char
+                maxNum = convertCordToCell(newY, false);
             } else {
                 maxNum = convertCordToCell(this.y, false);
                 minNum = convertCordToCell(newY, false);
@@ -162,7 +167,6 @@ public class Player extends ViewModel implements MapSubscriber {
             while (minNum <= maxNum) {
                 cell = tileLayer.getCell(convertCordToCell(this.x, true), minNum);
                 if (cell == null) {
-                    System.out.println("cell is null");
                     return false;
                 } else if (cell.getTile().getProperties().containsKey("isSolid")) {
                     if ((boolean) cell.getTile().getProperties().get("isSolid")) {
@@ -180,7 +184,7 @@ public class Player extends ViewModel implements MapSubscriber {
         } else {
             if (this.x <= newX) {
                 minNum = convertCordToCell(this.x, true);
-                maxNum = convertCordToCell(newX + 40, true); //conts for width of char
+                maxNum = convertCordToCell(newX + 40, true); //const for width of char
             } else {
                 maxNum = convertCordToCell(this.x, true);
                 minNum = convertCordToCell(newX, true);

@@ -168,6 +168,7 @@ public class Klaus extends ApplicationAdapter {
         playerSprite.draw(batch);
 
         stage.draw();
+        batch.end();
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
@@ -194,11 +195,13 @@ public class Klaus extends ApplicationAdapter {
             Intent nextLevel = new Intent(context, GameScreenLauncher.class);
             context.startActivity(nextLevel);
         }
-        batch.end();
+
     }
     @Override
     public void dispose() {
         batch.dispose();
         texture.dispose();
+        stage.dispose();
+        mapRenderer.dispose();
     }
 }
