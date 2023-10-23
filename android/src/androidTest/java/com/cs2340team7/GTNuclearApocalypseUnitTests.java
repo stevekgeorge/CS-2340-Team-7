@@ -231,4 +231,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //
 //
 //    }
+    @Test
+    public void testAddSubscriber() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+
+        assertTrue(model.getMapSubscribers().contains(player));
+    }
 }
