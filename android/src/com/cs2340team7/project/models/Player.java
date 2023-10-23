@@ -18,7 +18,7 @@ public class Player extends ViewModel implements MapSubscriber {
     private int y;
 
     private TiledMap map;
-    private movementStrategy movementStrategy;
+    private MovementStrategy movementStrategy;
 
     private static Player player;
 
@@ -41,7 +41,7 @@ public class Player extends ViewModel implements MapSubscriber {
         String character = gameData.getCharacter();
         switch (character) {
             case "Persian" :
-                movementStrategy = new purplePersian(getPlayer());
+                movementStrategy = new PurplePersian(getPlayer());
                 break;
             case "Gabe" :
                 movementStrategy = new GeneralGabe(getPlayer());
@@ -101,7 +101,7 @@ public class Player extends ViewModel implements MapSubscriber {
     public int getY() {
         return y;
     }
-    public void updateMap(TiledMap map){
+    public void updateMap(TiledMap map) {
         this.map = map;
         Gdx.app.log("MOVEMENT", "map updated in player");
     }
@@ -121,7 +121,7 @@ public class Player extends ViewModel implements MapSubscriber {
     public void move(Player.Direction direction) {
         movementStrategy.move(direction);
     }
-    public boolean canMove(int new_x, int new_y){
+    public boolean canMove(int new_x, int new_y) {
 //        if (gameData.getCurrentLevel() == 3){
 //            return true;
 //        }
@@ -132,7 +132,7 @@ public class Player extends ViewModel implements MapSubscriber {
         int max_num = 0;
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) this.map.getLayers().get("Tile Layer 1");
         TiledMapTileLayer.Cell cell;
-        if (this.x == new_x){
+        if (this.x == new_x) {
             if (this.y <= new_y) {
                 min_num = convertCordToCell(this.y, false);
                 max_num = convertCordToCell(new_y + 80, false); //constant for width of char
@@ -146,9 +146,9 @@ public class Player extends ViewModel implements MapSubscriber {
                     System.out.println("cell is null");
                     return false;
                 } else if (cell.getTile().getProperties().containsKey("isSolid")) {
-                    if((boolean) cell.getTile().getProperties().get("isSolid")){
+                    if ((boolean) cell.getTile().getProperties().get("isSolid")) {
                         System.out.println("found WALL");
-                        System.out.printf("X is %d, Y is %d", convertCordToCell(this.x, true) ,min_num);
+                        System.out.printf("X is %d, Y is %d", convertCordToCell(this.x, true), min_num);
                         System.out.printf("X is %d, Y is %d", this.x, this.y);
                         return false;
                     }
@@ -160,7 +160,7 @@ public class Player extends ViewModel implements MapSubscriber {
         } else {
             if (this.x <= new_x) {
                 min_num = convertCordToCell(this.x, true);
-                max_num = convertCordToCell(new_x +80, true); //conts for width of char
+                max_num = convertCordToCell(new_x + 80, true); //conts for width of char
             } else {
                 max_num = convertCordToCell(this.x, true);
                 min_num = convertCordToCell(new_x, true);
@@ -173,7 +173,7 @@ public class Player extends ViewModel implements MapSubscriber {
                     System.out.printf("X is %d, Y is %d", this.x, this.y);
                     return false;
                 } else if (cell.getTile().getProperties().containsKey("isSolid")) {
-                    if((boolean) cell.getTile().getProperties().get("isSolid")){
+                    if ((boolean) cell.getTile().getProperties().get("isSolid")) {
                         System.out.println("found WALL");
                         System.out.printf("X is %d, Y is %d", min_num, convertCordToCell(this.y, false));
                         System.out.printf("X is %d, Y is %d", this.x, this.y);
@@ -188,7 +188,10 @@ public class Player extends ViewModel implements MapSubscriber {
             }
         }
 
-        return true;
 
+        return true;
     }
 }
+
+
+

@@ -16,20 +16,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
-import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
@@ -39,6 +37,10 @@ public class Klaus extends ApplicationAdapter {
     private TiledMapRenderer mapRenderer;
     private TextButton nextButton;
     private KlausViewModel model;
+    private TextButton up;
+    private TextButton down;
+    private TextButton left;
+    private TextButton right;
     private Label score;
     private Sprite sprite;
     private SpriteBatch batch;
@@ -84,6 +86,12 @@ public class Klaus extends ApplicationAdapter {
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
+        TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
+        BitmapFont fontLarge = new BitmapFont();
+        fontLarge.getData().setScale(15);
+        textButtonStyleLarge.font = fontLarge;
+        textButtonStyleLarge.fontColor = Color.WHITE;
+
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = font;
         style.fontColor = Color.WHITE;
@@ -91,6 +99,26 @@ public class Klaus extends ApplicationAdapter {
         score = new Label("0", style);
         score.setX(50);
         score.setY(2100);
+
+        up = new TextButton("↑", textButtonStyleLarge);
+        left = new TextButton("←", textButtonStyleLarge);
+        right = new TextButton("→", textButtonStyleLarge);
+        down = new TextButton("↓", textButtonStyleLarge);
+
+        up.setX(220);
+        up.setY(400);
+        left.setX(50);
+        left.setY(200);
+        right.setX(390);
+        right.setY(200);
+        down.setX(220);
+        down.setY(200);
+
+        stage.addActor(score);
+        stage.addActor(up);
+        stage.addActor(left);
+        stage.addActor(right);
+        stage.addActor(down);
 
         stage.addActor(score);
 
@@ -100,18 +128,22 @@ public class Klaus extends ApplicationAdapter {
         String character = dataModel.getData().getCharacter();
         String filePath = null;
         switch (character) {
-            case "Persian" :
-                filePath = "thepurplepersian.png";
-                chosenSprite = TechGreen.SpriteType.PERSIAN;
-                break;
-            case "Gabe" :
-                filePath = "generalgabe.png";
-                chosenSprite = TechGreen.SpriteType.GABE;
-                break;
-            case "Sid" :
-                filePath = "swordmastersid.png";
-                chosenSprite = TechGreen.SpriteType.SID;
-                break;
+        case "Persian":
+            filePath = "thepurplepersian.png";
+            chosenSprite = TechGreen.SpriteType.PERSIAN;
+            break;
+        case "Gabe":
+            filePath = "generalgabe.png";
+            chosenSprite = TechGreen.SpriteType.GABE;
+            break;
+        case "Sid":
+            filePath = "swordmastersid.png";
+            chosenSprite = TechGreen.SpriteType.SID;
+            break;
+        default:
+            filePath = "swordmastersid.png";
+            chosenSprite = TechGreen.SpriteType.SID;
+            break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
@@ -136,6 +168,7 @@ public class Klaus extends ApplicationAdapter {
 
         batch.begin();
         stage.draw();
+
 
         batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
@@ -162,7 +195,6 @@ public class Klaus extends ApplicationAdapter {
             spriteX = model.getX();
             spriteY = model.getY();
         }
-
 
 
         // Define the destination point's coordinates

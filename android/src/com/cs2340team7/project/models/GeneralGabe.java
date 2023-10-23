@@ -2,7 +2,7 @@ package com.cs2340team7.project.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class GeneralGabe implements movementStrategy {
+public class GeneralGabe implements MovementStrategy {
     private static int SPEED = 10;
 
     Player player;

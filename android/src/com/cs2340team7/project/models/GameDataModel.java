@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.views.TechGreen;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -23,7 +22,7 @@ public class GameDataModel extends BaseObservable {
 
     private TiledMap currentMap;
 
-    private ArrayList<MapSubscriber> MapSubscribers = new ArrayList<MapSubscriber>();
+    private ArrayList<MapSubscriber> mapSubscribers = new ArrayList<MapSubscriber>();
 
     private static GameDataModel data;
 
@@ -111,19 +110,20 @@ public class GameDataModel extends BaseObservable {
         return character;
     }
 
-    public void updateMap(TiledMap map){
+    public void updateMap(TiledMap map) {
         this.currentMap = map;
         notifyMapSubscribers();
         Gdx.app.log("MOVEMENT", "update map called");
 
     }
-    public void addMapSubscribers(MapSubscriber subscriber){
-        this.MapSubscribers.add(subscriber);
+    public void addMapSubscribers(MapSubscriber subscriber) {
+        this.mapSubscribers.add(subscriber);
     }
 
-    private void notifyMapSubscribers(){
-        Gdx.app.log("MOVEMENT", "notify subscribers called");
-        for(MapSubscriber subscriber: MapSubscribers) {
+
+
+    private void notifyMapSubscribers() {
+        for (MapSubscriber subscriber: mapSubscribers) {
             subscriber.updateMap(this.currentMap);
         }
     }

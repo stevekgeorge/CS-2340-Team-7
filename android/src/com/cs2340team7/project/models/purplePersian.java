@@ -8,12 +8,12 @@ import com.cs2340team7.project.views.Klaus;
 import com.cs2340team7.project.views.Skiles;
 import com.cs2340team7.project.views.TechGreen;
 
-public class purplePersian implements movementStrategy {
+public class PurplePersian implements MovementStrategy {
     private static int SPEED = 1;
 
     Player player;
 
-    purplePersian(Player player) {
+    PurplePersian(Player player) {
         this.player = player;
     }
 
@@ -38,5 +38,4 @@ public class purplePersian implements movementStrategy {
             }
         }
     }
-    }
-
+}
