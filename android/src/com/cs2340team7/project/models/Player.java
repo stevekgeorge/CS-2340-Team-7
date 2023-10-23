@@ -191,6 +191,7 @@ public class Player extends ViewModel implements MapSubscriber {
 
         return true;
     }
+    public void setMap(TiledMap map) { this.map = map; }
 }
 
 
