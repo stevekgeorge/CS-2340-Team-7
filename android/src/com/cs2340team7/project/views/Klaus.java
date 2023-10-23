@@ -24,6 +24,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
@@ -47,6 +49,7 @@ public class Klaus extends ApplicationAdapter {
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
+    private Viewport viewport;
 
 
     public Klaus(Context context) {
@@ -67,6 +70,11 @@ public class Klaus extends ApplicationAdapter {
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+
+        //we make a viewport of size tiles so 32 by 32
+
+        viewport = new ExtendViewport(32, 32, camera);
+
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
 
@@ -158,7 +166,7 @@ public class Klaus extends ApplicationAdapter {
 
 
         // Define the destination point's coordinates
-        float destinationX = 800; // Replace with your specific coordinates
+        float destinationX = 900; // Replace with your specific coordinates
         float destinationY = 0; // Replace with your specific coordinates
 
         if (spriteX >= destinationX && spriteY >= destinationY && spriteX <= destinationX + 100) {

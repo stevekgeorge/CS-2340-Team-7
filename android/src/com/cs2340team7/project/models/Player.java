@@ -108,13 +108,13 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
-        int width_constant = ( 1024) / (int) map.getProperties().get("width");
-        int height_constant = ( 1024) / (int) map.getProperties().get("height");;
+        int width_constant =  Gdx.graphics.getWidth() / (int) map.getProperties().get("width");
+        int height_constant =  Gdx.graphics.getHeight() / (int) map.getProperties().get("height");;
         if (isX){
             return (int) pos / width_constant ;
         } else {
             int height = Gdx.graphics.getHeight();
-            return (int) pos / height_constant;
+            return (int) (pos) / height_constant;
         }
     }
 
@@ -122,6 +122,9 @@ public class Player extends ViewModel implements MapSubscriber {
         movementStrategy.move(direction);
     }
     public boolean canMove(int new_x, int new_y){
+//        if (gameData.getCurrentLevel() == 3){
+//            return true;
+//        }
         Gdx.app.log("MOVEMENT", "canMove was called");
         //expects one and only one of new_x, new_y to be different from current x,y
         //requires that wall tiles have an "isSolid" property and that they are listed on layer 1
@@ -132,7 +135,7 @@ public class Player extends ViewModel implements MapSubscriber {
         if (this.x == new_x){
             if (this.y <= new_y) {
                 min_num = convertCordToCell(this.y, false);
-                max_num = convertCordToCell(new_y, false);
+                max_num = convertCordToCell(new_y + 80, false); //constant for width of char
             } else {
                 max_num = convertCordToCell(this.y, false);
                 min_num = convertCordToCell(new_y, false);
@@ -157,7 +160,7 @@ public class Player extends ViewModel implements MapSubscriber {
         } else {
             if (this.x <= new_x) {
                 min_num = convertCordToCell(this.x, true);
-                max_num = convertCordToCell(new_x, true);
+                max_num = convertCordToCell(new_x +80, true); //conts for width of char
             } else {
                 max_num = convertCordToCell(this.x, true);
                 min_num = convertCordToCell(new_x, true);

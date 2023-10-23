@@ -55,7 +55,9 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1024, 1024);
+        //camera.setToOrtho(false, 1024, 1024);
+        camera.setToOrtho(false, 1632, 1696);
+
         camera.update();
         map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage();
@@ -106,7 +108,7 @@ public class Skiles extends ApplicationAdapter {
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
         model.updatePosition((int)spriteX, (int)spriteY);
-        sprite.setSize(320, 320);
+        sprite.setSize(160, 160);
     }
 
     @Override

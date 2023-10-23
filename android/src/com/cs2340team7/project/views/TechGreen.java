@@ -75,7 +75,7 @@ public class TechGreen extends ApplicationAdapter {
         font.getData().setScale(5);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1024, 1024);
+        camera.setToOrtho(false, 800, 800);
         camera.update();
         map = new TmxMapLoader().load("techgreen.tmx");
         stage = new Stage();
@@ -127,7 +127,7 @@ public class TechGreen extends ApplicationAdapter {
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
         model.updatePosition((int)spriteX, (int)spriteY);
         System.out.println("sprite height" + sprite.getHeight());
-        sprite.setSize(320, 320);
+        sprite.setSize(160, 160);
         System.out.println("sprite height 2" + sprite.getHeight());
 
     }
