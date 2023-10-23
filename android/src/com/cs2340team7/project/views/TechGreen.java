@@ -26,12 +26,6 @@ import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 public class TechGreen extends ApplicationAdapter {
-    public enum SpriteType {
-        PERSIAN,
-        GABE,
-        SID
-
-    }
     private Context context;
     private Stage stage;
     private TiledMap map;
@@ -54,6 +48,12 @@ public class TechGreen extends ApplicationAdapter {
     private float spriteY;
     private float speed = 10.0f;
 
+    public enum SpriteType {
+        PERSIAN,
+        GABE,
+        SID
+
+    }
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -148,7 +148,18 @@ public class TechGreen extends ApplicationAdapter {
         sprite.setSize(320, 320);
         System.out.println("sprite height 2" + sprite.getHeight());
     }
-
+    public Texture getTexture() {
+        return texture;
+    }
+    public Sprite getSprite() {
+        return sprite;
+    }
+    public float getSpriteX() {
+        return spriteX;
+    }
+    public float getSpriteY() {
+        return spriteY;
+    }
     public void setSprite(Sprite sprite, float x, float y) {
         this.sprite = sprite;
         spriteX = x;

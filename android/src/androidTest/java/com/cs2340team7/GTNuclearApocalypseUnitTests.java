@@ -8,11 +8,19 @@ import static org.junit.Assert.*;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.views.TechGreen;
+import com.badlogic.gdx.Input.Keys;
+//import static org.mockito.Mockito.mock;
+//import static org.mockito.Mockito.when;
+
+
 
 import junit.framework.TestCase;
 
@@ -201,4 +209,26 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(8).getPlayerName(), "Stefanus");
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
+    public void testPlayerInitialPositionTechGreen() {
+        TechGreen techgreen = new TechGreen(null);
+        float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
+        float expectedInitialY = Gdx.graphics.getHeight() / 2 + techgreen.getTexture().getHeight() / 2;
+
+        float actualX = techgreen.getSpriteX();
+        float actualY = techgreen.getSpriteY();
+        assertEquals(expectedInitialX, actualX);
+        assertEquals(expectedInitialY, actualY);
+    }
+//    public void testPlayerMovement() {
+//        TechGreen techGreen = new TechGreen(null);
+//        techGreen.setSprite(techGreen.getSprite(), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+//
+//
+//        // Check if player has moved left (X position decreased)
+//        float expectedX = Gdx.graphics.getWidth() / 2 - techGreen.getTexture().getWidth() / 2 - (Gdx.graphics.getDeltaTime() * 1000);
+//        float actualX = techGreen.getSpriteX();
+//        assertEquals(expectedX, actualX, 0.1f);
+//
+//
+//    }
 }
