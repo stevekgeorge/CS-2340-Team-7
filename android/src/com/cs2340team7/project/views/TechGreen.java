@@ -3,7 +3,6 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -148,7 +147,7 @@ public class TechGreen extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        model.updatePosition((int)spriteX, (int)spriteY);
+        model.updatePosition((int) spriteX, (int) spriteY);
         System.out.println("sprite height" + sprite.getHeight());
         sprite.setSize(160, 160);
         System.out.println("sprite height 2" + sprite.getHeight());
@@ -184,27 +183,29 @@ public class TechGreen extends ApplicationAdapter {
         stage.draw();
 
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Keys.DPAD_LEFT)) {
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
+                sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(),
+                sprite.getScaleY(), sprite.getRotation());
+        if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
             model.move(Player.Direction.RIGHT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Keys.DPAD_UP)){
+        if (Gdx.input.isKeyPressed(Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Keys.DPAD_DOWN)){
+        if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
             spriteX = model.getX();
             spriteY = model.getY();

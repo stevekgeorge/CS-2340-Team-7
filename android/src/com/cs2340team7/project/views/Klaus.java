@@ -170,27 +170,29 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
 
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY, sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
+                sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(),
+                sprite.getScaleY(), sprite.getRotation());
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
             model.move(Player.Direction.RIGHT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
             spriteX = model.getX();
             spriteY = model.getY();

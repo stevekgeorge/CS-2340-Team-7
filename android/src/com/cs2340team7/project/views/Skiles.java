@@ -136,7 +136,7 @@ public class Skiles extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        model.updatePosition((int)spriteX, (int)spriteY);
+        model.updatePosition((int) spriteX, (int) spriteY);
         sprite.setSize(160, 160);
     }
 
@@ -154,27 +154,30 @@ public class Skiles extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
+                sprite.getWidth(), sprite.getHeight(),
+                sprite.getScaleX(), sprite.getScaleY(),
+                sprite.getRotation());
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
             model.move(Player.Direction.RIGHT);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
             spriteX = model.getX();
             spriteY = model.getY();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
             spriteX = model.getX();
             spriteY = model.getY();
