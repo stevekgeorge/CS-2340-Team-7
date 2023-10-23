@@ -149,6 +149,11 @@ public class Player extends ViewModel implements MapSubscriber {
     public boolean canMove(int newX, int newY) {
         this.x = getX();
         this.y =getY();
+        //dummy check to make sure cant go off screen, was having a problem on skiles only,think that
+        //its because its tiles are not quite right yet
+        if (newY > Gdx.graphics.getHeight() -100){
+            return false;
+        }
 
         //expects one and only one of new_x, new_y to be different from current x,y
         //requires that wall tiles have an "isSolid" property and that they are listed on layer 1
