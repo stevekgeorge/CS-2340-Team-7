@@ -23,12 +23,12 @@ public class SwordMasterSid implements movementStrategy {
                 player.updatePosition(player.getX(), player.getY() - SPEED);
             }
         } else if (direction == Player.Direction.LEFT) {
-            if (player.canMove(player.getX() + SPEED, player.getY())) {
-                player.updatePosition(player.getX() + SPEED, player.getY() );
+            if (player.canMove(player.getX() - SPEED, player.getY())) {
+                player.updatePosition(player.getX() - SPEED, player.getY() );
             }
         } else if (direction == Player.Direction.RIGHT) {
-            if (player.canMove(player.getX() - SPEED, player.getY())) {
-                player.updatePosition(player.getX()- SPEED, player.getY());
+            if (player.canMove(player.getX() + SPEED, player.getY())) {
+                player.updatePosition(player.getX()+ SPEED, player.getY());
             }
         }
     }

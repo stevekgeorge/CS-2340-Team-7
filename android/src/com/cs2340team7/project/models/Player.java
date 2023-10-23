@@ -106,6 +106,18 @@ public class Player extends ViewModel implements MapSubscriber {
         Gdx.app.log("MOVEMENT", "map updated in player");
     }
 
+    private int convertCordToCell(int pos, boolean isX) {
+        //assumes all maps have cells that are 32 pixels wide
+        int width_constant = ( 1024) / (int) map.getProperties().get("width");
+        int height_constant = ( 1024) / (int) map.getProperties().get("height");;
+        if (isX){
+            return (int) pos / width_constant ;
+        } else {
+            int height = Gdx.graphics.getHeight();
+            return (int) pos / height_constant;
+        }
+    }
+
     public void move(Player.Direction direction) {
         movementStrategy.move(direction);
     }
@@ -119,49 +131,60 @@ public class Player extends ViewModel implements MapSubscriber {
         TiledMapTileLayer.Cell cell;
         if (this.x == new_x){
             if (this.y <= new_y) {
-                min_num = this.y;
-                max_num = new_y;
+                min_num = convertCordToCell(this.y, false);
+                max_num = convertCordToCell(new_y, false);
             } else {
-                max_num = this.y;
-                min_num = new_y;
+                max_num = convertCordToCell(this.y, false);
+                min_num = convertCordToCell(new_y, false);
             }
             while (min_num <= max_num) {
-                cell = tileLayer.getCell(this.x, min_num);
-                if (cell == null){
-                    Gdx.app.log("MOVEMENT", "cell is null");
-                    System.out.printf("X is %d, Y is %d", this.x, min_num);
-                }
-                if (cell != null && !(cell.getTile().getProperties().containsKey("isSolid"))) {
+                cell = tileLayer.getCell(convertCordToCell(this.x, true), min_num);
+                if (cell == null) {
+                    System.out.println("cell is null");
                     return false;
+                } else if (cell.getTile().getProperties().containsKey("isSolid")) {
+                    if((boolean) cell.getTile().getProperties().get("isSolid")){
+                        System.out.println("found WALL");
+                        System.out.printf("X is %d, Y is %d", convertCordToCell(this.x, true) ,min_num);
+                        System.out.printf("X is %d, Y is %d", this.x, this.y);
+                        return false;
+                    }
+
                 }
                 min_num++;
 
             }
         } else {
             if (this.x <= new_x) {
-                min_num = this.x;
-                max_num = new_x;
+                min_num = convertCordToCell(this.x, true);
+                max_num = convertCordToCell(new_x, true);
             } else {
-                max_num = this.x;
-                min_num = new_x;
+                max_num = convertCordToCell(this.x, true);
+                min_num = convertCordToCell(new_x, true);
             }
             while (min_num <= max_num) {
-                cell = tileLayer.getCell(min_num,this.y);
-                if (cell == null){
-                    Gdx.app.log("MOVEMENT", "cell is null");
-                    System.out.printf("X is %d, Y is %d", min_num, this.y);
-                } else {
-                    System.out.printf("CELL IS NOT NULL, X is %d, Y is %d", min_num, this.y);
-                }
-
-                if (cell != null && !(cell.getTile().getProperties().containsKey("isSolid"))) {
-
+                cell = tileLayer.getCell(min_num, convertCordToCell(this.y, false));
+                if (cell == null) {
+                    System.out.println("cell is null");
+                    System.out.printf("X is %d, Y is %d", min_num, convertCordToCell(this.y, false));
+                    System.out.printf("X is %d, Y is %d", this.x, this.y);
                     return false;
+                } else if (cell.getTile().getProperties().containsKey("isSolid")) {
+                    if((boolean) cell.getTile().getProperties().get("isSolid")){
+                        System.out.println("found WALL");
+                        System.out.printf("X is %d, Y is %d", min_num, convertCordToCell(this.y, false));
+                        System.out.printf("X is %d, Y is %d", this.x, this.y);
+                        return false;
+                    }
+
                 }
+
+
                 min_num++;
 
             }
         }
+
         return true;
 
     }

@@ -55,7 +55,7 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 1500);
+        camera.setToOrtho(false, 1024, 1024);
         camera.update();
         map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage();
@@ -149,8 +149,6 @@ public class Skiles extends ApplicationAdapter {
             spriteY = model.getY();
         }
 
-        System.out.println(spriteX);
-        System.out.println(spriteY);
 
         // Define the destination point's coordinates
         float destinationX = 750; // Replace with your specific coordinates

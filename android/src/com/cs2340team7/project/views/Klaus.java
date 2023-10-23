@@ -58,7 +58,7 @@ public class Klaus extends ApplicationAdapter {
         model = new KlausViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 1024, 1024);
         camera.update();
         map = new TmxMapLoader().load("Klausmapp.tmx");
         stage = new Stage();
@@ -109,10 +109,10 @@ public class Klaus extends ApplicationAdapter {
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
-        spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
+        spriteY = 400;
         //this might cause to glichyness should maybe find better way to init xy
         model.updatePosition((int)spriteX, (int)spriteY);
-        sprite.setSize(320, 320);
+        sprite.setSize(160, 160);
     }
 
     @Override
@@ -155,8 +155,7 @@ public class Klaus extends ApplicationAdapter {
             spriteY = model.getY();
         }
 
-        System.out.println(spriteX);
-        System.out.println(spriteY);
+
 
         // Define the destination point's coordinates
         float destinationX = 800; // Replace with your specific coordinates

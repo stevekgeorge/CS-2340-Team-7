@@ -75,7 +75,7 @@ public class TechGreen extends ApplicationAdapter {
         font.getData().setScale(5);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 1024, 1024);
         camera.update();
         map = new TmxMapLoader().load("techgreen.tmx");
         stage = new Stage();
@@ -176,8 +176,7 @@ public class TechGreen extends ApplicationAdapter {
             spriteY = model.getY();
         }
 
-        System.out.println(spriteX);
-        System.out.println(spriteY);
+
 
 
         // Define the destination point's coordinates
