@@ -23,17 +23,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-<<<<<<< HEAD
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.cs2340team7.project.R;
 import com.cs2340team7.project.models.GameDataModel;
-//import com.cs2340team7.project.models.purplePersian;
-import com.cs2340team7.project.models.GeneralGabe;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.SwordMasterSid;
-=======
-import com.cs2340team7.project.models.GameDataModel;
->>>>>>> 58ebba122632f976b4854b03f72dd6a79294e2b7
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 public class TechGreen extends ApplicationAdapter {

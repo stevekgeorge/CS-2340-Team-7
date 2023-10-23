@@ -5,7 +5,6 @@ import androidx.databinding.Bindable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.cs2340team7.project.views.TechGreen;
 
 import java.util.ArrayList;
 

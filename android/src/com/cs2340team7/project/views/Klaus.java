@@ -151,7 +151,7 @@ public class Klaus extends ApplicationAdapter {
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = 400;
         //this might cause to glichyness should maybe find better way to init xy
-        model.updatePosition((int)spriteX, (int)spriteY);
+        model.updatePosition((int) spriteX, (int) spriteY);
         sprite.setSize(160, 160);
     }
 
@@ -170,7 +170,7 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
 
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY, sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT)) {
             model.move(Player.Direction.LEFT);
             spriteX = model.getX();
