@@ -110,13 +110,21 @@ public class Player extends ViewModel implements MapSubscriber {
         Gdx.app.log("MOVEMENT", "map updated in player");
     }
     //temp exit criteria
+//    public boolean exit(){
+//        System.out.printf("exit called, x is %d, map width is %d ", getX(), (int) map.getProperties().get("width"));
+//        if (convertCordToCell(getX(), true) >= (int) map.getProperties().get("width") -3 ) {
+//            return true;
+//        }
+//        return false;
+//    }
     public boolean exit(){
         System.out.printf("exit called, x is %d, map width is %d ", getX(), (int) map.getProperties().get("width"));
-        if (convertCordToCell(getX(), true) >= (int) map.getProperties().get("width") -3 ) {
+        if (getX() > 900 ) {
             return true;
         }
         return false;
     }
+
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide

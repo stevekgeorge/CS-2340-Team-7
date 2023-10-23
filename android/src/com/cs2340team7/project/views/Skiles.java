@@ -187,7 +187,7 @@ public class Skiles extends ApplicationAdapter {
         }
 
 
-        if (model.exit() | playerSprite.getX() > 1000) { //hard coded skiles exit
+        if (model.exit()) { //hard coded skiles exit
 
             // Level advancement logic here
             model.advanceLevel();
