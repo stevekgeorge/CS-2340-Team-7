@@ -211,17 +211,17 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
 
-    @Test
-    public void testPlayerInitialPositionTechGreen() {
-        TechGreen techgreen = new TechGreen(null);
-        float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
-        float expectedInitialY = Gdx.graphics.getHeight() / 2 + techgreen.getTexture().getHeight() / 2;
-
-        float actualX = techgreen.getSpriteX();
-        float actualY = techgreen.getSpriteY();
-        assertEquals(expectedInitialX, actualX);
-        assertEquals(expectedInitialY, actualY);
-    }
+//    @Test
+//    public void testPlayerInitialPositionTechGreen() {
+//        TechGreen techgreen = new TechGreen(null);
+//        float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
+//        float expectedInitialY = Gdx.graphics.getHeight() / 2 + techgreen.getTexture().getHeight() / 2;
+//
+//        float actualX = techgreen.getSpriteX();
+//        float actualY = techgreen.getSpriteY();
+//        assertEquals(expectedInitialX, actualX);
+//        assertEquals(expectedInitialY, actualY);
+//    }
 
     @Test
     public void testUpdateMap() {
@@ -258,15 +258,15 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //    }
 
 
-    @Test
-    public void advancesLevelUponExit() {
-        TechGreen techGreen = new TechGreen(null);
-        Player player = Player.getPlayer();
-        float exitX = 850;
-        float exitY = 1500;
-
-        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
-            assertEquals(player.getGameData().getCurrentLevel(), 2);
-        }
-    }
+//    @Test
+//    public void advancesLevelUponExit() {
+//        TechGreen techGreen = new TechGreen(null);
+//        Player player = Player.getPlayer();
+//        float exitX = 850;
+//        float exitY = 1500;
+//
+//        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
+//            assertEquals(player.getGameData().getCurrentLevel(), 2);
+//        }
+//    }
 }

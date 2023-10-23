@@ -8,7 +8,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.input.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 public class TechGreen extends ApplicationAdapter {
@@ -31,7 +34,7 @@ public class TechGreen extends ApplicationAdapter {
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TiledMapRenderer mapRenderer;
+    private OrthogonalTiledMapRenderer mapRenderer;
     private TextButton nextButton;
     private TechGreenViewModel model;
     private Label score;
@@ -40,7 +43,7 @@ public class TechGreen extends ApplicationAdapter {
     private TextButton left;
     private TextButton right;
     private Sprite sprite;
-    private SpriteBatch batch;
+    private Batch batch;
     private Texture texture;
     private BitmapFont font;
     private GameDataModel dataModel;
@@ -55,6 +58,7 @@ public class TechGreen extends ApplicationAdapter {
         SID
 
     }
+    private PlayerSprite playerSprite;
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -69,12 +73,14 @@ public class TechGreen extends ApplicationAdapter {
         font.getData().setScale(5);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 800);
+        camera.setToOrtho(false, 1024, 1024);
         camera.update();
         map = new TmxMapLoader().load("techgreen.tmx");
         stage = new Stage();
 
+        //making the batch the map renders batch
         mapRenderer = new OrthogonalTiledMapRenderer(map);
+        batch = mapRenderer.getBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
@@ -121,7 +127,6 @@ public class TechGreen extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(stage);
 
-        batch = new SpriteBatch();
         String character = dataModel.getData().getCharacter();
         String filePath = null;
         switch (character) {
@@ -145,30 +150,11 @@ public class TechGreen extends ApplicationAdapter {
         FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
-        spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
-        spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        model.updatePosition((int) spriteX, (int) spriteY);
-        System.out.println("sprite height" + sprite.getHeight());
         sprite.setSize(160, 160);
-        System.out.println("sprite height 2" + sprite.getHeight());
+        model.setPlayerSprite(sprite);
+        playerSprite = model.getPlayerSprite();
+;
 
-    }
-    public Texture getTexture() {
-        return texture;
-    }
-    public Sprite getSprite() {
-        return sprite;
-    }
-    public float getSpriteX() {
-        return spriteX;
-    }
-    public float getSpriteY() {
-        return spriteY;
-    }
-    public void setSprite(Sprite sprite, float x, float y) {
-        this.sprite = sprite;
-        spriteX = x;
-        spriteY = y;
     }
     @Override
     public void render() {
@@ -176,60 +162,52 @@ public class TechGreen extends ApplicationAdapter {
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
+
         batch.begin();
+        playerSprite.draw(batch);
+
         stage.draw();
+        batch.end();
 
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
-                sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(),
-                sprite.getScaleY(), sprite.getRotation());
         if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
-            model.move(Player.Direction.RIGHT);
-            spriteX = model.getX();
-            spriteY = model.getY();
+            model.move(Player.Direction.RIGHT);;
         }
 
         if (Gdx.input.isKeyPressed(Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
         if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
-        
 
-        // Define the destination point's coordinates
-        float destinationX = 850; // Replace with your specific coordinates
-        float destinationY = 1500; // Replace with your specific coordinates
-
-
-
-        if (spriteX >= destinationX && spriteY >= destinationY) {
+        if (model.exit()) {
             // Level advancement logic here
             model.advanceLevel();
             Intent nextLevel = new Intent(context, GameScreenLauncher.class);
             context.startActivity(nextLevel);
         }
-        batch.end();
+
     }
     @Override
     public void dispose() {
         batch.dispose();
         texture.dispose();
+        map.dispose();
+        mapRenderer.dispose();
+
     }
 }
