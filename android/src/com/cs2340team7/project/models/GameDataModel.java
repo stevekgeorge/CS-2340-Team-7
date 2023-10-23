@@ -3,6 +3,7 @@ package com.cs2340team7.project.models;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class GameDataModel extends BaseObservable {
     private ArrayList<MapSubscriber> mapSubscribers = new ArrayList<MapSubscriber>();
 
     private static GameDataModel data;
+
     private GameDataModel() {
         clear();
     }
@@ -30,6 +32,7 @@ public class GameDataModel extends BaseObservable {
     public static GameDataModel getData() {
         if (data == null) {
             data = new GameDataModel();
+
         }
         return data;
     }
@@ -109,10 +112,14 @@ public class GameDataModel extends BaseObservable {
     public void updateMap(TiledMap map) {
         this.currentMap = map;
         notifyMapSubscribers();
+        Gdx.app.log("MOVEMENT", "update map called");
+
     }
     public void addMapSubscribers(MapSubscriber subscriber) {
         this.mapSubscribers.add(subscriber);
     }
+
+
 
     private void notifyMapSubscribers() {
         for (MapSubscriber subscriber: mapSubscribers) {
