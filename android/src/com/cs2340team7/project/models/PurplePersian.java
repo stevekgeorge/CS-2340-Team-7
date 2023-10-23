@@ -1,10 +1,10 @@
 package com.cs2340team7.project.models;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-public class SwordMasterSid implements MovementStrategy {
-    private static int speed = 5;
+public class PurplePersian implements MovementStrategy {
+    private static int speed = 1;
+
     private Player player;
 
     public Player getPlayer() {
@@ -36,3 +36,4 @@ public class SwordMasterSid implements MovementStrategy {
         }
     }
 }
+

@@ -12,7 +12,8 @@ public class Player extends ViewModel implements MapSubscriber {
     private Timer timer;
     private GameDataModel gameData;
     private Boolean running;
-    private int x, y;
+    private int x;
+    private int y;
 
     private TiledMap map;
 
@@ -76,46 +77,46 @@ public class Player extends ViewModel implements MapSubscriber {
     public int getY() {
         return y;
     }
-    public void updateMap(TiledMap map){
+    public void updateMap(TiledMap map) {
         this.map = map;
     }
-    public boolean canMove(int new_x, int new_y){
+    public boolean canMove(int newX, int newY) {
         //expects one and only one of new_x, new_y to be different from current x,y
         //requires that wall tiles have an "isSolid" property and that they are listed on layer 1
-        int min_num = 0;
-        int max_num = 0;
+        int minNum = 0;
+        int maxNum = 0;
         TiledMapTileLayer tileLayer = (TiledMapTileLayer) this.map.getLayers().get(0);
         TiledMapTileLayer.Cell cell;
-        if (this.x == new_x){
-            if (this.y <= new_y) {
-                min_num = this.y;
-                max_num = new_y;
+        if (this.x == newX) {
+            if (this.y <= newY) {
+                minNum = this.y;
+                maxNum = newY;
             } else {
-                max_num = this.y;
-                min_num = new_y;
+                maxNum = this.y;
+                minNum = newY;
             }
-            while (min_num <= max_num) {
-                cell = tileLayer.getCell(this.x, min_num);
+            while (minNum <= maxNum) {
+                cell = tileLayer.getCell(this.x, minNum);
                 if (cell.getTile().getProperties().containsKey("isSolid")) {
                     return false;
                 }
-                min_num++;
+                minNum++;
 
             }
         } else {
-            if (this.x <= new_x) {
-                min_num = this.x;
-                max_num = new_x;
+            if (this.x <= newX) {
+                minNum = this.x;
+                maxNum = newX;
             } else {
-                max_num = this.x;
-                min_num = new_x;
+                maxNum = this.x;
+                minNum = newX;
             }
-            while (min_num <= max_num) {
-                cell = tileLayer.getCell(min_num,this.y);
+            while (minNum <= maxNum) {
+                cell = tileLayer.getCell(minNum, this.y);
                 if (cell.getTile().getProperties().containsKey("isSolid")) {
                     return false;
                 }
-                min_num++;
+                minNum++;
 
             }
         }

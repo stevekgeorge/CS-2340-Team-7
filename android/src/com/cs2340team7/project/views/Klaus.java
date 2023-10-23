@@ -15,17 +15,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
-import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
@@ -119,18 +115,22 @@ public class Klaus extends ApplicationAdapter {
         String character = dataModel.getData().getCharacter();
         String filePath = null;
         switch (character) {
-            case "Persian" :
-                filePath = "thepurplepersian.png";
-                chosenSprite = TechGreen.SpriteType.PERSIAN;
-                break;
-            case "Gabe" :
-                filePath = "generalgabe.png";
-                chosenSprite = TechGreen.SpriteType.GABE;
-                break;
-            case "Sid" :
-                filePath = "swordmastersid.png";
-                chosenSprite = TechGreen.SpriteType.SID;
-                break;
+        case "Persian":
+            filePath = "thepurplepersian.png";
+            chosenSprite = TechGreen.SpriteType.PERSIAN;
+            break;
+        case "Gabe":
+            filePath = "generalgabe.png";
+            chosenSprite = TechGreen.SpriteType.GABE;
+            break;
+        case "Sid":
+            filePath = "swordmastersid.png";
+            chosenSprite = TechGreen.SpriteType.SID;
+            break;
+        default:
+            filePath = "swordmastersid.png";
+            chosenSprite = TechGreen.SpriteType.SID;
+            break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
@@ -154,15 +154,20 @@ public class Klaus extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,sprite.getWidth(),sprite.getHeight(),sprite.getScaleX(),sprite.getScaleY(),sprite.getRotation());
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed())
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY, sprite.getWidth(),
+                sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
             spriteX -= Gdx.graphics.getDeltaTime() * 1000;
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed())
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
             spriteX += Gdx.graphics.getDeltaTime() * 1000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed())
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
             spriteY += Gdx.graphics.getDeltaTime() * 1000;
-        if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed())
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
             spriteY -= Gdx.graphics.getDeltaTime() * 1000;
+        }
 
         // Define the destination point's coordinates
         float destinationX = 800; // Replace with your specific coordinates
