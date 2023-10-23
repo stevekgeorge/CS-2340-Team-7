@@ -9,8 +9,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
 public class Klaus extends ApplicationAdapter {
@@ -34,7 +37,6 @@ public class Klaus extends ApplicationAdapter {
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TiledMapRenderer mapRenderer;
     private TextButton nextButton;
     private KlausViewModel model;
     private TextButton up;
@@ -43,7 +45,7 @@ public class Klaus extends ApplicationAdapter {
     private TextButton right;
     private Label score;
     private Sprite sprite;
-    private SpriteBatch batch;
+
     private Texture texture;
     private BitmapFont font;
     private GameDataModel dataModel;
@@ -52,6 +54,9 @@ public class Klaus extends ApplicationAdapter {
     private float spriteY;
     private float speed = 10.0f;
     private Viewport viewport;
+    private PlayerSprite playerSprite;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private Batch batch;
 
 
     public Klaus(Context context) {
@@ -68,17 +73,12 @@ public class Klaus extends ApplicationAdapter {
         map = new TmxMapLoader().load("Klausmapp.tmx");
         stage = new Stage();
 
+        //making the batch the map renders batch
         mapRenderer = new OrthogonalTiledMapRenderer(map);
+        batch = mapRenderer.getBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
-
-        //we make a viewport of size tiles so 32 by 32
-
-        viewport = new ExtendViewport(32, 32, camera);
-
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
@@ -120,90 +120,75 @@ public class Klaus extends ApplicationAdapter {
         stage.addActor(right);
         stage.addActor(down);
 
-        stage.addActor(score);
-
         Gdx.input.setInputProcessor(stage);
 
-        batch = new SpriteBatch();
         String character = dataModel.getData().getCharacter();
         String filePath = null;
         switch (character) {
-        case "Persian":
-            filePath = "thepurplepersian.png";
-            chosenSprite = TechGreen.SpriteType.PERSIAN;
-            break;
-        case "Gabe":
-            filePath = "generalgabe.png";
-            chosenSprite = TechGreen.SpriteType.GABE;
-            break;
-        case "Sid":
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        default:
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
+            case "Persian" :
+                filePath = "thepurplepersian.png";
+                chosenSprite = TechGreen.SpriteType.PERSIAN;
+                break;
+            case "Gabe" :
+                filePath = "generalgabe.png";
+                chosenSprite = TechGreen.SpriteType.GABE;
+                break;
+            case "Sid" :
+                filePath = "swordmastersid.png";
+                chosenSprite = TechGreen.SpriteType.SID;
+                break;
+            default:
+                filePath = "swordmastersid.png";
+                chosenSprite = TechGreen.SpriteType.SID;
+                break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
-        spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
-        spriteY = 400;
-        //this might cause to glichyness should maybe find better way to init xy
-        model.updatePosition((int) spriteX, (int) spriteY);
         sprite.setSize(160, 160);
-    }
+        model.setPlayerSprite(sprite);
+        playerSprite = model.getPlayerSprite();
+        ;
 
+    }
     @Override
     public void render() {
+
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
-        stage.draw();
 
         batch.begin();
+        playerSprite.draw(batch);
+
         stage.draw();
 
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
-                sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(),
-                sprite.getScaleY(), sprite.getRotation());
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
-            model.move(Player.Direction.RIGHT);
-            spriteX = model.getX();
-            spriteY = model.getY();
+            model.move(Player.Direction.RIGHT);;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
 
-        // Define the destination point's coordinates
-        float destinationX = 900; // Replace with your specific coordinates
-        float destinationY = 0; // Replace with your specific coordinates
-
-        if (spriteX >= destinationX && spriteY >= destinationY && spriteX <= destinationX + 100) {
+        if (model.exit()) {
             // Level advancement logic here
             model.advanceLevel();
             Intent nextLevel = new Intent(context, GameScreenLauncher.class);
@@ -211,7 +196,6 @@ public class Klaus extends ApplicationAdapter {
         }
         batch.end();
     }
-
     @Override
     public void dispose() {
         batch.dispose();

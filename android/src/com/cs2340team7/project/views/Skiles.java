@@ -8,8 +8,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 public class Skiles extends ApplicationAdapter {
@@ -30,12 +33,10 @@ public class Skiles extends ApplicationAdapter {
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TiledMapRenderer mapRenderer;
     private TextButton nextButton;
     private SkilesViewModel model;
     private Label score;
     private Sprite sprite;
-    private SpriteBatch batch;
     private Texture texture;
     private TextButton up;
     private TextButton down;
@@ -47,6 +48,10 @@ public class Skiles extends ApplicationAdapter {
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
+    private PlayerSprite playerSprite;
+    private OrthogonalTiledMapRenderer mapRenderer;
+    private Batch batch;
+
     public Skiles(Context context) {
         this.context = context;
     }
@@ -65,7 +70,11 @@ public class Skiles extends ApplicationAdapter {
 
         mapRenderer = new OrthogonalTiledMapRenderer(map);
 
-        // sending TiledMap to GameDataModel who updates Subscribers
+        //making the batch the map renders batch
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        batch = mapRenderer.getBatch();
+
+        //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -110,94 +119,79 @@ public class Skiles extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(stage);
 
-        batch = new SpriteBatch();
         String character = dataModel.getData().getCharacter();
         String filePath = null;
         switch (character) {
-        case "Persian" :
-            filePath = "thepurplepersian.png";
-            chosenSprite = TechGreen.SpriteType.PERSIAN;
-            break;
-        case "Gabe" :
-            filePath = "generalgabe.png";
-            chosenSprite = TechGreen.SpriteType.GABE;
-            break;
-        case "Sid" :
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        default:
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
+            case "Persian" :
+                filePath = "thepurplepersian.png";
+                chosenSprite = TechGreen.SpriteType.PERSIAN;
+                break;
+            case "Gabe" :
+                filePath = "generalgabe.png";
+                chosenSprite = TechGreen.SpriteType.GABE;
+                break;
+            case "Sid" :
+                filePath = "swordmastersid.png";
+                chosenSprite = TechGreen.SpriteType.SID;
+                break;
+            default:
+                filePath = "swordmastersid.png";
+                chosenSprite = TechGreen.SpriteType.SID;
+                break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         texture = new Texture(fileHandle);
         sprite = new Sprite(texture);
-        spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
-        spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        model.updatePosition((int) spriteX, (int) spriteY);
         sprite.setSize(160, 160);
-    }
+        model.setPlayerSprite(sprite);
+        playerSprite = model.getPlayerSprite();
+        //hard coding starting pos in skiles
+        playerSprite.setX(100);
+        playerSprite.setY(1000);
 
+    }
     @Override
     public void render() {
+
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mapRenderer.setView(camera);
         mapRenderer.render();
         camera.update();
-        stage.draw();
 
         batch.begin();
+        playerSprite.draw(batch);
+
         stage.draw();
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
-                sprite.getWidth(), sprite.getHeight(),
-                sprite.getScaleX(), sprite.getScaleY(),
-                sprite.getRotation());
+
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
             model.move(Player.Direction.LEFT);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
-            model.move(Player.Direction.RIGHT);
-            spriteX = model.getX();
-            spriteY = model.getY();
+            model.move(Player.Direction.RIGHT);;
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
             model.move(Player.Direction.UP);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
             model.move(Player.Direction.DOWN);
-            spriteX = model.getX();
-            spriteY = model.getY();
         }
 
-        // Define the destination point's coordinates
-        float destinationX = 750; // Replace with your specific coordinates
-        float destinationY = 200; // Replace with your specific coordinates
 
-        // Define a margin of error of 50 pixels
-        float marginOfError = 50;
+        if (model.exit() | playerSprite.getX() > 1000) { //hard coded skiles exit
 
-        if (spriteX >= destinationX && spriteY >= destinationY) {
             // Level advancement logic here
             model.advanceLevel();
-
-            Leaderboard board = Leaderboard.getLeaderboard();
-            board.addEntry(model.getPlayerName(), model.getScore(), model.getTime());
-
-            Intent nextLevel = new Intent(context, GameOverScreen.class);
+            Intent nextLevel = new Intent(context, GameScreenLauncher.class);
             context.startActivity(nextLevel);
         }
         batch.end();

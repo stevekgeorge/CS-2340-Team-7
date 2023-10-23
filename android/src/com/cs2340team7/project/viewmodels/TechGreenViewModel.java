@@ -2,9 +2,11 @@ package com.cs2340team7.project.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PlayerSprite;
 
 public class TechGreenViewModel extends ViewModel {
     private GameDataModel gameData;
@@ -35,5 +37,15 @@ public class TechGreenViewModel extends ViewModel {
     }
     public void updatePosition(int newX, int newY) {
         player.updatePosition(newX, newY);
+    }
+
+    public void setPlayerSprite(Sprite sprite){
+        player.setPlayerSprite(sprite);
+    }
+    public PlayerSprite getPlayerSprite(){
+        return player.getSprite();
+    }
+    public Boolean exit(){
+        return player.exit();
     }
 }
