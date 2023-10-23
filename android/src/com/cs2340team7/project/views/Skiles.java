@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
+import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 public class Skiles extends ApplicationAdapter {
@@ -55,7 +56,9 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1000, 1500);
+        //camera.setToOrtho(false, 1024, 1024);
+        camera.setToOrtho(false, 1632, 1696);
+
         camera.update();
         map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage();
@@ -133,7 +136,8 @@ public class Skiles extends ApplicationAdapter {
         sprite = new Sprite(texture);
         spriteX = Gdx.graphics.getWidth() / 2 - texture.getWidth() / 2;
         spriteY = Gdx.graphics.getHeight() / 2 + texture.getHeight() / 2;
-        sprite.setSize(320, 320);
+        model.updatePosition((int) spriteX, (int) spriteY);
+        sprite.setSize(160, 160);
     }
 
     @Override
@@ -150,19 +154,33 @@ public class Skiles extends ApplicationAdapter {
         batch.begin();
         stage.draw();
 
-        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY, sprite.getWidth(),
-                sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
-            spriteX -= Gdx.graphics.getDeltaTime() * 1000;
+        batch.draw(sprite, spriteX, spriteY, spriteX, spriteY,
+                sprite.getWidth(), sprite.getHeight(),
+                sprite.getScaleX(), sprite.getScaleY(),
+                sprite.getRotation());
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
+            model.move(Player.Direction.LEFT);
+            spriteX = model.getX();
+            spriteY = model.getY();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
-            spriteX += Gdx.graphics.getDeltaTime() * 1000;
+
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
+            model.move(Player.Direction.RIGHT);
+            spriteX = model.getX();
+            spriteY = model.getY();
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
-            spriteY += Gdx.graphics.getDeltaTime() * 1000;
+            model.move(Player.Direction.UP);
+            spriteX = model.getX();
+            spriteY = model.getY();
         }
+
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
-            spriteY -= Gdx.graphics.getDeltaTime() * 1000;
+            model.move(Player.Direction.DOWN);
+            spriteX = model.getX();
+            spriteY = model.getY();
         }
 
         // Define the destination point's coordinates

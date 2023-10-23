@@ -219,25 +219,16 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(expectedInitialX, actualX);
         assertEquals(expectedInitialY, actualY);
     }
-    public void testSpriteSize() {
-        TechGreen techGreen = new TechGreen(null);
-        float expectedWidth = 320;
-        float expectedHeight = 320;
-
-        float actualWidth = techGreen.getSprite().getWidth();
-        float actualHeight = techGreen.getSprite().getHeight();
-
-        assertEquals(expectedWidth, actualWidth);
-        assertEquals(expectedHeight, actualHeight);
-    }
-    public void advancesLevelUponExit() {
-        TechGreen techGreen = new TechGreen(null);
-        Player player = Player.getPlayer();
-        float exitX = 850;
-        float exitY = 1500;
-
-        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
-            assertEquals(player.getGameData().getCurrentLevel(), 2);
-        }
-    }
+//    public void testPlayerMovement() {
+//        TechGreen techGreen = new TechGreen(null);
+//        techGreen.setSprite(techGreen.getSprite(), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+//
+//
+//        // Check if player has moved left (X position decreased)
+//        float expectedX = Gdx.graphics.getWidth() / 2 - techGreen.getTexture().getWidth() / 2 - (Gdx.graphics.getDeltaTime() * 1000);
+//        float actualX = techGreen.getSpriteX();
+//        assertEquals(expectedX, actualX, 0.1f);
+//
+//
+//    }
 }

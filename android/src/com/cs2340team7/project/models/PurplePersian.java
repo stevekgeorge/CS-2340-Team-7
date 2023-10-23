@@ -1,6 +1,5 @@
 package com.cs2340team7.project.models;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 
 public class PurplePersian implements MovementStrategy {
     private static int speed = 1;
@@ -15,25 +14,29 @@ public class PurplePersian implements MovementStrategy {
         player = newPlayer;
     }
 
+    PurplePersian(Player player) {
+        this.player = player;
+    }
+
     @Override
-    public void move() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+    public void move(Player.Direction direction) {
+        Gdx.app.log("MOVEMENT", "Gen Gabe move was called");
+        if (direction == Player.Direction.UP) {
             if (player.canMove(player.getX(), player.getY() + speed)) {
                 player.updatePosition(player.getX(), player.getY() + speed);
             }
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (direction == Player.Direction.DOWN) {
             if (player.canMove(player.getX(), player.getY() - speed)) {
                 player.updatePosition(player.getX(), player.getY() - speed);
             }
-        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if (player.canMove(player.getX() + speed, player.getY())) {
-                player.updatePosition(player.getX() + speed, player.getY());
-            }
-        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        } else if (direction == Player.Direction.LEFT) {
             if (player.canMove(player.getX() - speed, player.getY())) {
                 player.updatePosition(player.getX() - speed, player.getY());
+            }
+        } else if (direction == Player.Direction.RIGHT) {
+            if (player.canMove(player.getX() + speed, player.getY())) {
+                player.updatePosition(player.getX() + speed, player.getY());
             }
         }
     }
 }
-
