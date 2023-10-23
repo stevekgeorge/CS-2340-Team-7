@@ -231,8 +231,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //
 //
 //    }
-    @Test
-    public void testUpdateMap() {
+  public void testUpdateMap() {
         Player player = Player.getPlayer();
         GameDataModel model = player.getGameData();
         TiledMap mockMap = new TiledMap();
@@ -242,5 +241,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         player.setMap(mockMap);
 
         assertEquals(mockMap, model.getCurrentMap());
-    }
+  }
+  public void testAddSubscriber() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+
+        assertTrue(model.getMapSubscribers().contains(player));
+  }
 }
