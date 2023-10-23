@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
@@ -209,6 +210,8 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(8).getPlayerName(), "Stefanus");
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
+
+    @Test
     public void testPlayerInitialPositionTechGreen() {
         TechGreen techgreen = new TechGreen(null);
         float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
@@ -219,6 +222,28 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(expectedInitialX, actualX);
         assertEquals(expectedInitialY, actualY);
     }
+
+    @Test
+    public void testUpdateMap() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        TiledMap mockMap = new TiledMap();
+
+        assertEquals(null, model.getCurrentMap());
+
+        player.setMap(mockMap);
+
+        assertEquals(mockMap, model.getCurrentMap());
+    }
+
+    @Test
+    public void testAddSubscriber() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+
+        assertTrue(model.getMapSubscribers().contains(player));
+    }
+
 //    public void testPlayerMovement() {
 //        TechGreen techGreen = new TechGreen(null);
 //        techGreen.setSprite(techGreen.getSprite(), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
@@ -231,21 +256,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //
 //
 //    }
-  public void testUpdateMap() {
-        Player player = Player.getPlayer();
-        GameDataModel model = player.getGameData();
-        TiledMap mockMap = new TiledMap();
 
-        assertEqual(null, model.getCurrentMap());
 
-        player.setMap(mockMap);
-
-        assertEquals(mockMap, model.getCurrentMap());
-  }
-  public void testAddSubscriber() {
-        Player player = Player.getPlayer();
-        GameDataModel model = player.getGameData();
-
-        assertTrue(model.getMapSubscribers().contains(player));
-  }
 }
