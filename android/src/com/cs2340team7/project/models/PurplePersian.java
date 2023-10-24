@@ -13,6 +13,9 @@ public class PurplePersian implements MovementStrategy {
     public void setPlayer(Player newPlayer) {
         player = newPlayer;
     }
+    public int getSpeed(){ //testing only
+        return speed;
+    }
 
     PurplePersian(Player player) {
         this.player = player;

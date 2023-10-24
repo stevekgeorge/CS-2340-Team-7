@@ -1,6 +1,5 @@
 package com.cs2340team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -8,22 +7,20 @@ import static org.junit.Assert.*;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PurplePersian;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import com.cs2340team7.project.views.TechGreen;
-import com.badlogic.gdx.Input.Keys;
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.when;
 
@@ -273,6 +270,8 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
 
+        player.setMap(new TmxMapLoader().load("Klausmapp.tmx"));
+
         int yStart = player.getY();
         model.move(Player.Direction.DOWN);
         int yLater = player.getY();
@@ -285,6 +284,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     public void testDontMoveOffScreen(){
         TechGreenViewModel model = new TechGreenViewModel();
         Player player = Player.getPlayer();
+        player.setMap(new TmxMapLoader().load("Klausmapp.tmx"));
         Sprite sprite = new Sprite();
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
@@ -301,13 +301,12 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     }
 
     @Test
-    public void advancesLevelUponExit() {
+    public void testAdvancesLevelUponExit() {
         TechGreen techGreen = new TechGreen(null);
         TechGreenViewModel model = new TechGreenViewModel();
         Player player = Player.getPlayer();
-        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
-        Texture texture = new Texture(fileHandle);
-        Sprite sprite = new Sprite(texture);
+        player.setMap(new TmxMapLoader().load("Klausmapp.tmx"));
+        Sprite sprite = new Sprite();
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
 
@@ -319,6 +318,15 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         int newLevel = player.getGameData().getCurrentLevel();
 
         assertTrue(level != newLevel);
+
+    }
+    @Test
+    public void testMovementStrategyAssignedCorrect(){
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        model.setCharacter("Persian");
+        player.setMovementStrategy();
+        assertTrue(((PurplePersian)player.getMovementStrategy()).getSpeed() == 1);
 
     }
 }

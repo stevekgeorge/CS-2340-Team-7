@@ -55,6 +55,9 @@ public class Player extends ViewModel implements MapSubscriber {
             break;
         }
     }
+    public MovementStrategy getMovementStrategy(){ //testing purposes
+        return movementStrategy;
+    }
 
     public boolean getRunning() {
         return running;
@@ -121,12 +124,12 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
-        int heightConstant;
+        int heightConstant = 32;
         int widthConstant =  32;
-        if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0) {
-            heightConstant = (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()) * 32;
-        } else {
-            heightConstant =  32;
+        if (Gdx.graphics != null){
+            if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0) {
+                heightConstant = (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()) * 32;
+            }
         }
         if (isX) {
             return (int) pos / widthConstant;
@@ -141,9 +144,12 @@ public class Player extends ViewModel implements MapSubscriber {
     public boolean canMove(int newX, int newY) {
         this.x = getX();
         this.y = getY();
-        if (newY > Gdx.graphics.getHeight() - 100) {
-            return false;
+        if (Gdx.graphics != null){ //testing purposes
+            if (newY > Gdx.graphics.getHeight() - 100) {
+                return false;
+            }
         }
+
 
         //expects one and only one of new_x, new_y to be different from current x,y
         //requires that wall tiles have an "isSolid" property and that they are listed on layer 1
