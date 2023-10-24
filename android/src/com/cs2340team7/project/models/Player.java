@@ -106,7 +106,10 @@ public class Player extends ViewModel implements MapSubscriber {
     }
     public void updateMap(TiledMap map) {
         this.map = map;
+    }
 
+    public MovementStrategy getMovementStrategy() {
+        return movementStrategy;
     }
 
     public boolean exit() {

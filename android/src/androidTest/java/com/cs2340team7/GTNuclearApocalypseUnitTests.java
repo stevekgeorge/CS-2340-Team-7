@@ -26,8 +26,8 @@ import com.cs2340team7.project.views.TechGreen;
 import com.badlogic.gdx.Input.Keys;
 //import static org.mockito.Mockito.mock;
 //import static org.mockito.Mockito.when;
-
-
+import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
+import com.cs2340team7.project.models.PurplePersian;
 
 import junit.framework.TestCase;
 
@@ -217,17 +217,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
 
-//    @Test
-//    public void testPlayerInitialPositionTechGreen() {
-//        TechGreen techgreen = new TechGreen(null);
-//        float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
-//        float expectedInitialY = Gdx.graphics.getHeight() / 2 + techgreen.getTexture().getHeight() / 2;
-//
-//        float actualX = techgreen.getSpriteX();
-//        float actualY = techgreen.getSpriteY();
-//        assertEquals(expectedInitialX, actualX);
-//        assertEquals(expectedInitialY, actualY);
-//    }
 
     @Test
     public void testUpdateMap() {
@@ -250,18 +239,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertTrue(model.getMapSubscribers().contains(player));
     }
 
-//    public void testPlayerMovement() {
-//        TechGreen techGreen = new TechGreen(null);
-//        techGreen.setSprite(techGreen.getSprite(), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-//
-//
-//        // Check if player has moved left (X position decreased)
-//        float expectedX = Gdx.graphics.getWidth() / 2 - techGreen.getTexture().getWidth() / 2 - (Gdx.graphics.getDeltaTime() * 1000);
-//        float actualX = techGreen.getSpriteX();
-//        assertEquals(expectedX, actualX, 0.1f);
-//
-//
-//    }
     @Test
     public void testMoveUpOnPlayerMove(){
         Player player = Player.getPlayer();
@@ -334,5 +311,23 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         model.setPlayerSprite(sprite);
         player.updatePosition(1000, 1000);
         assertTrue(sprite.getX() == 1000 && sprite.getY() == 1000);
+    }
+
+    @Test
+    public void testCharacterChosen() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        PlayerSelectViewModel viewModel = new PlayerSelectViewModel();
+        viewModel.setSelectedPlayer("Persian");
+        assertEquals("Persian", model.getCharacter());
+    }
+
+    @Test
+    public void testChosenMovementStrategy() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        model.setCharacter("Persian");
+        player.setMovementStrategy();
+        assertTrue(player.getMovementStrategy() instanceof PurplePersian);
     }
 }
