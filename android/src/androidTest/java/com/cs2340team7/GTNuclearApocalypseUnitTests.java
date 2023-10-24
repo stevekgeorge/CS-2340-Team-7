@@ -321,4 +321,18 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertTrue(level != newLevel);
 
     }
+
+    @Test
+    public void testCheckSpriteCoordinates() {
+        TechGreen techGreen = new TechGreen(null);
+        TechGreenViewModel model = new TechGreenViewModel();
+        Player player = Player.getPlayer();
+        FileHandle fileHandle = Gdx.files.internal("swordmastersid.png");
+        Texture texture = new Texture(fileHandle);
+        Sprite sprite = new Sprite(texture);
+        sprite.setSize(300, 300);
+        model.setPlayerSprite(sprite);
+        player.updatePosition(1000, 1000);
+        assertTrue(sprite.getX() == 1000 && sprite.getY() == 1000);
+    }
 }
