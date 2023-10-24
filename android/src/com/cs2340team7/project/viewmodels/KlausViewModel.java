@@ -40,13 +40,13 @@ public class KlausViewModel extends ViewModel {
     public void updatePosition(int newX, int newY) {
         player.updatePosition(newX, newY);
     }
-    public void setPlayerSprite(Sprite sprite){
+    public void setPlayerSprite(Sprite sprite) {
         player.setPlayerSprite(sprite);
     }
-    public PlayerSprite getPlayerSprite(){
+    public PlayerSprite getPlayerSprite() {
         return player.getSprite();
     }
-    public Boolean exit(){
+    public Boolean exit() {
         return player.exit();
     }
 }

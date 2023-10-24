@@ -99,9 +99,13 @@ public class GameDataModel extends BaseObservable {
         this.character = character;
     }
 
-    public TiledMap getCurrentMap() { return currentMap; }
+    public TiledMap getCurrentMap() {
+        return currentMap;
+    }
 
-    public ArrayList<MapSubscriber> getMapSubscribers() { return mapSubscribers; }
+    public ArrayList<MapSubscriber> getMapSubscribers() {
+        return mapSubscribers;
+    }
 
     @Bindable
     public int getCurrentLevel() {

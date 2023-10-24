@@ -109,17 +109,11 @@ public class Player extends ViewModel implements MapSubscriber {
         this.map = map;
         Gdx.app.log("MOVEMENT", "map updated in player");
     }
-    //temp exit criteria
-//    public boolean exit(){
-//        System.out.printf("exit called, x is %d, map width is %d ", getX(), (int) map.getProperties().get("width"));
-//        if (convertCordToCell(getX(), true) >= (int) map.getProperties().get("width") -3 ) {
-//            return true;
-//        }
-//        return false;
-//    }
-    public boolean exit(){
-        System.out.printf("exit called, x is %d, map width is %d ", getX(), (int) map.getProperties().get("width"));
-        if (getX() > 900 ) {
+
+    public boolean exit() {
+        System.out.printf("exit called, x is %d, map width is %d ",
+                getX(), (int) map.getProperties().get("width"));
+        if (getX() > 900) {
             return true;
         }
         return false;
@@ -130,10 +124,9 @@ public class Player extends ViewModel implements MapSubscriber {
         //assumes all maps have cells that are 32 pixels wide
         int heightConstant;
         int widthConstant =  32;
-        if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0){
-            heightConstant = (Gdx.graphics.getHeight()/ Gdx.graphics.getWidth()) * 32;
-        }
-        else {
+        if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0) {
+            heightConstant = (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()) * 32;
+        } else {
             heightConstant =  32;
         }
         if (isX) {
@@ -148,10 +141,8 @@ public class Player extends ViewModel implements MapSubscriber {
     }
     public boolean canMove(int newX, int newY) {
         this.x = getX();
-        this.y =getY();
-        //dummy check to make sure cant go off screen, was having a problem on skiles only,think that
-        //its because its tiles are not quite right yet
-        if (newY > Gdx.graphics.getHeight() -100){
+        this.y = getY();
+        if (newY > Gdx.graphics.getHeight() - 100) {
             return false;
         }
 
@@ -228,7 +219,7 @@ public class Player extends ViewModel implements MapSubscriber {
     public PlayerSprite getSprite() {
         return playerSprite;
     }
-    public void  setPlayerSprite(Sprite sprite){
+    public void  setPlayerSprite(Sprite sprite) {
         this.playerSprite = new PlayerSprite(sprite, player);
     }
 }
