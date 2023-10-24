@@ -11,14 +11,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.input.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -61,6 +58,10 @@ public class TechGreen extends ApplicationAdapter {
     private PlayerSprite playerSprite;
     public TechGreen(Context context) {
         this.context = context;
+    }
+
+    public TextButton getDown() { //for testing purposes
+        return down;
     }
 
     @Override
@@ -160,7 +161,7 @@ public class TechGreen extends ApplicationAdapter {
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mapRenderer.setView(camera);
@@ -180,7 +181,7 @@ public class TechGreen extends ApplicationAdapter {
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
-            model.move(Player.Direction.RIGHT);;
+            model.move(Player.Direction.RIGHT);
         }
 
         if (Gdx.input.isKeyPressed(Keys.DPAD_UP) || up.isPressed()) {

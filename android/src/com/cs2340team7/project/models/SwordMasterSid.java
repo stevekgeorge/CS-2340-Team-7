@@ -19,7 +19,7 @@ public class SwordMasterSid implements MovementStrategy {
     }
     @Override
     public void move(Player.Direction direction) {
-        Gdx.app.log("MOVEMENT", "Gen Gabe move was called");
+
         if (direction == Player.Direction.UP) {
             if (player.canMove(player.getX(), player.getY() + speed)) {
                 player.updatePosition(player.getX(), player.getY() + speed);
