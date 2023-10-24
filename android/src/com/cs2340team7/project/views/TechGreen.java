@@ -60,6 +60,10 @@ public class TechGreen extends ApplicationAdapter {
         this.context = context;
     }
 
+    public TextButton getDown() { //for testing purposes
+        return down;
+    }
+
     @Override
     public void create() {
         model = new TechGreenViewModel();
