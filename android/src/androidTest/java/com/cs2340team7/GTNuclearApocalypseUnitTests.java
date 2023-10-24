@@ -8,14 +8,20 @@ import static org.junit.Assert.*;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import com.cs2340team7.project.views.TechGreen;
 import com.badlogic.gdx.Input.Keys;
 //import static org.mockito.Mockito.mock;
@@ -256,17 +262,63 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //
 //
 //    }
+    @Test
+    public void testMoveUpOnPlayerMove(){
+        Player player = Player.getPlayer();
+        TechGreenViewModel model = new TechGreenViewModel();
+        player.updatePosition(10,10);
+        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+        Texture texture = new Texture(fileHandle);
+        Sprite sprite = new Sprite(texture);
+        sprite.setSize(160, 160);
+        model.setPlayerSprite(sprite);
+
+        int yStart = player.getY();
+        model.move(Player.Direction.DOWN);
+        int yLater = player.getY();
+        assertTrue (yStart > yLater);
 
 
-//    @Test
-//    public void advancesLevelUponExit() {
-//        TechGreen techGreen = new TechGreen(null);
-//        Player player = Player.getPlayer();
-//        float exitX = 850;
-//        float exitY = 1500;
-//
-//        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
-//            assertEquals(player.getGameData().getCurrentLevel(), 2);
-//        }
-//    }
+
+    }
+    @Test
+    public void testDontMoveOffScreen(){
+        TechGreenViewModel model = new TechGreenViewModel();
+        Player player = Player.getPlayer();
+        Sprite sprite = new Sprite();
+        sprite.setSize(160, 160);
+        model.setPlayerSprite(sprite);
+
+        player.updatePosition(0,0);
+        int yStart = player.getY();
+        model.move(Player.Direction.DOWN);
+        int yLater = player.getY();
+
+        assertTrue( yStart == yLater);
+
+
+
+    }
+
+    @Test
+    public void advancesLevelUponExit() {
+        TechGreen techGreen = new TechGreen(null);
+        TechGreenViewModel model = new TechGreenViewModel();
+        Player player = Player.getPlayer();
+        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+        Texture texture = new Texture(fileHandle);
+        Sprite sprite = new Sprite(texture);
+        sprite.setSize(160, 160);
+        model.setPlayerSprite(sprite);
+
+        int level = player.getGameData().getCurrentLevel();
+        player.updatePosition(1000, 1000);
+        if(player.exit()){
+            model.advanceLevel();
+        }
+        int newLevel = player.getGameData().getCurrentLevel();
+
+        assertTrue(level != newLevel);
+
+    }
 }

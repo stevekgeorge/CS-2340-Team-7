@@ -96,7 +96,6 @@ public class Player extends ViewModel implements MapSubscriber {
     public void updatePosition(int newX, int newY) {
         playerSprite.setX(newX);
         playerSprite.setY(newY);
-        Gdx.app.log("MOVEMENT", "x and y were updated");
 
     }
     public int getX() {
@@ -107,7 +106,7 @@ public class Player extends ViewModel implements MapSubscriber {
     }
     public void updateMap(TiledMap map) {
         this.map = map;
-        Gdx.app.log("MOVEMENT", "map updated in player");
+
     }
     //temp exit criteria
 //    public boolean exit(){
