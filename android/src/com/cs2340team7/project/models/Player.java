@@ -55,6 +55,9 @@ public class Player extends ViewModel implements MapSubscriber {
             break;
         }
     }
+    public MovementStrategy getMovementStrategy() {
+        return movementStrategy;
+    }
 
     public boolean getRunning() {
         return running;

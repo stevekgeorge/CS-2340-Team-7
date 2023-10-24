@@ -7,6 +7,11 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+//import androidx.test.espresso.Espresso;
+//import androidx.test.espresso.matcher.ViewMatchers;
+//import androidx.test.espresso.action.ViewActions;
+//import androidx.test.rule.ActivityTestRule;
+
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,15 +19,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.PlayerSprite;
+import com.cs2340team7.project.models.PurplePersian;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
+import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
 import com.cs2340team7.project.views.TechGreen;
 import com.badlogic.gdx.Input.Keys;
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.when;
-
-
-
 import junit.framework.TestCase;
 
 import java.util.Calendar;
@@ -211,31 +214,17 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(board.getEntries().get(9).getPlayerName(), "Stephan");
     }
 
-//    @Test
-//    public void testPlayerInitialPositionTechGreen() {
-//        TechGreen techgreen = new TechGreen(null);
-//        float expectedInitialX = Gdx.graphics.getWidth() / 2 - techgreen.getTexture().getWidth() / 2;
-//        float expectedInitialY = Gdx.graphics.getHeight() / 2 + techgreen.getTexture().getHeight() / 2;
-//
-//        float actualX = techgreen.getSpriteX();
-//        float actualY = techgreen.getSpriteY();
-//        assertEquals(expectedInitialX, actualX);
-//        assertEquals(expectedInitialY, actualY);
-//    }
-
     @Test
     public void testUpdateMap() {
         Player player = Player.getPlayer();
         GameDataModel model = player.getGameData();
         TiledMap mockMap = new TiledMap();
-
         assertEquals(null, model.getCurrentMap());
 
         player.setMap(mockMap);
 
         assertEquals(mockMap, model.getCurrentMap());
     }
-
     @Test
     public void testAddSubscriber() {
         Player player = Player.getPlayer();
@@ -243,30 +232,35 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
         assertTrue(model.getMapSubscribers().contains(player));
     }
-
-//    public void testPlayerMovement() {
-//        TechGreen techGreen = new TechGreen(null);
-//        techGreen.setSprite(techGreen.getSprite(), Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-//
-//
-//        // Check if player has moved left (X position decreased)
-//        float expectedX = Gdx.graphics.getWidth() / 2 - techGreen.getTexture().getWidth() / 2 - (Gdx.graphics.getDeltaTime() * 1000);
-//        float actualX = techGreen.getSpriteX();
-//        assertEquals(expectedX, actualX, 0.1f);
-//
-//
-//    }
-
-
-//    @Test
-//    public void advancesLevelUponExit() {
-//        TechGreen techGreen = new TechGreen(null);
-//        Player player = Player.getPlayer();
-//        float exitX = 850;
-//        float exitY = 1500;
-//
-//        if (techGreen.getSpriteX() >= exitX && techGreen.getSpriteY() >= exitY) {
-//            assertEquals(player.getGameData().getCurrentLevel(), 2);
-//        }
-//    }
+    @Test
+    public void testCharacterChosen() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        PlayerSelectViewModel viewModel = new PlayerSelectViewModel();
+        viewModel.setSelectedPlayer("Persian");
+        assertEquals("Persian", model.getCharacter());
+    }
+    @Test
+    public void testChosenMovementStrategy() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        model.setCharacter("Persian");
+        player.setMovementStrategy();
+        assertTrue(player.getMovementStrategy() instanceof PurplePersian);
+    }
+    @Test
+    public void levelUpdatesUponExit() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        int currentLevel = model.getCurrentLevel();
+        player.updatePosition(950, 390);
+        assertEquals(950, player.getX());
+        assertTrue(player.exit());
+        assertNotEquals(model, model.getCurrentLevel());
+    }
+    @Test
+    public void doesntMoveOffScreen() {
+        Player player = Player.getPlayer();
+        assertFalse(player.canMove(Gdx.graphics.getWidth() + 100, Gdx.graphics.getHeight() + 100));
+    }
 }
