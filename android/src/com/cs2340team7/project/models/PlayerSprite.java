@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PlayerSprite extends Sprite {
     private Player player;
-    PlayerSprite(Sprite sprite,Player player){
+    public PlayerSprite(Sprite sprite, Player player){
         super(sprite);
         this.player = player;
     }

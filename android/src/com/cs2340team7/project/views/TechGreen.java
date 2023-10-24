@@ -153,8 +153,6 @@ public class TechGreen extends ApplicationAdapter {
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
-;
-
     }
     @Override
     public void render() {
