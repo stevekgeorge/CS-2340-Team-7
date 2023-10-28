@@ -264,9 +264,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         Player player = Player.getPlayer();
         TechGreenViewModel model = new TechGreenViewModel();
         player.updatePosition(10,10);
-        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
-        Texture texture = new Texture(fileHandle);
-        Sprite sprite = new Sprite(texture);
+        Sprite sprite = new Sprite();
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
 
@@ -328,5 +326,12 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         player.setMovementStrategy();
         assertTrue(((PurplePersian)player.getMovementStrategy()).getSpeed() == 1);
 
+    }
+    @Test public void testExitTrue(){
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        Sprite sprite = new Sprite();
+        player.setPlayerSprite(sprite);
+        player.updatePosition(1000, 1000);
     }
 }
