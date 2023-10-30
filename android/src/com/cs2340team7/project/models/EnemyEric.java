@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public abstract class Enemy implements PlayerPositionSubscriber {
+public abstract class EnemyEric implements PlayerPositionSubscriber {
     public static enum EnemyType {
         LazySenior
     }
