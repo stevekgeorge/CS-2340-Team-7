@@ -23,6 +23,7 @@ public class GameDataModel extends BaseObservable {
 
     private ArrayList<MapSubscriber> mapSubscribers = new ArrayList<MapSubscriber>();
 
+
     private static GameDataModel data;
 
     private GameDataModel() {
@@ -49,6 +50,8 @@ public class GameDataModel extends BaseObservable {
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
+
+
     }
 
     @Bindable
@@ -134,6 +137,7 @@ public class GameDataModel extends BaseObservable {
             subscriber.updateMap(this.currentMap);
         }
     }
+
 
     public void clear() {
         playerName = "";

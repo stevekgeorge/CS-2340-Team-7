@@ -22,10 +22,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import com.cs2340team7.project.models.Enemy;
+import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
@@ -52,6 +58,8 @@ public class Klaus extends ApplicationAdapter {
     private PlayerSprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    Texture enemyTexture;
 
 
     public Klaus(Context context) {
@@ -61,16 +69,20 @@ public class Klaus extends ApplicationAdapter {
     @Override
     public void create() {
         model = new KlausViewModel();
+        map = new TmxMapLoader().load("Klausmapp.tmx");
 
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1024, 1024);
         camera.update();
-        map = new TmxMapLoader().load("Klausmapp.tmx");
+        mapRenderer.setView(camera);
+
+
         stage = new Stage();
 
         //making the batch the map renders batch
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
-        batch = mapRenderer.getBatch();
+
+
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
@@ -143,6 +155,9 @@ public class Klaus extends ApplicationAdapter {
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
+        enemyTexture = new Texture(Gdx.files.internal("thepurplepersian.png")) ;
+
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
     }
     @Override
     public void render() {
@@ -150,16 +165,24 @@ public class Klaus extends ApplicationAdapter {
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
+        //clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+        //update camera, set view to camera
         camera.update();
+        mapRenderer.setView(camera);
 
+        //render map
+        mapRenderer.render();
+
+        batch = mapRenderer.getBatch();
         batch.begin();
-        playerSprite.draw(batch);
+        for (Enemy enemy: enemies){
+            batch.draw(enemyTexture,600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
+        }
 
+        playerSprite.draw(batch);
         stage.draw();
         batch.end();
 

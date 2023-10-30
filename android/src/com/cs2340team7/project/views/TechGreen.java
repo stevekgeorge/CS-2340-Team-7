@@ -21,10 +21,15 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.Enemy;
+import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
+import com.cs2340team7.project.models.LazySenior;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
+
+import java.util.ArrayList;
 
 public class TechGreen extends ApplicationAdapter {
     private Context context;
@@ -48,6 +53,7 @@ public class TechGreen extends ApplicationAdapter {
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public enum SpriteType {
         PERSIAN,
@@ -81,6 +87,7 @@ public class TechGreen extends ApplicationAdapter {
 
         //making the batch the map renders batch
         mapRenderer = new OrthogonalTiledMapRenderer(map);
+        mapRenderer.setView(camera);
         batch = mapRenderer.getBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
@@ -154,6 +161,11 @@ public class TechGreen extends ApplicationAdapter {
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
+
+        //using the factory
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
+
+
     }
     @Override
     public void render() {
@@ -170,6 +182,9 @@ public class TechGreen extends ApplicationAdapter {
 
         batch.begin();
         playerSprite.draw(batch);
+        for (Enemy enemy: enemies){
+           batch.draw(enemy.getTexture(),600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
+        }
 
         stage.draw();
         batch.end();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,12 +19,16 @@ public class Player extends ViewModel implements MapSubscriber {
     private int x;
     private int y;
 
+    private int size_x;
+    private int size_y;
+
     private TiledMap map;
     private MovementStrategy movementStrategy;
 
     private static Player player;
 
     private PlayerSprite playerSprite;
+    private ArrayList<PlayerPositionSubscriber> playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
 
 
     protected Player() {
@@ -32,6 +37,8 @@ public class Player extends ViewModel implements MapSubscriber {
         running = false;
         //when the player is created add it as a map subscriber
         gameData.addMapSubscribers(this);
+        size_x = 30;
+        size_y = 30;
     }
 
     public GameDataModel getGameData() {
@@ -94,8 +101,12 @@ public class Player extends ViewModel implements MapSubscriber {
         gameData.setCurrentScore(20);
     }
     public void updatePosition(int newX, int newY) {
+        Gdx.app.log("MOVEMENT", "update pos called");
         playerSprite.setX(newX);
         playerSprite.setY(newY);
+        for (PlayerPositionSubscriber subscriber: playerPositionSubscribers) {
+            subscriber.updatePlayerPosition(newX, newY, size_x, size_y);
+        }
 
     }
     public int getX() {
@@ -106,7 +117,14 @@ public class Player extends ViewModel implements MapSubscriber {
     }
     public void updateMap(TiledMap map) {
         this.map = map;
+
     }
+
+
+    public void addPlayerPositionSubscribers(PlayerPositionSubscriber subscriber) {
+        this.playerPositionSubscribers.add(subscriber);
+    }
+
 
     public MovementStrategy getMovementStrategy() {
         return movementStrategy;
