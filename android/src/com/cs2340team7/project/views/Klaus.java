@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.PlayerSprite;
@@ -59,7 +60,9 @@ public class Klaus extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    Texture enemyTexture;
+    private EnemyFactory enemyFactory = new EnemyFactory();
+    private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
+    private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.TA);
 
 
     public Klaus(Context context) {
@@ -155,9 +158,10 @@ public class Klaus extends ApplicationAdapter {
         sprite.setSize(160, 160);
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
-        enemyTexture = new Texture(Gdx.files.internal("thepurplepersian.png")) ;
 
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
+        enemies.add(enemy1);
+        enemies.add(enemy2);
+
     }
     @Override
     public void render() {
@@ -179,7 +183,7 @@ public class Klaus extends ApplicationAdapter {
         batch = mapRenderer.getBatch();
         batch.begin();
         for (Enemy enemy: enemies){
-            batch.draw(enemyTexture,600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
+            batch.draw(enemy.getTexture(),600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
         }
 
         playerSprite.draw(batch);

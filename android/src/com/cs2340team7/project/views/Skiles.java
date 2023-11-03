@@ -20,11 +20,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.Enemy;
+import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
+
+import java.util.ArrayList;
 
 public class Skiles extends ApplicationAdapter {
     private Context context;
@@ -49,6 +54,10 @@ public class Skiles extends ApplicationAdapter {
     private PlayerSprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private EnemyFactory enemyFactory = new EnemyFactory();
+    private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
+    private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.BUZZ);
 
     public Skiles(Context context) {
         this.context = context;
@@ -147,6 +156,9 @@ public class Skiles extends ApplicationAdapter {
         playerSprite.setX(100);
         playerSprite.setY(1000);
 
+        enemies.add(enemy1);
+        enemies.add(enemy2);
+
     }
     @Override
     public void render() {
@@ -195,6 +207,9 @@ public class Skiles extends ApplicationAdapter {
 
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
+        }
+        for (Enemy enemy: enemies){
+            batch.draw(enemy.getTexture(),600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
         }
 
     }

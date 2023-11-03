@@ -1,26 +1,27 @@
 package com.cs2340team7.project.models;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-public class SeniorEnemy extends Enemy implements MapSubscriber, MovementStrategy {
+import java.util.Map;
+
+public class SeniorEnemy extends Enemy implements MapSubscriber { //Slowest enemy movement.
     private static final Texture SENIOR_TEXTURE = new Texture("SeniorEnemy.png");
     private static final EnemyType TYPE = EnemyType.SENIOR;
+    private int x, y;
+    private static final int SPEED = 5;
+
     private TiledMap map;
     private GameDataModel gameData;
-    public SeniorEnemy(int x, int y, TiledMap map) {
+    public SeniorEnemy(int x, int y) {
         super(x, y);
         this.map = map;
-        gameData.addMapSubscribers(this);
     }
 
     @Override
     public void updateMap(TiledMap map) {
-
-    }
-
-    @Override
-    public void move(Player.Direction direction) {
-
+        this.map = map;
     }
 }

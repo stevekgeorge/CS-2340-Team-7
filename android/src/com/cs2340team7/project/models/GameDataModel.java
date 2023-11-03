@@ -25,7 +25,7 @@ public class GameDataModel extends BaseObservable {
 
 
     private static GameDataModel data;
-
+    private Enemy enemy;
     private GameDataModel() {
         clear();
     }

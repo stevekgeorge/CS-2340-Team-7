@@ -23,8 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
-import com.cs2340team7.project.models.LazySenior;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -55,6 +55,9 @@ public class TechGreen extends ApplicationAdapter {
     private float speed = 10.0f;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
+    private EnemyFactory enemyFactory = new EnemyFactory();
+    private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.BUZZ);
+    private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.FRESHMEN);
     public enum SpriteType {
         PERSIAN,
         GABE,
@@ -162,10 +165,8 @@ public class TechGreen extends ApplicationAdapter {
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
 
-        //using the factory
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
-
-
+        enemies.add(enemy1);
+        enemies.add(enemy2);
     }
     @Override
     public void render() {
