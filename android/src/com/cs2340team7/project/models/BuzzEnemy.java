@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-public class BuzzEnemy extends Enemy implements MapSubscriber { //Fastest Enemy type.
+public class BuzzEnemy extends Enemy { //Fastest Enemy type.
     private static final Texture BUZZ_TEXTURE = new Texture("BuzzEnemy.png");
     private static final EnemyType TYPE = EnemyType.BUZZ;
     private static final int SPEED = 15;
@@ -16,8 +16,7 @@ public class BuzzEnemy extends Enemy implements MapSubscriber { //Fastest Enemy 
     public BuzzEnemy(int x, int y) {
         super(x, y);
     }
-    @Override
-    public void updateMap(TiledMap map) {
-        this.map = map;
+    public Texture getTexture() {
+        return BUZZ_TEXTURE;
     }
 }

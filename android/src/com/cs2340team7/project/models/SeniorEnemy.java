@@ -7,7 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 import java.util.Map;
 
-public class SeniorEnemy extends Enemy implements MapSubscriber { //Slowest enemy movement.
+public class SeniorEnemy extends Enemy { //Slowest enemy movement.
     private static final Texture SENIOR_TEXTURE = new Texture("SeniorEnemy.png");
     private static final EnemyType TYPE = EnemyType.SENIOR;
     private int x, y;
@@ -17,11 +17,8 @@ public class SeniorEnemy extends Enemy implements MapSubscriber { //Slowest enem
     private GameDataModel gameData;
     public SeniorEnemy(int x, int y) {
         super(x, y);
-        this.map = map;
     }
-
-    @Override
-    public void updateMap(TiledMap map) {
-        this.map = map;
+    public Texture getTexture() {
+        return SENIOR_TEXTURE;
     }
 }
