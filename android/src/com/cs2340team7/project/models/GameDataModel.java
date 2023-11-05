@@ -138,6 +138,10 @@ public class GameDataModel extends BaseObservable {
         }
     }
 
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
 
     public void clear() {
         playerName = "";

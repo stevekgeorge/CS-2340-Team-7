@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
@@ -329,5 +330,29 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         model.setCharacter("Persian");
         player.setMovementStrategy();
         assertTrue(player.getMovementStrategy() instanceof PurplePersian);
+    }
+
+    @Test
+    public void testEnemyHealth() { //NOT FUNCTIONAL YET...
+        Enemy enemy = new Enemy(0, 0);
+        GameDataModel model = enemy.getGameData();
+        model.setDifficulty("Hard");
+        assertEquals(enemy.getHealth(), 100);
+        model.setDifficulty("Medium");
+        assertEquals(enemy.getHealth(), 50);
+        model.setDifficulty("Easy");
+        assertEquals(enemy.getHealth(), 25);
+    }
+
+    @Test
+    public void testEnemyDamage() { //NOT FUNCTIONAL YET...
+        Enemy enemy = new Enemy(0, 0);
+        GameDataModel model = enemy.getGameData();
+        model.setDifficulty("Hard");
+        assertEquals(model.getEnemy().getDamage(), 25);
+        model.setDifficulty("Medium");
+        assertEquals(model.getEnemy().getDamage(), 15);
+        model.setDifficulty("Easy");
+        assertEquals(model.getEnemy().getDamage(), 10);
     }
 }

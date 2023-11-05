@@ -17,6 +17,7 @@ public class Enemy {
     public Enemy(int x, int y) {
         this.x = x;
         this.y = y;
+        this.model = GameDataModel.getData();
         if (model.getDifficulty() == "Easy") {
             this.health = 25;
         } else if (model.getDifficulty() == "Medium") {
@@ -31,12 +32,20 @@ public class Enemy {
         } else {
             this.damage = 25;
         }
-        this.model = GameDataModel.getData();
     }
 
     public int getX(){ return x;}
     public int getY(){return y;}
     public Texture getTexture() {
         return texture;
+    }
+    public int getHealth() {
+        return health;
+    }
+    public int getDamage() {
+        return damage;
+    }
+    public GameDataModel getGameData() {
+        return model;
     }
 }
