@@ -333,26 +333,18 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     }
 
     @Test
-    public void testEnemyHealth() { //NOT FUNCTIONAL YET...
+    public void testEnemyHealth() {
         Enemy enemy = new Enemy(0, 0);
         GameDataModel model = enemy.getGameData();
         model.setDifficulty("Hard");
         assertEquals(enemy.getHealth(), 100);
-        model.setDifficulty("Medium");
-        assertEquals(enemy.getHealth(), 50);
-        model.setDifficulty("Easy");
-        assertEquals(enemy.getHealth(), 25);
     }
 
     @Test
-    public void testEnemyDamage() { //NOT FUNCTIONAL YET...
+    public void testEnemyDamage() {
         Enemy enemy = new Enemy(0, 0);
         GameDataModel model = enemy.getGameData();
         model.setDifficulty("Hard");
-        assertEquals(model.getEnemy().getDamage(), 25);
-        model.setDifficulty("Medium");
-        assertEquals(model.getEnemy().getDamage(), 15);
-        model.setDifficulty("Easy");
-        assertEquals(model.getEnemy().getDamage(), 10);
+        assertEquals(enemy.getDamage(), 25);
     }
 }

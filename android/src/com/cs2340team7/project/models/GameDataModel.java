@@ -26,6 +26,8 @@ public class GameDataModel extends BaseObservable {
 
     private static GameDataModel data;
     private Enemy enemy;
+    private int enemyHealth;
+    private int enemyDamage;
     private GameDataModel() {
         clear();
     }
@@ -140,6 +142,12 @@ public class GameDataModel extends BaseObservable {
 
     public Enemy getEnemy() {
         return enemy;
+    }
+    public void setEnemyHealth(int health) {
+        enemyHealth = health;
+    }
+    public void setEnemyDamage(int damage) {
+        enemyDamage = damage;
     }
 
 
