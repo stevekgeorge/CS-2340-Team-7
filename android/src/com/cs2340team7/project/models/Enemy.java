@@ -20,23 +20,23 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         this.model = GameDataModel.getData();
         if (model.getDifficulty() == "Easy") {
             this.health = 25;
-            model.setEnemyHealth(25);
+            //model.setEnemyHealth(25);
         } else if (model.getDifficulty() == "Medium") {
             this.health = 50;
-            model.setEnemyHealth(50);
+            //model.setEnemyHealth(50);
         } else {
             this.health = 100;
-            model.setEnemyHealth(100);
+            //model.setEnemyHealth(100);
         }
         if (model.getDifficulty() == "Easy") {
             this.damage = 10;
-            model.setEnemyDamage(10);
+            //model.setEnemyDamage(10);
         } else if (model.getDifficulty() == "Medium") {
             this.damage = 15;
-            model.setEnemyDamage(15);
+            //model.setEnemyDamage(15);
         } else {
             this.damage = 25;
-            model.setEnemyDamage(25);
+            //model.setEnemyDamage(25);
         }
 
     }

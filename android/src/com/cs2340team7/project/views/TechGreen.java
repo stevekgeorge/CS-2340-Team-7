@@ -61,7 +61,6 @@ public class TechGreen extends ApplicationAdapter {
 
     private Sprite playerSprite;
     private Viewport fittedviewport;
-
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -134,7 +133,7 @@ public class TechGreen extends ApplicationAdapter {
 
 
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.TA));
         enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
 
 

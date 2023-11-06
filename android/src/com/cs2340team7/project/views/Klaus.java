@@ -132,7 +132,7 @@ public class Klaus extends ApplicationAdapter {
 
         //using the factory
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
-        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.FRESHMEN));
 
 
     }

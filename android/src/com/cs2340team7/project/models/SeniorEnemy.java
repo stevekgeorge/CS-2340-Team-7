@@ -5,20 +5,20 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class SeniorEnemy extends Enemy{
-    public SeniorEnemy(int pos_x, int pos_y){
+public class SeniorEnemy extends Enemy {
+    public SeniorEnemy(int x, int y){
         super();
-        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+        FileHandle fileHandle = Gdx.files.internal("seniorenemy.png");
         Texture texture = new Texture(fileHandle);
         this.size_x = 160;
         this.size_y =160;
         this.sprite = new Sprite(texture);
-        this.sprite.setX(pos_x);
-        this.sprite.setY(pos_y);
+        this.sprite.setX(x);
+        this.sprite.setY(y);
         this.sprite.setSize(this.size_x, this.size_y);
     }
     @Override
-    public void move(){
-        //LazySeniors dont move
+    public void move() { //UpdatePlayer loop for the method for the enemy movements
+
     }
 }
