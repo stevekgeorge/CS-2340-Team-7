@@ -55,9 +55,9 @@ public class Skiles extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private EnemyFactory enemyFactory = new EnemyFactory();
-    private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
-    private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.BUZZ);
+    //private EnemyFactory enemyFactory = new EnemyFactory();
+    //private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
+    //private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.BUZZ);
 
     public Skiles(Context context) {
         this.context = context;
@@ -156,8 +156,8 @@ public class Skiles extends ApplicationAdapter {
         playerSprite.setX(100);
         playerSprite.setY(1000);
 
-        enemies.add(enemy1);
-        enemies.add(enemy2);
+        //enemies.add(enemy1);
+        //enemies.add(enemy2);
 
     }
     @Override

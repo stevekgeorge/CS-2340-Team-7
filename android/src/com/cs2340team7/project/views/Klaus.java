@@ -60,9 +60,9 @@ public class Klaus extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private EnemyFactory enemyFactory = new EnemyFactory();
-    private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
-    private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.TA);
+    //private EnemyFactory enemyFactory = new EnemyFactory();
+    //private Enemy enemy1 = enemyFactory.generateEnemy(600, 600, EnemyType.SENIOR);
+    //private Enemy enemy2 = enemyFactory.generateEnemy(700, 700, EnemyType.TA);
 
 
     public Klaus(Context context) {
@@ -159,8 +159,8 @@ public class Klaus extends ApplicationAdapter {
         model.setPlayerSprite(sprite);
         playerSprite = model.getPlayerSprite();
 
-        enemies.add(enemy1);
-        enemies.add(enemy2);
+        //enemies.add(enemy1);
+        //enemies.add(enemy2);
 
     }
     @Override
