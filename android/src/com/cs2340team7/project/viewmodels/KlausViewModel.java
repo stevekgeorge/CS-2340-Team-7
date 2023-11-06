@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.PlayerSprite;
 
 public class KlausViewModel extends ViewModel {
     private GameDataModel gameData;
@@ -43,7 +42,7 @@ public class KlausViewModel extends ViewModel {
     public void setPlayerSprite(Sprite sprite) {
         player.setPlayerSprite(sprite);
     }
-    public PlayerSprite getPlayerSprite() {
+    public Sprite getPlayerSprite() {
         return player.getSprite();
     }
     public Boolean exit() {

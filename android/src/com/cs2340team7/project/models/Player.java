@@ -3,9 +3,12 @@ package com.cs2340team7.project.models;
 import androidx.lifecycle.ViewModel;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.cs2340team7.project.views.TechGreen;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -27,7 +30,7 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private static Player player;
 
-    private PlayerSprite playerSprite;
+    private Sprite playerSprite;
     private ArrayList<PlayerPositionSubscriber> playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
 
 
@@ -105,7 +108,7 @@ public class Player extends ViewModel implements MapSubscriber {
         playerSprite.setX(newX);
         playerSprite.setY(newY);
         for (PlayerPositionSubscriber subscriber: playerPositionSubscribers) {
-            subscriber.updatePlayerPosition(newX, newY, size_x, size_y);
+            subscriber.updatePlayerPosition(playerSprite.getBoundingRectangle());
         }
 
     }
@@ -133,7 +136,7 @@ public class Player extends ViewModel implements MapSubscriber {
     public boolean exit() {
         System.out.printf("exit called, x is %d, map width is %d ",
                 getX(), (int) map.getProperties().get("width"));
-        if (getX() > 900) {
+        if (getX() > 850) {
             return true;
         }
         return false;
@@ -142,13 +145,8 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
-        int heightConstant;
+        int heightConstant =32 ;
         int widthConstant =  32;
-        if (Gdx.graphics.getHeight() != 0 && Gdx.graphics.getWidth() != 0) {
-            heightConstant = (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()) * 32;
-        } else {
-            heightConstant =  32;
-        }
         if (isX) {
             return (int) pos / widthConstant;
         } else {
@@ -175,7 +173,7 @@ public class Player extends ViewModel implements MapSubscriber {
         if (this.x == newX) {
             if (this.y <= newY) {
                 minNum = convertCordToCell(this.y, false);
-                maxNum = convertCordToCell(newY, false);
+                maxNum = convertCordToCell(newY + 80, false); //const for width of char
             } else {
                 maxNum = convertCordToCell(this.y, false);
                 minNum = convertCordToCell(newY, false);
@@ -200,7 +198,7 @@ public class Player extends ViewModel implements MapSubscriber {
         } else {
             if (this.x <= newX) {
                 minNum = convertCordToCell(this.x, true);
-                maxNum = convertCordToCell(newX + 40, true); //const for width of char
+                maxNum = convertCordToCell(newX + 80, true); //const for width of char
             } else {
                 maxNum = convertCordToCell(this.x, true);
                 minNum = convertCordToCell(newX, true);
@@ -236,11 +234,33 @@ public class Player extends ViewModel implements MapSubscriber {
         this.map = map;
     }
 
-    public PlayerSprite getSprite() {
+    public Sprite getSprite() {
+
+            String character = gameData.getCharacter();
+            String filePath = null;
+            switch (character) {
+                case "Persian" :
+                    filePath = "thepurplepersian.png";
+                    break;
+                case "Gabe" :
+                    filePath = "generalgabe.png";
+                    break;
+                case "Sid" :
+                    filePath = "swordmastersid.png";
+                    break;
+                default:
+                    filePath = "swordmastersid.png";
+                    break;
+            }
+            FileHandle fileHandle = Gdx.files.internal(filePath);
+            Texture texture = new Texture(fileHandle);
+            Sprite sprite = new Sprite(texture);
+            sprite.setSize(160,160);
+            playerSprite = sprite;
         return playerSprite;
     }
     public void  setPlayerSprite(Sprite sprite) {
-        this.playerSprite = new PlayerSprite(sprite, player);
+        this.playerSprite = sprite;
     }
 }
 

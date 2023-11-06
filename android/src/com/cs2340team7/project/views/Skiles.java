@@ -14,24 +14,31 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.cs2340team7.project.models.Enemy;
+import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.PlayerSprite;
+import com.cs2340team7.project.viewmodels.KlausViewModel;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
+
+import java.util.ArrayList;
 
 public class Skiles extends ApplicationAdapter {
     private Context context;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TextButton nextButton;
+
     private SkilesViewModel model;
     private Label score;
     private Sprite sprite;
@@ -42,13 +49,14 @@ public class Skiles extends ApplicationAdapter {
     private TextButton right;
     private BitmapFont font;
     private GameDataModel dataModel;
-    private TechGreen.SpriteType chosenSprite;
-    private float spriteX;
-    private float spriteY;
+
     private float speed = 10.0f;
-    private PlayerSprite playerSprite;
+    private Sprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
+    private Viewport fittedviewport;
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
 
     public Skiles(Context context) {
         this.context = context;
@@ -59,21 +67,17 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        //camera.setToOrtho(false, 1024, 1024);
-        camera.setToOrtho(false, 1632, 1696);
-
-        camera.update();
+        fittedviewport = new FitViewport(51*32,53*32, camera);
         map = new TmxMapLoader().load("Skiles.tmx");
-        stage = new Stage();
-
+        stage = new Stage(fittedviewport);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-
-        //making the batch the map renders batch
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
-        batch = mapRenderer.getBatch();
+        batch = new SpriteBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+
+        font = new BitmapFont();
+        font.getData().setScale(5);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
@@ -117,40 +121,20 @@ public class Skiles extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(stage);
 
-        String character = dataModel.getData().getCharacter();
-        String filePath = null;
-        switch (character) {
-        case "Persian" :
-            filePath = "thepurplepersian.png";
-            chosenSprite = TechGreen.SpriteType.PERSIAN;
-            break;
-        case "Gabe" :
-            filePath = "generalgabe.png";
-            chosenSprite = TechGreen.SpriteType.GABE;
-            break;
-        case "Sid" :
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        default:
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        }
-        FileHandle fileHandle = Gdx.files.internal(filePath);
-        texture = new Texture(fileHandle);
-        sprite = new Sprite(texture);
-        sprite.setSize(160, 160);
-        model.setPlayerSprite(sprite);
+
         playerSprite = model.getPlayerSprite();
-        //hard coding starting pos in skiles
-        playerSprite.setX(100);
-        playerSprite.setY(1000);
+        playerSprite.setY(800);
+
+
+
+        //using the factory
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
+
 
     }
     @Override
     public void render() {
-
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
@@ -159,9 +143,16 @@ public class Skiles extends ApplicationAdapter {
 
         mapRenderer.setView(camera);
         mapRenderer.render();
-        camera.update();
 
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
+
+
+        for (Enemy enemy: enemies){
+            ((Sprite) enemy.getSprite()).draw(batch);
+        }
+
         playerSprite.draw(batch);
 
         stage.draw();
@@ -186,7 +177,7 @@ public class Skiles extends ApplicationAdapter {
         }
 
 
-        if (model.exit()) {
+        if (playerSprite.getX() > 32 *50) {
             // Level advancement logic here
             model.advanceLevel();
 
@@ -202,5 +193,9 @@ public class Skiles extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         texture.dispose();
+        map.dispose();
+        mapRenderer.dispose();
+        stage.dispose();
+
     }
 }

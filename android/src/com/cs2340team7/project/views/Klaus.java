@@ -14,22 +14,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
-
-import org.w3c.dom.Text;
+import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 import java.util.ArrayList;
 
@@ -50,16 +50,16 @@ public class Klaus extends ApplicationAdapter {
     private Texture texture;
     private BitmapFont font;
     private GameDataModel dataModel;
-    private TechGreen.SpriteType chosenSprite;
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
     private Viewport viewport;
-    private PlayerSprite playerSprite;
+    private Sprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     Texture enemyTexture;
+    private Viewport fittedviewport;
 
 
     public Klaus(Context context) {
@@ -69,23 +69,19 @@ public class Klaus extends ApplicationAdapter {
     @Override
     public void create() {
         model = new KlausViewModel();
-        map = new TmxMapLoader().load("Klausmapp.tmx");
 
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1024, 1024);
-        camera.update();
-        mapRenderer.setView(camera);
-
-
-        stage = new Stage();
-
-        //making the batch the map renders batch
-
-
+        fittedviewport = new FitViewport(32*32,32*32, camera);
+        map = new TmxMapLoader().load("Klausmapp.tmx");
+        stage = new Stage(fittedviewport);
+        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        batch = new SpriteBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+
+        font = new BitmapFont();
+        font.getData().setScale(5);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
@@ -129,35 +125,14 @@ public class Klaus extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(stage);
 
-        String character = dataModel.getData().getCharacter();
-        String filePath = null;
-        switch (character) {
-        case "Persian" :
-            filePath = "thepurplepersian.png";
-            chosenSprite = TechGreen.SpriteType.PERSIAN;
-            break;
-        case "Gabe" :
-            filePath = "generalgabe.png";
-            chosenSprite = TechGreen.SpriteType.GABE;
-            break;
-        case "Sid" :
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        default:
-            filePath = "swordmastersid.png";
-            chosenSprite = TechGreen.SpriteType.SID;
-            break;
-        }
-        FileHandle fileHandle = Gdx.files.internal(filePath);
-        texture = new Texture(fileHandle);
-        sprite = new Sprite(texture);
-        sprite.setSize(160, 160);
-        model.setPlayerSprite(sprite);
-        playerSprite = model.getPlayerSprite();
-        enemyTexture = new Texture(Gdx.files.internal("thepurplepersian.png")) ;
 
+        playerSprite = model.getPlayerSprite();
+
+        //using the factory
         enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
+
+
     }
     @Override
     public void render() {
@@ -165,24 +140,23 @@ public class Klaus extends ApplicationAdapter {
         if (score != null) {
             score.setText(String.valueOf(model.getGameData().getCurrentScore()));
         }
-        //clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //update camera, set view to camera
-        camera.update();
         mapRenderer.setView(camera);
-
-        //render map
         mapRenderer.render();
 
-        batch = mapRenderer.getBatch();
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
+
+
         for (Enemy enemy: enemies){
-            batch.draw(enemyTexture,600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
+            ((Sprite) enemy.getSprite()).draw(batch);
         }
 
         playerSprite.draw(batch);
+
         stage.draw();
         batch.end();
 
@@ -217,7 +191,9 @@ public class Klaus extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         texture.dispose();
-        stage.dispose();
+        map.dispose();
         mapRenderer.dispose();
+        stage.dispose();
+
     }
 }

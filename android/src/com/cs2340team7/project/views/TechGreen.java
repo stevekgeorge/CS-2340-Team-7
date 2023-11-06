@@ -3,6 +3,8 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.dynamicanimation.animation.SpringAnimation;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,18 +17,19 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
-import com.cs2340team7.project.models.LazySenior;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.PlayerSprite;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 import java.util.ArrayList;
@@ -49,19 +52,15 @@ public class TechGreen extends ApplicationAdapter {
     private Texture texture;
     private BitmapFont font;
     private GameDataModel dataModel;
-    private SpriteType chosenSprite;
     private float spriteX;
     private float spriteY;
     private float speed = 10.0f;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
-    public enum SpriteType {
-        PERSIAN,
-        GABE,
-        SID
+    private Sprite playerSprite;
+    private Viewport fittedviewport;
+    private Sprite enemy;
 
-    }
-    private PlayerSprite playerSprite;
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -74,24 +73,18 @@ public class TechGreen extends ApplicationAdapter {
     public void create() {
         model = new TechGreenViewModel();
 
-
-
-        font = new BitmapFont();
-        font.getData().setScale(5);
-
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1024, 1024);
-        camera.update();
+        fittedviewport = new FitViewport(30*32,30*32, camera);
         map = new TmxMapLoader().load("techgreen.tmx");
-        stage = new Stage();
-
-        //making the batch the map renders batch
+        stage = new Stage(fittedviewport);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
-        mapRenderer.setView(camera);
-        batch = mapRenderer.getBatch();
+        batch = new SpriteBatch();
 
         //sending tiledMap to GameDataModel who updates the MapSubscribers
         model.updateMap(map);
+
+        font = new BitmapFont();
+        font.getData().setScale(5);
 
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         BitmapFont font = new BitmapFont();
@@ -135,35 +128,12 @@ public class TechGreen extends ApplicationAdapter {
 
         Gdx.input.setInputProcessor(stage);
 
-        String character = dataModel.getData().getCharacter();
-        String filePath = null;
-        switch (character) {
-        case "Persian" :
-            filePath = "thepurplepersian.png";
-            chosenSprite = SpriteType.PERSIAN;
-            break;
-        case "Gabe" :
-            filePath = "generalgabe.png";
-            chosenSprite = SpriteType.GABE;
-            break;
-        case "Sid" :
-            filePath = "swordmastersid.png";
-            chosenSprite = SpriteType.SID;
-            break;
-        default:
-            filePath = "swordmastersid.png";
-            chosenSprite = SpriteType.SID;
-            break;
-        }
-        FileHandle fileHandle = Gdx.files.internal(filePath);
-        texture = new Texture(fileHandle);
-        sprite = new Sprite(texture);
-        sprite.setSize(160, 160);
-        model.setPlayerSprite(sprite);
+
         playerSprite = model.getPlayerSprite();
 
         //using the factory
         enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
+        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
 
 
     }
@@ -178,13 +148,17 @@ public class TechGreen extends ApplicationAdapter {
 
         mapRenderer.setView(camera);
         mapRenderer.render();
-        camera.update();
 
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        playerSprite.draw(batch);
+
+
+
         for (Enemy enemy: enemies){
-           batch.draw(enemy.getTexture(),600, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*600, 160, ((float) (Gdx.graphics.getHeight() / Gdx.graphics.getWidth()))*160);
+            ((Sprite) enemy.getSprite()).draw(batch);
         }
+
+        playerSprite.draw(batch);
 
         stage.draw();
         batch.end();
@@ -209,6 +183,8 @@ public class TechGreen extends ApplicationAdapter {
 
 
         if (model.exit()) {
+            playerSprite.setX(0);
+            playerSprite.setY(0);
             // Level advancement logic here
             model.advanceLevel();
             Intent nextLevel = new Intent(context, GameScreenLauncher.class);
@@ -222,6 +198,12 @@ public class TechGreen extends ApplicationAdapter {
         texture.dispose();
         map.dispose();
         mapRenderer.dispose();
+        stage.dispose();
 
     }
+//    @Override
+//    public void resize(int width, int height){
+//        viewport.update(width,height);
+//        camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+//    }
 }
