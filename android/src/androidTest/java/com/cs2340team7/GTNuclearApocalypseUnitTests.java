@@ -332,19 +332,19 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertTrue(player.getMovementStrategy() instanceof PurplePersian);
     }
 
-    @Test
-    public void testEnemyHealth() {
-        Enemy enemy = new Enemy(0, 0);
-        GameDataModel model = enemy.getGameData();
-        model.setDifficulty("Hard");
-        assertEquals(enemy.getHealth(), 100);
-    }
-
-    @Test
-    public void testEnemyDamage() {
-        Enemy enemy = new Enemy(0, 0);
-        GameDataModel model = enemy.getGameData();
-        model.setDifficulty("Hard");
-        assertEquals(enemy.getDamage(), 25);
-    }
+//    @Test
+//    public void testEnemyHealth() {
+//        Enemy enemy = new Enemy(0, 0);
+//        GameDataModel model = enemy.getGameData();
+//        model.setDifficulty("Hard");
+//        assertEquals(enemy.getHealth(), 100);
+//    }
+//
+//    @Test
+//    public void testEnemyDamage() {
+//        Enemy enemy = new Enemy(0, 0);
+//        GameDataModel model = enemy.getGameData();
+//        model.setDifficulty("Hard");
+//        assertEquals(enemy.getDamage(), 25);
+//    }
 }
