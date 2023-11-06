@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
@@ -60,6 +61,7 @@ public class Klaus extends ApplicationAdapter {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     Texture enemyTexture;
     private Viewport fittedviewport;
+
 
 
     public Klaus(Context context) {
@@ -129,8 +131,8 @@ public class Klaus extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
+        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
 
 
     }
@@ -152,6 +154,7 @@ public class Klaus extends ApplicationAdapter {
 
 
         for (Enemy enemy: enemies){
+
             ((Sprite) enemy.getSprite()).draw(batch);
         }
 

@@ -1,12 +1,18 @@
 package com.cs2340team7.project.models;
 
 public class EnemyFactory {
-    public static Enemy generateEnemy(Enemy.EnemyType enemyType, int pos_x, int pos_y){
-        // add more types here when they are made
-        switch (enemyType){
-            case LazySenior:
-                return new LazySenior(pos_x,pos_y);
-            default: return null;
+    public static Enemy generateEnemy (int x, int y, Enemy.EnemyType type) {
+        switch(type) {
+            case BUZZ:
+                return new BuzzEnemy(x, y);
+            case FRESHMEN:
+                return new FreshmenEnemy(x, y);
+            case SENIOR:
+                return new SeniorEnemy(x, y);
+            case TA:
+                return new TAEnemy(x, y);
+            default:
+                return null;
         }
     }
 }

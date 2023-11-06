@@ -5,10 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public class LazySenior extends Enemy{
-    public LazySenior(int pos_x, int pos_y){
+public class SeniorEnemy extends Enemy{
+    public SeniorEnemy(int pos_x, int pos_y){
         super();
-        this.damage = 10;
         FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
         Texture texture = new Texture(fileHandle);
         this.size_x = 160;

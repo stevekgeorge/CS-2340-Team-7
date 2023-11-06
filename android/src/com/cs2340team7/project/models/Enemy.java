@@ -6,21 +6,38 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Enemy implements PlayerPositionSubscriber {
-    public static enum EnemyType {
-        LazySenior
-    }
+    public static enum EnemyType {BUZZ, FRESHMEN, SENIOR, TA }
     int size_x;
     int size_y;
-    int damage;
-    GameDataModel model;
+    private int health;
+    private int damage;
+    private GameDataModel model;
     Player player;
 
     Sprite sprite;
 
     public Enemy(){
         this.model = GameDataModel.getData();
-        this.player = Player.getPlayer();
-        player.addPlayerPositionSubscribers(this);
+        if (model.getDifficulty() == "Easy") {
+            this.health = 25;
+            model.setEnemyHealth(25);
+        } else if (model.getDifficulty() == "Medium") {
+            this.health = 50;
+            model.setEnemyHealth(50);
+        } else {
+            this.health = 100;
+            model.setEnemyHealth(100);
+        }
+        if (model.getDifficulty() == "Easy") {
+            this.damage = 10;
+            model.setEnemyDamage(10);
+        } else if (model.getDifficulty() == "Medium") {
+            this.damage = 15;
+            model.setEnemyDamage(15);
+        } else {
+            this.damage = 25;
+            model.setEnemyDamage(25);
+        }
 
     }
     public abstract void move();
@@ -36,8 +53,14 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public Sprite getSprite(){
         return sprite;
     }
-    public int getPos_x(){ return (int) sprite.getX();}
+    public int getPos_x(){return (int) sprite.getX();}
     public int getPos_y(){return (int) sprite.getY();}
+    public int getHealth() {
+        return health;
+    }
+    public int getDamage() {
+        return damage;
+    }
 
 }
 //

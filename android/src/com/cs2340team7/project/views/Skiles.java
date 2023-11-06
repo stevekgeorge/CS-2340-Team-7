@@ -54,6 +54,7 @@ public class Skiles extends ApplicationAdapter {
     private Sprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
+
     private Viewport fittedviewport;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
@@ -128,9 +129,12 @@ public class Skiles extends ApplicationAdapter {
 
 
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
+        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
 
+
+        //enemies.add(enemy1);
+        //enemies.add(enemy2);
 
     }
     @Override
@@ -187,6 +191,7 @@ public class Skiles extends ApplicationAdapter {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
         }
+
 
     }
     @Override

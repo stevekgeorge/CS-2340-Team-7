@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -57,9 +58,9 @@ public class TechGreen extends ApplicationAdapter {
     private float speed = 10.0f;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
+
     private Sprite playerSprite;
     private Viewport fittedviewport;
-    private Sprite enemy;
 
     public TechGreen(Context context) {
         this.context = context;
@@ -131,9 +132,11 @@ public class TechGreen extends ApplicationAdapter {
 
         playerSprite = model.getPlayerSprite();
 
+
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,600, 600));
-        enemies.add(EnemyFactory.generateEnemy(Enemy.EnemyType.LazySenior,400, 400));
+        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
+
 
 
     }
