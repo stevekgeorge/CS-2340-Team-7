@@ -25,9 +25,10 @@ public class GameDataModel extends BaseObservable {
 
 
     private static GameDataModel data;
-    private Enemy enemy;
-    private int enemyHealth;
-    private int enemyDamage;
+    private Enemy enemy1;
+    private Enemy enemy2;
+    private EnemyFactory enemyFactory;
+    private int level;
     private GameDataModel() {
         clear();
     }
@@ -140,6 +141,7 @@ public class GameDataModel extends BaseObservable {
         }
     }
 
+    /*
     public Enemy getEnemy() {
         return enemy;
     }
@@ -151,6 +153,14 @@ public class GameDataModel extends BaseObservable {
     }
     public void setEnemyDamage(int damage) {
         enemyDamage = damage;
+    }
+     */
+
+    public int getLevel() {
+        return level;
+    }
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 

@@ -8,16 +8,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class FreshmenEnemy extends Enemy { //Second fastest enemy type.
-    private static final Texture FRESHMEN_TEXTURE = new Texture("FreshmenEnemy.png");
-    private static final EnemyType TYPE = EnemyType.FRESHMEN;
-    private int x, y;
-    private static final int SPEED = 10;
-
-    private TiledMap map;
-    private GameDataModel gameData;
     public FreshmenEnemy(int x, int y) {
         super();
-        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+        FileHandle fileHandle = Gdx.files.internal("freshmenenemy.png");
         Texture texture = new Texture(fileHandle);
         this.size_x = 160;
         this.size_y =160;
@@ -25,10 +18,6 @@ public class FreshmenEnemy extends Enemy { //Second fastest enemy type.
         this.sprite.setX(x);
         this.sprite.setY(y);
         this.sprite.setSize(this.size_x, this.size_y);
-    }
-
-    public Texture getTexture() {
-        return FRESHMEN_TEXTURE;
     }
     public void move(){
 

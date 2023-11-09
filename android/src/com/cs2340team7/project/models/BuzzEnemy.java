@@ -8,16 +8,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class BuzzEnemy extends Enemy { //Fastest Enemy type.
-    private static final Texture BUZZ_TEXTURE = new Texture("BuzzEnemy.png");
-    private static final EnemyType TYPE = EnemyType.BUZZ;
-    private static final int SPEED = 15;
-
-    private int x, y;
-    private TiledMap map;
-    private GameDataModel gameData;
     public BuzzEnemy(int x, int y) {
         super();
-        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+        FileHandle fileHandle = Gdx.files.internal("buzzenemy.png");
         Texture texture = new Texture(fileHandle);
         this.size_x = 160;
         this.size_y =160;
@@ -26,11 +19,6 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
         this.sprite.setY(y);
         this.sprite.setSize(this.size_x, this.size_y);
     }
-
-    public Texture getTexture() {
-        return BUZZ_TEXTURE;
-    }
-
     @Override
     public void move() {
 
