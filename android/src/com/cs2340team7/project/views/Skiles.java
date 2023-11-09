@@ -41,6 +41,7 @@ public class Skiles extends ApplicationAdapter {
 
     private SkilesViewModel model;
     private Label score;
+    private Label health;
     private Sprite sprite;
     private Texture texture;
     private TextButton up;
@@ -78,17 +79,17 @@ public class Skiles extends ApplicationAdapter {
         model.updateMap(map);
 
         font = new BitmapFont();
-        font.getData().setScale(5);
+        font.getData().setScale(4);
 
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        BitmapFont font = new BitmapFont();
-        font.getData().setScale(5);
-        textButtonStyle.font = font;
-        textButtonStyle.fontColor = Color.WHITE;
+        //TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        //BitmapFont font = new BitmapFont();
+        //font.getData().setScale(5);
+//        textButtonStyle.font = font;
+//        textButtonStyle.fontColor = Color.WHITE;
 
         TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
         BitmapFont fontLarge = new BitmapFont();
-        fontLarge.getData().setScale(15);
+        fontLarge.getData().setScale(5);
         textButtonStyleLarge.font = fontLarge;
         textButtonStyleLarge.fontColor = Color.WHITE;
 
@@ -97,9 +98,11 @@ public class Skiles extends ApplicationAdapter {
         style.fontColor = Color.WHITE;
 
         score = new Label("0", style);
+        health = new Label("0", style);
         score.setX(50);
-        score.setY(2100);
-
+        score.setY(1200);
+        health.setX(300);
+        health.setY(1200);
         up = new TextButton("↑", textButtonStyleLarge);
         left = new TextButton("←", textButtonStyleLarge);
         right = new TextButton("→", textButtonStyleLarge);
@@ -115,6 +118,7 @@ public class Skiles extends ApplicationAdapter {
         down.setY(200);
 
         stage.addActor(score);
+        stage.addActor(health);
         stage.addActor(up);
         stage.addActor(left);
         stage.addActor(right);
@@ -140,7 +144,10 @@ public class Skiles extends ApplicationAdapter {
     @Override
     public void render() {
         if (score != null) {
-            score.setText(String.valueOf(model.getGameData().getCurrentScore()));
+            score.setText("Score: " + String.valueOf(model.getGameData().getCurrentScore()));
+        }
+        if (health != null) {
+            health.setText("Health: " + String.valueOf(model.getGameData().getCurrentHealth()));
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

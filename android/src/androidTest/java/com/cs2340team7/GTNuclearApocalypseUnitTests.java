@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+import android.graphics.Rect;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.badlogic.gdx.Files;
@@ -17,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.Enemy;
+import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
@@ -24,9 +27,7 @@ import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import com.cs2340team7.project.views.TechGreen;
-import com.badlogic.gdx.Input.Keys;
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.when;
+import com.badlogic.gdx.math.Rectangle;
 import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
 import com.cs2340team7.project.models.PurplePersian;
 
@@ -346,5 +347,26 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //        GameDataModel model = enemy.getGameData();
 //        model.setDifficulty("Hard");
 //        assertEquals(enemy.getDamage(), 25);
+//    }
+   // @Test
+//    public void testPlayerHealthDecrease() {
+//        Player player = Player.getPlayer();
+//        Enemy enemy = EnemyFactory.generateEnemy(100, 100,Enemy.EnemyType.SENIOR);
+//
+//        GameDataModel gameModel = player.getGameData();
+//        int currentHealth = gameModel.getCurrentHealth();
+//
+//        TechGreen techGreen = new TechGreen(null);
+//        TechGreenViewModel model = new TechGreenViewModel();
+//        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+//        Texture texture = new Texture(fileHandle);
+//        Sprite sprite = new Sprite(texture);
+//        sprite.setPosition(50, 50);
+//        sprite.setSize(50, 50);
+//        model.setPlayerSprite(sprite);
+//        Rectangle collisionRect = new Rectangle(100, 100, 50, 50);
+//        //Rectangle spriteRect = sprite.getBoundingRectangle();
+//        enemy.updatePlayerPosition(collisionRect);
+//        assertEquals(90, gameModel.getCurrentHealth() - 10);
 //    }
 }

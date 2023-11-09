@@ -220,14 +220,9 @@ public class Player extends ViewModel implements MapSubscriber {
                     }
 
                 }
-
-
                 minNum++;
-
             }
         }
-
-
         return true;
     }
     public void setMap(TiledMap map) {
