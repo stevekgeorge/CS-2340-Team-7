@@ -12,7 +12,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private int health;
     private int damage;
     private GameDataModel model;
-    Player player;
+    private boolean damagedByCurrentEnemy = false;
+
 
     Sprite sprite;
 
@@ -38,14 +39,17 @@ public abstract class Enemy implements PlayerPositionSubscriber {
             this.damage = 25;
             //model.setEnemyDamage(25);
         }
-
     }
     public abstract void move(Player.Direction direction);
 
     public void updatePlayerPosition(Rectangle player_rect){
-        if (sprite.getBoundingRectangle().overlaps((player_rect))){
+
+        if (sprite.getBoundingRectangle().overlaps((player_rect)) && !damagedByCurrentEnemy){
             model.setCurrentHealth(model.getCurrentHealth() - damage);
+            damagedByCurrentEnemy = true;
             Gdx.app.log("MOVEMENT", "set max health called");
+        } else if (!sprite.getBoundingRectangle().overlaps((player_rect))) {
+            damagedByCurrentEnemy = false;
         }
         //add more to this method if you want the enemy to do different things when
         //the player moves

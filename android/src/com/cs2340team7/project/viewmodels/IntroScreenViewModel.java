@@ -19,9 +19,9 @@ public class IntroScreenViewModel extends ViewModel {
         statusMessage = new MutableLiveData<>();
 
         difficulties = new HashMap<>();
-        difficulties.put("Easy", 500);
-        difficulties.put("Medium", 250);
-        difficulties.put("Hard", 100);
+        difficulties.put("Easy", 100);
+        difficulties.put("Medium", 75);
+        difficulties.put("Hard", 50);
     }
 
     public void setPlayerName(String playerName) {

@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class TechGreen extends ApplicationAdapter {
     private Context context;
+    //private Player player;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
@@ -46,6 +47,7 @@ public class TechGreen extends ApplicationAdapter {
     private TextButton nextButton;
     private TechGreenViewModel model;
     private Label score;
+    private Label health;
     private TextButton up;
     private TextButton down;
     private TextButton left;
@@ -54,10 +56,6 @@ public class TechGreen extends ApplicationAdapter {
     private Batch batch;
     private Texture texture;
     private BitmapFont font;
-    private GameDataModel dataModel;
-    private float spriteX;
-    private float spriteY;
-    private float speed = 10.0f;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     private Sprite playerSprite;
@@ -73,7 +71,6 @@ public class TechGreen extends ApplicationAdapter {
     @Override
     public void create() {
         model = new TechGreenViewModel();
-
         camera = new OrthographicCamera();
         fittedviewport = new FitViewport(30*32,30*32, camera);
         map = new TmxMapLoader().load("techgreen.tmx");
@@ -85,17 +82,16 @@ public class TechGreen extends ApplicationAdapter {
         model.updateMap(map);
 
         font = new BitmapFont();
-        font.getData().setScale(5);
-
+        font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        BitmapFont font = new BitmapFont();
-        font.getData().setScale(5);
+//        BitmapFont font = new BitmapFont();
+//        font.getData().setScale(5);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
         TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
         BitmapFont fontLarge = new BitmapFont();
-        fontLarge.getData().setScale(15);
+        fontLarge.getData().setScale(5);
         textButtonStyleLarge.font = fontLarge;
         textButtonStyleLarge.fontColor = Color.WHITE;
 
@@ -105,7 +101,10 @@ public class TechGreen extends ApplicationAdapter {
 
         score = new Label("0", style);
         score.setX(50);
-        score.setY(2100);
+        score.setY(900);
+        health = new Label("0", style);
+        health.setX(200);
+        health.setY(900);
 
         up = new TextButton("↑", textButtonStyleLarge);
         left = new TextButton("←", textButtonStyleLarge);
@@ -122,6 +121,7 @@ public class TechGreen extends ApplicationAdapter {
         down.setY(200);
 
         stage.addActor(score);
+        stage.addActor(health);
         stage.addActor(up);
         stage.addActor(left);
         stage.addActor(right);
@@ -133,16 +133,23 @@ public class TechGreen extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.TA));
+<<<<<<< HEAD
         enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.TA));
 
 
 
+=======
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
+>>>>>>> ea9b0cacc608e859ce7bd49c1dc67b0a3690e7fa
     }
     @Override
     public void render() {
 
         if (score != null) {
-            score.setText(String.valueOf(model.getGameData().getCurrentScore()));
+            score.setText("Score: " + String.valueOf(model.getGameData().getCurrentScore()));
+        }
+        if (health != null) {
+            health.setText("Health: " + String.valueOf(model.getGameData().getCurrentHealth()));
         }
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
