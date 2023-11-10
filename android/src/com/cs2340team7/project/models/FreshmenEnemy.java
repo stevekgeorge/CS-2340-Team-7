@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class FreshmenEnemy extends Enemy { //Second fastest enemy type.
+    private int speed;
     public FreshmenEnemy(int x, int y) {
         super();
         FileHandle fileHandle = Gdx.files.internal("freshmenenemy.png");
@@ -18,8 +19,18 @@ public class FreshmenEnemy extends Enemy { //Second fastest enemy type.
         this.sprite.setX(x);
         this.sprite.setY(y);
         this.sprite.setSize(this.size_x, this.size_y);
+        this.speed = 10;
     }
-    public void move(){
-
+    @Override
+    public void move(Player.Direction direction) { //UpdatePlayer loop for the method for the enemy movements
+        if (direction == Player.Direction.UP) {
+            this.updatePosition(this.getPos_x(), this.getPos_y() + speed);
+        } else if (direction == Player.Direction.DOWN) {
+            this.updatePosition(this.getPos_x(), this.getPos_x() - speed);
+        } else if (direction == Player.Direction.LEFT) {
+            this.updatePosition(this.getPos_x() - speed, this.getPos_y());
+        } else if (direction == Player.Direction.RIGHT) {
+            this.updatePosition(this.getPos_x() + speed, this.getPos_y());
+        }
     }
 }

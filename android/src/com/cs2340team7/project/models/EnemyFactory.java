@@ -8,13 +8,17 @@ public class EnemyFactory {
                Player.getPlayer().addPlayerPositionSubscribers(buzzEnemy);
                return buzzEnemy;
             case FRESHMEN:
-                return new FreshmenEnemy(x, y);
+                FreshmenEnemy freshmenEnemy = new FreshmenEnemy(x, y);
+                Player.getPlayer().addPlayerPositionSubscribers(freshmenEnemy);
+                return freshmenEnemy;
             case SENIOR:
                 SeniorEnemy seniorEnemy = new SeniorEnemy(x, y);
-            Player.getPlayer().addPlayerPositionSubscribers(seniorEnemy);
-            return seniorEnemy;
+                Player.getPlayer().addPlayerPositionSubscribers(seniorEnemy);
+                return seniorEnemy;
             case TA:
-                return new TAEnemy(x, y);
+                TAEnemy taEnemy = new TAEnemy(x, y);
+                Player.getPlayer().addPlayerPositionSubscribers(taEnemy);
+                return taEnemy;
             default:
                 return null;
         }

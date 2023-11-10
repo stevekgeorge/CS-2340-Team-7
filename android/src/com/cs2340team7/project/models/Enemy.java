@@ -40,7 +40,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         }
 
     }
-    public abstract void move();
+    public abstract void move(Player.Direction direction);
 
     public void updatePlayerPosition(Rectangle player_rect){
         if (sprite.getBoundingRectangle().overlaps((player_rect))){
@@ -49,6 +49,29 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         }
         //add more to this method if you want the enemy to do different things when
         //the player moves
+        // Determine the direction based on the player's position relative to the enemy
+        float playerX = player_rect.getX();
+        float playerY = player_rect.getY();
+
+        float enemyX = sprite.getX();
+        float enemyY = sprite.getY();
+
+        Player.Direction direction;
+
+        if (playerX > enemyX) {
+            direction = Player.Direction.RIGHT;
+        } else if (playerX < enemyX) {
+            direction = Player.Direction.LEFT;
+        } else if (playerY > enemyY) {
+            direction = Player.Direction.UP;
+        } else if (playerY < enemyY) {
+            direction = Player.Direction.DOWN;
+        } else {
+            // Player is at the same position as the enemy, handle as needed
+            direction = Player.Direction.UP; // or any default direction
+        }
+
+        move(direction);
     }
     public Sprite getSprite(){
         return sprite;
@@ -60,6 +83,11 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     }
     public int getDamage() {
         return damage;
+    }
+
+    public void updatePosition(int newX, int newY) {
+        sprite.setX(newX);
+        sprite.setY(newY);
     }
 
 }

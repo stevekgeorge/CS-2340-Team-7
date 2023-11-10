@@ -1,5 +1,7 @@
 package com.cs2340team7.project.views;
 
+import static com.cs2340team7.project.models.Enemy.EnemyType.TA;
+
 import android.content.Context;
 import android.content.Intent;
 
@@ -57,7 +59,6 @@ public class TechGreen extends ApplicationAdapter {
     private float spriteY;
     private float speed = 10.0f;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-
 
     private Sprite playerSprite;
     private Viewport fittedviewport;
@@ -131,10 +132,8 @@ public class TechGreen extends ApplicationAdapter {
 
         playerSprite = model.getPlayerSprite();
 
-
-        //using the factory
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.TA));
-        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.TA));
 
 
 
@@ -153,8 +152,6 @@ public class TechGreen extends ApplicationAdapter {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-
-
 
         for (Enemy enemy: enemies){
             ((Sprite) enemy.getSprite()).draw(batch);

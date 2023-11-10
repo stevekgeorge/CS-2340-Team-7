@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class SeniorEnemy extends Enemy {
+    private int speed;
     public SeniorEnemy(int x, int y){
         super();
         FileHandle fileHandle = Gdx.files.internal("seniorenemy.png");
@@ -16,9 +17,18 @@ public class SeniorEnemy extends Enemy {
         this.sprite.setX(x);
         this.sprite.setY(y);
         this.sprite.setSize(this.size_x, this.size_y);
+        this.speed = 5;
     }
     @Override
-    public void move() { //UpdatePlayer loop for the method for the enemy movements
-
+    public void move(Player.Direction direction) { //UpdatePlayer loop for the method for the enemy movements
+        if (direction == Player.Direction.UP) {
+            this.updatePosition(this.getPos_x() + speed, this.getPos_y());
+        } else if (direction == Player.Direction.DOWN) {
+            this.updatePosition(this.getPos_x() - speed, this.getPos_x());
+        } else if (direction == Player.Direction.LEFT) {
+            this.updatePosition(this.getPos_x(), this.getPos_y() - speed);
+        } else if (direction == Player.Direction.RIGHT) {
+            this.updatePosition(this.getPos_x(), this.getPos_y() + speed);
+        }
     }
 }

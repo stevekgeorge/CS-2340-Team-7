@@ -132,10 +132,6 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.BUZZ));
         enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.FRESHMEN));
 
-
-        //enemies.add(enemy1);
-        //enemies.add(enemy2);
-
     }
     @Override
     public void render() {
