@@ -166,13 +166,18 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
         batch.end();
 
+        if (model.getGameData().getCurrentHealth() <= 0) {
+            Intent nextLevel = new Intent(context, GameOverScreen.class);
+            context.startActivity(nextLevel);
+        }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || right.isPressed()) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 

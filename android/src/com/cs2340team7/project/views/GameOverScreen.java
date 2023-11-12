@@ -33,6 +33,10 @@ public class GameOverScreen extends AppCompatActivity {
         TableLayout leaderboard = findViewById(R.id.leaderboard);
         List<Leaderboard.LeaderboardEntry> entries = Leaderboard.getLeaderboard().getEntries();
 
+        if (entries.size() == 0) {
+            entries.add(Leaderboard.getLeaderboard().dummy());
+        }
+
         for (int i = 0; i < Math.min(entries.size(), 10); i++) {
             Leaderboard.LeaderboardEntry entry = entries.get(i);
 

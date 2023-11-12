@@ -24,6 +24,10 @@ public class Leaderboard {
         Collections.sort(entries);
     }
 
+    public LeaderboardEntry dummy() {
+        return new LeaderboardEntry("Empty", 0, "");
+    }
+
     public List<LeaderboardEntry> getEntries() {
         return entries;
     }

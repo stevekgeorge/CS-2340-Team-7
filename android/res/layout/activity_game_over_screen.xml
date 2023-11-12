@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="13dp"
-            android:text="You Won!"
+            android:text="@{viewModel.gameData.getCurrentHealth() > 0 ? &quot;You Won!&quot; : &quot;Game Over.&quot;}"
             android:textSize="48sp"
             app:layout_constraintBottom_toTopOf="@+id/finalScoreLabel"
             app:layout_constraintEnd_toEndOf="parent"
