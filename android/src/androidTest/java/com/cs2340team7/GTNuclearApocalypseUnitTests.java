@@ -18,11 +18,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -384,4 +386,20 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //        model.setDifficulty("Hard");
 //        assertEquals(25, gameData.getCurrentHealth());
 //    }
+
+    @Test
+    public void testFactoryMakeTA(){
+
+        Enemy ta = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        assertTrue(ta.getClass() == TAEnemy.class);
+    }
+    @Test
+    public void testFactoryMakeBuzz(){
+
+        Enemy buzz = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.BUZZ);
+        assertTrue(buzz.getClass() == BuzzEnemy.class);
+    }
+
+
+
 }
