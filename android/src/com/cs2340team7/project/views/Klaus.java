@@ -36,6 +36,7 @@ import java.util.ArrayList;
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
+    private GameDataModel gameData;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;

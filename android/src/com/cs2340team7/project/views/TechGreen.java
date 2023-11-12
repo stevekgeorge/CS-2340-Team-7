@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 public class TechGreen extends ApplicationAdapter {
     private Context context;
+    private GameDataModel gameData;
     //private Player player;
     private Stage stage;
     private TiledMap map;
@@ -133,14 +134,8 @@ public class TechGreen extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.TA));
-<<<<<<< HEAD
         enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.TA));
 
-
-
-=======
-        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.SENIOR));
->>>>>>> ea9b0cacc608e859ce7bd49c1dc67b0a3690e7fa
     }
     @Override
     public void render() {
