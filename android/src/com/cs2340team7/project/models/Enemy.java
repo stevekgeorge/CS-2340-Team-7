@@ -1,23 +1,41 @@
 package com.cs2340team7.project.models;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Enemy implements PlayerPositionSubscriber {
-    public static enum EnemyType {BUZZ, FRESHMEN, SENIOR, TA }
-    int size_x;
-    int size_y;
+    public static enum EnemyType { BUZZ, FRESHMEN, SENIOR, TA }
+    private int sizeX;
+    private int sizeY;
     private int health;
     private int damage;
     private GameDataModel model;
     private boolean damagedByCurrentEnemy = false;
 
 
-    Sprite sprite;
+    private Sprite sprite;
 
-    public Enemy(){
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
+
+    public void setSizeX(int sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public void setSizeY(int sizeY) {
+        this.sizeY = sizeY;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    public Enemy() {
         this.model = GameDataModel.getData();
         if (model.getDifficulty() == "Easy") {
             this.health = 25;
@@ -42,19 +60,19 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     }
     public abstract void move(Player.Direction direction);
 
-    public void updatePlayerPosition(Rectangle player_rect){
+    public void updatePlayerPosition(Rectangle playerRect) {
 
-        if (sprite.getBoundingRectangle().overlaps((player_rect)) && !damagedByCurrentEnemy){
+        if (sprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
-        } else if (!sprite.getBoundingRectangle().overlaps((player_rect))) {
+        } else if (!sprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
         //add more to this method if you want the enemy to do different things when
         //the player moves
         // Determine the direction based on the player's position relative to the enemy
-        float playerX = player_rect.getX();
-        float playerY = player_rect.getY();
+        float playerX = playerRect.getX();
+        float playerY = playerRect.getY();
 
         float enemyX = sprite.getX();
         float enemyY = sprite.getY();
@@ -76,11 +94,15 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
         move(direction);
     }
-    public Sprite getSprite(){
+    public Sprite getSprite() {
         return sprite;
     }
-    public int getPos_x(){return (int) sprite.getX();}
-    public int getPos_y(){return (int) sprite.getY();}
+    public int getPosX() {
+        return (int) sprite.getX();
+    }
+    public int getPosY() {
+        return (int) sprite.getY();
+    }
     public int getHealth() {
         return health;
     }
@@ -94,23 +116,3 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     }
 
 }
-//
-//private boolean hasCollided(int location_x, int location_y, int size_x, int size_y){
-//        //x,y start at bottom left corner
-//        //bottom left side check
-//        if (((this.getPos_x() >= location_x) && (this.getPos_x() <= location_x +size_x)) && ((this.getPos_y() >= location_y) && (this.getPos_y() <= location_y +size_y))){
-//        return true;
-//        }
-//        //top left check
-//        if (((this.getPos_x() >= location_x) && (this.getPos_x() <= location_x +size_x)) && ((this.getPos_y() + this.size_y >= location_y) && (this.getPos_y() + this.size_y <= location_y +size_y))){
-//        return true;
-//        }
-//        //bottom right check
-//        if (((this.getPos_x() +this.size_x >= location_x) && (this.getPos_x() +this.size_x <= location_x +size_x)) && ((this.getPos_y() >= location_y) && (this.getPos_y() <= location_y +size_y))){
-//        return true;
-//        }
-//        //top left check
-//        if (((this.getPos_x() +this.size_x >= location_x) && (this.getPos_x() +this.size_x <= location_x +size_x)) && ((this.getPos_y() +this.size_y >= location_y) && (this.getPos_y() +this.size_y <= location_y +size_y))){
-//        return true;
-//        }
-//        return false;

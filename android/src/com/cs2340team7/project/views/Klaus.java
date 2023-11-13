@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,11 +25,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
-import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 import java.util.ArrayList;
 
@@ -57,7 +54,6 @@ public class Klaus extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    Texture enemyTexture;
     private Viewport fittedviewport;
 
 
@@ -71,7 +67,7 @@ public class Klaus extends ApplicationAdapter {
         model = new KlausViewModel();
 
         camera = new OrthographicCamera();
-        fittedviewport = new FitViewport(32*32,32*32, camera);
+        fittedviewport = new FitViewport(32 * 32, 32 * 32, camera);
         map = new TmxMapLoader().load("Klausmapp.tmx");
         stage = new Stage(fittedviewport);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -132,8 +128,8 @@ public class Klaus extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
-        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.FRESHMEN));
+        enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
 
     }
@@ -157,7 +153,7 @@ public class Klaus extends ApplicationAdapter {
 
 
 
-        for (Enemy enemy: enemies){
+        for (Enemy enemy: enemies) {
 
             ((Sprite) enemy.getSprite()).draw(batch);
         }

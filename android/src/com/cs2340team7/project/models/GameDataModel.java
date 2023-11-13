@@ -1,15 +1,10 @@
 package com.cs2340team7.project.models;
 
-import android.content.Intent;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.cs2340team7.project.views.GameOverScreen;
-import android.content.Intent;
-import android.content.Context;
 
 import java.util.ArrayList;
 
