@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -28,7 +27,6 @@ import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.viewmodels.KlausViewModel;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
@@ -70,7 +68,7 @@ public class Skiles extends ApplicationAdapter {
         model = new SkilesViewModel();
 
         camera = new OrthographicCamera();
-        fittedviewport = new FitViewport(51*32,53*32, camera);
+        fittedviewport = new FitViewport(51 * 32, 53 * 32, camera);
         map = new TmxMapLoader().load("Skiles.tmx");
         stage = new Stage(fittedviewport);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -81,12 +79,6 @@ public class Skiles extends ApplicationAdapter {
 
         font = new BitmapFont();
         font.getData().setScale(4);
-
-        //TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        //BitmapFont font = new BitmapFont();
-        //font.getData().setScale(5);
-//        textButtonStyle.font = font;
-//        textButtonStyle.fontColor = Color.WHITE;
 
         TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
         BitmapFont fontLarge = new BitmapFont();
@@ -134,8 +126,8 @@ public class Skiles extends ApplicationAdapter {
 
 
         //using the factory
-        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.BUZZ));
-        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.FRESHMEN));
+        enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.BUZZ));
+        enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
     }
     @Override
@@ -157,7 +149,7 @@ public class Skiles extends ApplicationAdapter {
 
 
 
-        for (Enemy enemy: enemies){
+        for (Enemy enemy: enemies) {
             ((Sprite) enemy.getSprite()).draw(batch);
         }
 

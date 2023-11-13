@@ -1,7 +1,5 @@
 package com.cs2340team7.project.models;
 
-import com.badlogic.gdx.Gdx;
-
 public class SwordMasterSid implements MovementStrategy {
     private static int speed = 5;
     private Player player;

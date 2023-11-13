@@ -1,13 +1,10 @@
 package com.cs2340team7.project.models;
 
-import android.content.Intent;
-
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.cs2340team7.project.views.GameOverScreen;
 
 import java.util.ArrayList;
 
@@ -56,10 +53,7 @@ public class GameDataModel extends BaseObservable {
 
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
-
-
     }
-
     @Bindable
     public int getCurrentScore() {
         return currentScore;
@@ -135,9 +129,6 @@ public class GameDataModel extends BaseObservable {
     public void addMapSubscribers(MapSubscriber subscriber) {
         this.mapSubscribers.add(subscriber);
     }
-
-
-
     private void notifyMapSubscribers() {
         for (MapSubscriber subscriber: mapSubscribers) {
             subscriber.updateMap(this.currentMap);

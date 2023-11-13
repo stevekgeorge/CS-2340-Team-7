@@ -18,11 +18,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -45,7 +47,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
         Player score = Player.getPlayer();
-
         int start = score.getGameData().getCurrentScore();
 
         score.startDecrease();
@@ -95,11 +96,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     public void testHealth() {
         IntroScreenViewModel model = new IntroScreenViewModel();
         model.setDifficulty("Hard");
-        assertEquals(model.getGameData().getMaxHealth(), 100);
+        assertEquals(model.getGameData().getMaxHealth(), 50);
         model.setDifficulty("Medium");
-        assertEquals(model.getGameData().getMaxHealth(), 250);
+        assertEquals(model.getGameData().getMaxHealth(), 75);
         model.setDifficulty("Easy");
-        assertEquals(model.getGameData().getMaxHealth(), 500);
+        assertEquals(model.getGameData().getMaxHealth(), 100);
     }
 
     @Test
@@ -384,4 +385,45 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //        model.setDifficulty("Hard");
 //        assertEquals(25, gameData.getCurrentHealth());
 //    }
+
+    @Test
+    public void testFactoryMakeTA(){
+
+        Enemy ta = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        assertTrue(ta.getClass() == TAEnemy.class);
+    }
+    @Test
+    public void testFactoryMakeBuzz(){
+
+        Enemy buzz = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.BUZZ);
+        assertTrue(buzz.getClass() == BuzzEnemy.class);
+    }
+
+    @Test
+    public void testDamageTaken() {
+        Player player = Player.getPlayer();
+
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        assertNotEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+    }
+
+    @Test
+    public void testDamageIsNotRepeated() throws InterruptedException {
+        Player player = Player.getPlayer();
+
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        int currentHealth = player.getGameData().getCurrentHealth();
+        assertNotEquals(currentHealth, player.getGameData().getMaxHealth());
+
+        Thread.sleep(5000);
+
+        assertEquals(currentHealth, player.getGameData().getCurrentHealth());
+    }
+
 }

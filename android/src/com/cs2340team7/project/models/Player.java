@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.cs2340team7.project.views.TechGreen;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -22,8 +21,8 @@ public class Player extends ViewModel implements MapSubscriber {
     private int x;
     private int y;
 
-    private int size_x;
-    private int size_y;
+    private int sizeX;
+    private int sizeY;
 
     private TiledMap map;
     private MovementStrategy movementStrategy;
@@ -31,7 +30,8 @@ public class Player extends ViewModel implements MapSubscriber {
     private static Player player;
 
     private Sprite playerSprite;
-    private ArrayList<PlayerPositionSubscriber> playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
+    private ArrayList<PlayerPositionSubscriber>
+            playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
 
 
     protected Player() {
@@ -40,8 +40,8 @@ public class Player extends ViewModel implements MapSubscriber {
         running = false;
         //when the player is created add it as a map subscriber
         gameData.addMapSubscribers(this);
-        size_x = 30;
-        size_y = 30;
+        sizeX = 30;
+        sizeY = 30;
     }
 
     public GameDataModel getGameData() {
@@ -145,7 +145,7 @@ public class Player extends ViewModel implements MapSubscriber {
 
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
-        int heightConstant =32 ;
+        int heightConstant = 32;
         int widthConstant =  32;
         if (isX) {
             return (int) pos / widthConstant;
@@ -231,27 +231,27 @@ public class Player extends ViewModel implements MapSubscriber {
 
     public Sprite getSprite() {
 
-            String character = gameData.getCharacter();
-            String filePath = null;
-            switch (character) {
-                case "Persian" :
-                    filePath = "thepurplepersian.png";
-                    break;
-                case "Gabe" :
-                    filePath = "generalgabe.png";
-                    break;
-                case "Sid" :
-                    filePath = "swordmastersid.png";
-                    break;
-                default:
-                    filePath = "swordmastersid.png";
-                    break;
-            }
-            FileHandle fileHandle = Gdx.files.internal(filePath);
-            Texture texture = new Texture(fileHandle);
-            Sprite sprite = new Sprite(texture);
-            sprite.setSize(160,160);
-            playerSprite = sprite;
+        String character = gameData.getCharacter();
+        String filePath = null;
+        switch (character) {
+        case "Persian" :
+            filePath = "thepurplepersian.png";
+            break;
+        case "Gabe" :
+            filePath = "generalgabe.png";
+            break;
+        case "Sid" :
+            filePath = "swordmastersid.png";
+            break;
+        default:
+            filePath = "swordmastersid.png";
+            break;
+        }
+        FileHandle fileHandle = Gdx.files.internal(filePath);
+        Texture texture = new Texture(fileHandle);
+        Sprite sprite = new Sprite(texture);
+        sprite.setSize(160, 160);
+        playerSprite = sprite;
         return playerSprite;
     }
     public void  setPlayerSprite(Sprite sprite) {
