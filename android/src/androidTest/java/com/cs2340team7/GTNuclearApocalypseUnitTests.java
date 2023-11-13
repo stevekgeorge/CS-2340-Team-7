@@ -96,11 +96,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     public void testHealth() {
         IntroScreenViewModel model = new IntroScreenViewModel();
         model.setDifficulty("Hard");
-        assertEquals(model.getGameData().getMaxHealth(), 100);
+        assertEquals(model.getGameData().getMaxHealth(), 50);
         model.setDifficulty("Medium");
-        assertEquals(model.getGameData().getMaxHealth(), 250);
+        assertEquals(model.getGameData().getMaxHealth(), 75);
         model.setDifficulty("Easy");
-        assertEquals(model.getGameData().getMaxHealth(), 500);
+        assertEquals(model.getGameData().getMaxHealth(), 100);
     }
 
     @Test
@@ -399,6 +399,31 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertTrue(buzz.getClass() == BuzzEnemy.class);
     }
 
+    @Test
+    public void testDamageTaken() {
+        Player player = Player.getPlayer();
 
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        assertNotEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+    }
+
+    @Test
+    public void testDamageIsNotRepeated() throws InterruptedException {
+        Player player = Player.getPlayer();
+
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        int currentHealth = player.getGameData().getCurrentHealth();
+        assertNotEquals(currentHealth, player.getGameData().getMaxHealth());
+
+        Thread.sleep(5000);
+
+        assertEquals(currentHealth, player.getGameData().getCurrentHealth());
+    }
 
 }
