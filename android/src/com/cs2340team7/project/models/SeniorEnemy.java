@@ -17,7 +17,7 @@ public class SeniorEnemy extends Enemy {
         this.getSprite().setX(x);
         this.getSprite().setY(y);
         this.getSprite().setSize(this.getSizeX(), this.getSizeY());
-        this.speed = 5;
+        this.speed = 1;
     }
     @Override
     public void move(Player.Direction direction) {

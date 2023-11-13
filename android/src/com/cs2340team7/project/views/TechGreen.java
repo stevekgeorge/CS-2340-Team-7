@@ -1,12 +1,16 @@
 package com.cs2340team7.project.views;
 
+import static com.cs2340team7.project.models.Enemy.EnemyType.TA;
+
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.dynamicanimation.animation.SpringAnimation;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,6 +30,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.EnemyType;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -56,7 +61,6 @@ public class TechGreen extends ApplicationAdapter {
 
     private Sprite playerSprite;
     private Viewport fittedviewport;
-
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -81,6 +85,8 @@ public class TechGreen extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+//        BitmapFont font = new BitmapFont();
+//        font.getData().setScale(5);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
@@ -128,8 +134,8 @@ public class TechGreen extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
 
-        enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.TA));
-        enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
+        enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.SENIOR));
+        enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.TA));
     }
 
     @Override
@@ -150,7 +156,7 @@ public class TechGreen extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        for (Enemy enemy : enemies) {
+        for (Enemy enemy: enemies){
             ((Sprite) enemy.getSprite()).draw(batch);
         }
 
@@ -193,7 +199,6 @@ public class TechGreen extends ApplicationAdapter {
         }
 
     }
-
     @Override
     public void dispose() {
         batch.dispose();
@@ -203,4 +208,9 @@ public class TechGreen extends ApplicationAdapter {
         stage.dispose();
 
     }
+//    @Override
+//    public void resize(int width, int height){
+//        viewport.update(width,height);
+//        camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+//    }
 }

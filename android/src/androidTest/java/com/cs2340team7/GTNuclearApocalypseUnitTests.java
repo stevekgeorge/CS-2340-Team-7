@@ -24,6 +24,7 @@ import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.SeniorEnemy;
 import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
@@ -329,22 +330,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         player.setMovementStrategy();
         assertTrue(player.getMovementStrategy() instanceof PurplePersian);
     }
-
-//    @Test
-//    public void testEnemyHealth() {
-//        Enemy enemy = new Enemy(0, 0);
-//        GameDataModel model = enemy.getGameData();
-//        model.setDifficulty("Hard");
-//        assertEquals(enemy.getHealth(), 100);
-//    }
-//
-//    @Test
-//    public void testEnemyDamage() {
-//        Enemy enemy = new Enemy(0, 0);
-//        GameDataModel model = enemy.getGameData();
-//        model.setDifficulty("Hard");
-//        assertEquals(enemy.getDamage(), 25);
-//    }
+    
 //    @Test
 //    public void testPlayerHealthDecreaseUponCollision() {
 //        Player player = Player.getPlayer();
