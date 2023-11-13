@@ -426,4 +426,30 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(currentHealth, player.getGameData().getCurrentHealth());
     }
 
+    @Test
+    public void testCheckEnemySpeed() {
+
+        BuzzEnemy ta = (BuzzEnemy) EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        assertTrue(ta.getSpeed() == 15);
+
+    }
+
+    public void testCheckEnemyHealth() {
+
+        Enemy ta = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        int health;
+
+        if (model.getDifficulty() == "Easy") {
+            health = 25;
+        } else if (model.getDifficulty() == "Medium") {
+            health = 50;
+        } else {
+            health = 100;
+        }
+        assertTrue(ta.getHealth() == health);
+
+    }
+
 }
