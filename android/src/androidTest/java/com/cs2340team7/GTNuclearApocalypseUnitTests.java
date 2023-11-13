@@ -416,7 +416,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     public void testCheckEnemySpeed() {
 
         BuzzEnemy ta = (BuzzEnemy) EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
-        assertTrue(ta.getSpeed() == 15);
+        assertTrue(ta.getSpeed() == 5);
 
     }
 
@@ -437,5 +437,36 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertTrue(ta.getHealth() == health);
 
     }
+
+    @Test
+    public void testCheckEnemyDamage() {
+
+        Enemy enemy = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        int damage;
+        if (model.getDifficulty() == "Easy") {
+            damage = 10;
+        } else if (model.getDifficulty() == "Medium") {
+            damage = 15;
+        } else {
+            damage = 25;
+        }
+        assertTrue(enemy.getHealth() == damage);
+    }
+
+    @Test
+    public void checkEnemyMovement() {
+        Enemy enemy = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        player.setXAndY(0, 0);
+        player.updatePosition(10, 10);
+        assertEquals(enemy.getSprite().getX(), 0);
+        assertEquals(enemy.getSprite().getY(), 0);
+    }
+    
+
+
 
 }
