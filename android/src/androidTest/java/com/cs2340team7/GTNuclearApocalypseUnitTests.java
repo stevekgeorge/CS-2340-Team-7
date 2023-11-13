@@ -18,11 +18,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
@@ -45,7 +47,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
         Player score = Player.getPlayer();
-
         int start = score.getGameData().getCurrentScore();
 
         score.startDecrease();
@@ -274,11 +275,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         int yLater = player.getY();
 
         assertTrue( yStart == yLater);
-
-
-
     }
-
     @Test
     public void advancesLevelUponExit() {
         TechGreen techGreen = new TechGreen(null);
@@ -348,15 +345,11 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //        model.setDifficulty("Hard");
 //        assertEquals(enemy.getDamage(), 25);
 //    }
-   // @Test
-//    public void testPlayerHealthDecrease() {
+//    @Test
+//    public void testPlayerHealthDecreaseUponCollision() {
 //        Player player = Player.getPlayer();
 //        Enemy enemy = EnemyFactory.generateEnemy(100, 100,Enemy.EnemyType.SENIOR);
-//
 //        GameDataModel gameModel = player.getGameData();
-//        int currentHealth = gameModel.getCurrentHealth();
-//
-//        TechGreen techGreen = new TechGreen(null);
 //        TechGreenViewModel model = new TechGreenViewModel();
 //        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
 //        Texture texture = new Texture(fileHandle);
@@ -365,8 +358,47 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 //        sprite.setSize(50, 50);
 //        model.setPlayerSprite(sprite);
 //        Rectangle collisionRect = new Rectangle(100, 100, 50, 50);
-//        //Rectangle spriteRect = sprite.getBoundingRectangle();
 //        enemy.updatePlayerPosition(collisionRect);
 //        assertEquals(90, gameModel.getCurrentHealth() - 10);
 //    }
+//    @Test
+//    public void healthDecreasesCorrectAmount() {
+//        IntroScreenViewModel model = new IntroScreenViewModel();
+//        Player player = Player.getPlayer();
+//        GameDataModel gameData = player.getGameData();
+//        Enemy enemy = EnemyFactory.generateEnemy(100, 100,Enemy.EnemyType.SENIOR);
+//        model.setDifficulty("Easy");
+//        TechGreenViewModel techModel = new TechGreenViewModel();
+//        FileHandle fileHandle = Gdx.files.internal("generalgabe.png");
+//        Texture texture = new Texture(fileHandle);
+//        Sprite sprite = new Sprite(texture);
+//        sprite.setPosition(50, 50);
+//        sprite.setSize(50, 50);
+//        techModel.setPlayerSprite(sprite);
+//        Rectangle collisionRect = new Rectangle(100, 100, 50, 50);
+//        enemy.updatePlayerPosition(collisionRect);
+//        assertEquals(75,gameData.getCurrentHealth());
+//        gameData.clear();
+//        model.setDifficulty("Medium");
+//        assertEquals(50, gameData.getCurrentHealth());
+//        gameData.clear();
+//        model.setDifficulty("Hard");
+//        assertEquals(25, gameData.getCurrentHealth());
+//    }
+
+    @Test
+    public void testFactoryMakeTA(){
+
+        Enemy ta = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        assertTrue(ta.getClass() == TAEnemy.class);
+    }
+    @Test
+    public void testFactoryMakeBuzz(){
+
+        Enemy buzz = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.BUZZ);
+        assertTrue(buzz.getClass() == BuzzEnemy.class);
+    }
+
+
+
 }

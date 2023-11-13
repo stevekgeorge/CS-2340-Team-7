@@ -9,6 +9,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.badlogic.gdx.Gdx;
+import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.databinding.ActivityGameOverScreenBinding;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;

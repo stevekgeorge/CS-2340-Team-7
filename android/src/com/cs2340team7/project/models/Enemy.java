@@ -47,7 +47,6 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         if (sprite.getBoundingRectangle().overlaps((player_rect)) && !damagedByCurrentEnemy){
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
-            Gdx.app.log("MOVEMENT", "set max health called");
         } else if (!sprite.getBoundingRectangle().overlaps((player_rect))) {
             damagedByCurrentEnemy = false;
         }
