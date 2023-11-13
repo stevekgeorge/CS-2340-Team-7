@@ -257,6 +257,11 @@ public class Player extends ViewModel implements MapSubscriber {
     public void  setPlayerSprite(Sprite sprite) {
         this.playerSprite = sprite;
     }
+
+    public void setXAndY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
 
 
