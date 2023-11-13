@@ -45,7 +45,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
     @Test
     public void testPlayerScoreDecrease() {
         Player score = Player.getPlayer();
-
         int start = score.getGameData().getCurrentScore();
 
         score.startDecrease();
