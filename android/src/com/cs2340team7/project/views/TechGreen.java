@@ -73,7 +73,7 @@ public class TechGreen extends ApplicationAdapter {
     public void create() {
         model = new TechGreenViewModel();
         camera = new OrthographicCamera();
-        fittedviewport = new FitViewport(30*32,30*32, camera);
+        fittedviewport = new FitViewport(30 * 32, 30 * 32, camera);
         map = new TmxMapLoader().load("techgreen.tmx");
         stage = new Stage(fittedviewport);
         mapRenderer = new OrthogonalTiledMapRenderer(map);
@@ -133,10 +133,11 @@ public class TechGreen extends ApplicationAdapter {
 
         playerSprite = model.getPlayerSprite();
 
+
         enemies.add(EnemyFactory.generateEnemy(600, 600,Enemy.EnemyType.TA));
         enemies.add(EnemyFactory.generateEnemy(400, 400,Enemy.EnemyType.TA));
-
     }
+
     @Override
     public void render() {
 
@@ -164,13 +165,18 @@ public class TechGreen extends ApplicationAdapter {
         stage.draw();
         batch.end();
 
+        if (model.getGameData().getCurrentHealth() <= 0) {
+            Intent nextLevel = new Intent(context, GameOverScreen.class);
+            context.startActivity(nextLevel);
+        }
 
-        if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || right.isPressed()) {
+
+        if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || left.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || left.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 
