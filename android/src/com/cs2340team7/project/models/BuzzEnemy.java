@@ -17,7 +17,7 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
         this.getSprite().setX(x);
         this.getSprite().setY(y);
         this.getSprite().setSize(this.getSizeX(), this.getSizeY());
-        this.speed = 15;
+        this.speed = 5;
     }
     @Override
     public void move(Player.Direction direction) {

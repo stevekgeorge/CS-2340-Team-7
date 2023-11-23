@@ -24,6 +24,7 @@ import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.SeniorEnemy;
 import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
@@ -329,22 +330,7 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         player.setMovementStrategy();
         assertTrue(player.getMovementStrategy() instanceof PurplePersian);
     }
-
-//    @Test
-//    public void testEnemyHealth() {
-//        Enemy enemy = new Enemy(0, 0);
-//        GameDataModel model = enemy.getGameData();
-//        model.setDifficulty("Hard");
-//        assertEquals(enemy.getHealth(), 100);
-//    }
-//
-//    @Test
-//    public void testEnemyDamage() {
-//        Enemy enemy = new Enemy(0, 0);
-//        GameDataModel model = enemy.getGameData();
-//        model.setDifficulty("Hard");
-//        assertEquals(enemy.getDamage(), 25);
-//    }
+    
 //    @Test
 //    public void testPlayerHealthDecreaseUponCollision() {
 //        Player player = Player.getPlayer();
@@ -425,5 +411,62 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
         assertEquals(currentHealth, player.getGameData().getCurrentHealth());
     }
+
+    @Test
+    public void testCheckEnemySpeed() {
+
+        BuzzEnemy ta = (BuzzEnemy) EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        assertTrue(ta.getSpeed() == 5);
+
+    }
+
+    public void testCheckEnemyHealth() {
+
+        Enemy ta = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        int health;
+
+        if (model.getDifficulty() == "Easy") {
+            health = 25;
+        } else if (model.getDifficulty() == "Medium") {
+            health = 50;
+        } else {
+            health = 100;
+        }
+        assertTrue(ta.getHealth() == health);
+
+    }
+
+    @Test
+    public void testCheckEnemyDamage() {
+
+        Enemy enemy = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        int damage;
+        if (model.getDifficulty() == "Easy") {
+            damage = 10;
+        } else if (model.getDifficulty() == "Medium") {
+            damage = 15;
+        } else {
+            damage = 25;
+        }
+        assertTrue(enemy.getHealth() == damage);
+    }
+
+    @Test
+    public void checkEnemyMovement() {
+        Enemy enemy = EnemyFactory.generateEnemy(0,0, Enemy.EnemyType.TA);
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        player.setXAndY(0, 0);
+        player.updatePosition(10, 10);
+        assertEquals(enemy.getSprite().getX(), 0);
+        assertEquals(enemy.getSprite().getY(), 0);
+    }
+    
+
+
 
 }

@@ -3,7 +3,6 @@ package com.cs2340team7.project.views;
 import android.content.Context;
 import android.content.Intent;
 
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -56,7 +55,6 @@ public class TechGreen extends ApplicationAdapter {
 
     private Sprite playerSprite;
     private Viewport fittedviewport;
-
     public TechGreen(Context context) {
         this.context = context;
     }
@@ -128,7 +126,7 @@ public class TechGreen extends ApplicationAdapter {
         playerSprite = model.getPlayerSprite();
 
 
-        enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.TA));
+        enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
     }
 
@@ -150,7 +148,7 @@ public class TechGreen extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        for (Enemy enemy : enemies) {
+        for (Enemy enemy: enemies) {
             ((Sprite) enemy.getSprite()).draw(batch);
         }
 
@@ -193,7 +191,6 @@ public class TechGreen extends ApplicationAdapter {
         }
 
     }
-
     @Override
     public void dispose() {
         batch.dispose();

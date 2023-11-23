@@ -11,6 +11,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private int damage;
     private GameDataModel model;
     private boolean damagedByCurrentEnemy = false;
+    private int speed;
 
 
     private Sprite sprite;
@@ -39,23 +40,17 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         this.model = GameDataModel.getData();
         if (model.getDifficulty() == "Easy") {
             this.health = 25;
-            //model.setEnemyHealth(25);
         } else if (model.getDifficulty() == "Medium") {
             this.health = 50;
-            //model.setEnemyHealth(50);
         } else {
             this.health = 100;
-            //model.setEnemyHealth(100);
         }
         if (model.getDifficulty() == "Easy") {
             this.damage = 10;
-            //model.setEnemyDamage(10);
         } else if (model.getDifficulty() == "Medium") {
             this.damage = 15;
-            //model.setEnemyDamage(15);
         } else {
             this.damage = 25;
-            //model.setEnemyDamage(25);
         }
     }
     public abstract void move(Player.Direction direction);
@@ -113,6 +108,12 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public void updatePosition(int newX, int newY) {
         sprite.setX(newX);
         sprite.setY(newY);
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public GameDataModel getGameData() {
+        return model;
     }
 
 }

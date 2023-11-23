@@ -18,7 +18,7 @@ public class TAEnemy extends Enemy { //TA enemies do not move.
         this.getSprite().setX(x);
         this.getSprite().setY(y);
         this.getSprite().setSize(this.getSizeX(), this.getSizeY());
-        this.speed = 5;
+        this.speed = 0;
     }
     @Override
     public void move(Player.Direction direction) {

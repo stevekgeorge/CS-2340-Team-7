@@ -17,7 +17,7 @@ public class FreshmenEnemy extends Enemy { //Second fastest enemy type.
         this.getSprite().setX(x);
         this.getSprite().setY(y);
         this.getSprite().setSize(this.getSizeX(), this.getSizeY());
-        this.speed = 10;
+        this.speed = 3;
     }
     @Override
     public void move(Player.Direction direction) {
