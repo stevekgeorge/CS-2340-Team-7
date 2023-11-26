@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,7 +24,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
@@ -33,23 +31,19 @@ import java.util.ArrayList;
 
 public class TechGreen extends ApplicationAdapter {
     private Context context;
-    private GameDataModel gameData;
-    //private Player player;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer mapRenderer;
-    private TextButton nextButton;
     private TechGreenViewModel model;
     private Label score;
     private Label health;
-    private TextButton up;
-    private TextButton down;
-    private TextButton left;
-    private TextButton right;
-    private Sprite sprite;
+    private TextButton upButton;
+    private TextButton downButton;
+    private TextButton leftButton;
+    private TextButton rightButton;
+    private TextButton attackButton;
     private Batch batch;
-    private Texture texture;
     private BitmapFont font;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
@@ -59,8 +53,8 @@ public class TechGreen extends ApplicationAdapter {
         this.context = context;
     }
 
-    public TextButton getDown() { //for testing purposes
-        return down;
+    public TextButton getDownButton() { //for testing purposes
+        return downButton;
     }
 
     @Override
@@ -99,26 +93,30 @@ public class TechGreen extends ApplicationAdapter {
         health.setX(200);
         health.setY(900);
 
-        up = new TextButton("↑", textButtonStyleLarge);
-        left = new TextButton("←", textButtonStyleLarge);
-        right = new TextButton("→", textButtonStyleLarge);
-        down = new TextButton("↓", textButtonStyleLarge);
-
-        up.setX(220);
-        up.setY(400);
-        left.setX(50);
-        left.setY(200);
-        right.setX(390);
-        right.setY(200);
-        down.setX(220);
-        down.setY(200);
+        upButton = new TextButton("↑", textButtonStyleLarge);
+        leftButton = new TextButton("←", textButtonStyleLarge);
+        rightButton = new TextButton("→", textButtonStyleLarge);
+        downButton = new TextButton("↓", textButtonStyleLarge);
+        attackButton = new TextButton("Attack", textButtonStyle);
+        attackButton.setX(600);
+        attackButton.setY(900);
+        upButton.setX(220);
+        upButton.setY(400);
+        leftButton.setX(50);
+        leftButton.setY(200);
+        rightButton.setX(390);
+        rightButton.setY(200);
+        downButton.setX(220);
+        downButton.setY(200);
 
         stage.addActor(score);
         stage.addActor(health);
-        stage.addActor(up);
-        stage.addActor(left);
-        stage.addActor(right);
-        stage.addActor(down);
+        stage.addActor(upButton);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        stage.addActor(downButton);
+        stage.addActor(attackButton);
+
 
         Gdx.input.setInputProcessor(stage);
 
@@ -162,21 +160,23 @@ public class TechGreen extends ApplicationAdapter {
             context.startActivity(nextLevel);
         }
 
-
-        if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || left.isPressed()) {
+        if (attackButton.isPressed()) {
+            //attack enemy
+        }
+        if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || leftButton.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButton.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyPressed(Keys.DPAD_UP) || up.isPressed()) {
+        if (Gdx.input.isKeyPressed(Keys.DPAD_UP) || upButton.isPressed()) {
             model.move(Player.Direction.UP);
         }
 
-        if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN) || down.isPressed()) {
+        if (Gdx.input.isKeyPressed(Keys.DPAD_DOWN) || downButton.isPressed()) {
             model.move(Player.Direction.DOWN);
         }
 

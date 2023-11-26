@@ -33,23 +33,18 @@ import java.util.ArrayList;
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
-    private GameDataModel gameData;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TextButton nextButton;
     private KlausViewModel model;
-    private TextButton up;
-    private TextButton down;
-    private TextButton left;
-    private TextButton right;
+    private TextButton upButton;
+    private TextButton downButton;
+    private TextButton leftButton;
+    private TextButton rightButton;
+    private TextButton attackButton;
     private Label score;
     private Label health;
-    private Sprite sprite;
-
-    private Texture texture;
     private BitmapFont font;
-    private Viewport viewport;
     private Sprite playerSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
@@ -79,8 +74,6 @@ public class Klaus extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        //BitmapFont font = new BitmapFont();
-        //font.getData().setScale(2);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
@@ -100,27 +93,30 @@ public class Klaus extends ApplicationAdapter {
         score.setY(900);
         health.setX(180);
         health.setY(900);
+        attackButton = new TextButton("Attack", textButtonStyle);
+        upButton = new TextButton("↑", textButtonStyleLarge);
+        leftButton = new TextButton("←", textButtonStyleLarge);
+        rightButton = new TextButton("→", textButtonStyleLarge);
+        downButton = new TextButton("↓", textButtonStyleLarge);
 
-        up = new TextButton("↑", textButtonStyleLarge);
-        left = new TextButton("←", textButtonStyleLarge);
-        right = new TextButton("→", textButtonStyleLarge);
-        down = new TextButton("↓", textButtonStyleLarge);
+        attackButton.setX(600);
+        attackButton.setY(900);
+        upButton.setX(220);
+        upButton.setY(400);
+        leftButton.setX(50);
+        leftButton.setY(200);
+        rightButton.setX(390);
+        rightButton.setY(200);
+        downButton.setX(220);
+        downButton.setY(200);
 
-        up.setX(220);
-        up.setY(400);
-        left.setX(50);
-        left.setY(200);
-        right.setX(390);
-        right.setY(200);
-        down.setX(220);
-        down.setY(200);
-
+        stage.addActor(attackButton);
         stage.addActor(score);
         stage.addActor(health);
-        stage.addActor(up);
-        stage.addActor(left);
-        stage.addActor(right);
-        stage.addActor(down);
+        stage.addActor(upButton);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        stage.addActor(downButton);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -163,26 +159,29 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
         batch.end();
 
+        if (attackButton.isPressed()) {
+            //attack enemy
+        }
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || leftButton.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButton.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || upButton.isPressed()) {
             model.move(Player.Direction.UP);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || downButton.isPressed()) {
             model.move(Player.Direction.DOWN);
         }
 
