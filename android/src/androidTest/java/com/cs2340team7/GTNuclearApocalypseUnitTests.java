@@ -37,6 +37,7 @@ import com.cs2340team7.project.models.PurplePersian;
 import junit.framework.TestCase;
 
 import java.util.Calendar;
+import java.util.Timer;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -465,6 +466,32 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(enemy.getSprite().getX(), 0);
         assertEquals(enemy.getSprite().getY(), 0);
     }
+    @Test
+    public void scoreDownTime() throws InterruptedException {
+        Player player = Player.getPlayer();
+        player.startDecrease();
+        int score1 = player.getScore();
+        Timer timer = new Timer();
+        timer.wait((long) 1000);
+        int score2 = player.getScore();
+
+        assertTrue(score1 != score2);
+
+    }
+    @Test
+    public void testScoreUpdateDamageTaken() {
+        Player player = Player.getPlayer();
+        int score1 = player.getScore();
+
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        int score2 = player.getScore();
+        assertNotEquals(score1, score2);
+    }
+
+
     
 
 
