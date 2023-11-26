@@ -151,9 +151,17 @@ public class GameDataModel extends BaseObservable {
         }
     }
 
-    /**
+    public int getLevel() {
+        return level;
+    }
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+ /**
      * clears the game state and returns all variables to their default values
      */
+
     public void clear() {
         playerName = "";
         difficulty = "";

@@ -43,6 +43,7 @@ public class Klaus extends ApplicationAdapter {
     private TextButton down;
     private TextButton left;
     private TextButton right;
+    private TextButton attack;
     private Label score;
     private Label health;
     private Sprite sprite;
@@ -79,8 +80,6 @@ public class Klaus extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        //BitmapFont font = new BitmapFont();
-        //font.getData().setScale(2);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
@@ -100,12 +99,14 @@ public class Klaus extends ApplicationAdapter {
         score.setY(900);
         health.setX(180);
         health.setY(900);
-
+        attack = new TextButton("Attack", textButtonStyle);
         up = new TextButton("↑", textButtonStyleLarge);
         left = new TextButton("←", textButtonStyleLarge);
         right = new TextButton("→", textButtonStyleLarge);
         down = new TextButton("↓", textButtonStyleLarge);
 
+        attack.setX(600);
+        attack.setY(900);
         up.setX(220);
         up.setY(400);
         left.setX(50);
@@ -115,6 +116,7 @@ public class Klaus extends ApplicationAdapter {
         down.setX(220);
         down.setY(200);
 
+        stage.addActor(attack);
         stage.addActor(score);
         stage.addActor(health);
         stage.addActor(up);
@@ -163,6 +165,9 @@ public class Klaus extends ApplicationAdapter {
         stage.draw();
         batch.end();
 
+        if (attack.isPressed()) {
+            //attack enemy
+        }
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);

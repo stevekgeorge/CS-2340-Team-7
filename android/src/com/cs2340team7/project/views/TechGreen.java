@@ -2,6 +2,7 @@ package com.cs2340team7.project.views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -47,6 +48,7 @@ public class TechGreen extends ApplicationAdapter {
     private TextButton down;
     private TextButton left;
     private TextButton right;
+    private TextButton attack;
     private Sprite sprite;
     private Batch batch;
     private Texture texture;
@@ -103,7 +105,9 @@ public class TechGreen extends ApplicationAdapter {
         left = new TextButton("←", textButtonStyleLarge);
         right = new TextButton("→", textButtonStyleLarge);
         down = new TextButton("↓", textButtonStyleLarge);
-
+        attack = new TextButton("Attack", textButtonStyle);
+        attack.setX(600);
+        attack.setY(900);
         up.setX(220);
         up.setY(400);
         left.setX(50);
@@ -119,6 +123,8 @@ public class TechGreen extends ApplicationAdapter {
         stage.addActor(left);
         stage.addActor(right);
         stage.addActor(down);
+        stage.addActor(attack);
+
 
         Gdx.input.setInputProcessor(stage);
 
@@ -162,7 +168,9 @@ public class TechGreen extends ApplicationAdapter {
             context.startActivity(nextLevel);
         }
 
-
+        if (attack.isPressed()) {
+            //attack enemy
+        }
         if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || left.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
