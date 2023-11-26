@@ -8,7 +8,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 
 import java.util.ArrayList;
 
-
+/**
+ * main DataModel class that contains necessary data for the player
+ */
 public class GameDataModel extends BaseObservable {
     private String playerName;
     private String difficulty;
@@ -50,19 +52,19 @@ public class GameDataModel extends BaseObservable {
     public int getMaxHealth() {
         return maxHealth;
     }
-
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
+
     @Bindable
     public int getCurrentScore() {
         return currentScore;
     }
-
     @Bindable
     public String getDifficulty() {
         return difficulty;
     }
+
 
     @Bindable
     public int getCurrentHealth() {
@@ -120,44 +122,38 @@ public class GameDataModel extends BaseObservable {
         return character;
     }
 
+    /**
+     * update method for map that notifies map subscribers for the observer design pattern
+     * @param map TiledMap instance that the currentMap instance will update to
+     */
     public void updateMap(TiledMap map) {
         this.currentMap = map;
         notifyMapSubscribers();
         Gdx.app.log("MOVEMENT", "update map called");
 
     }
+
+    /**
+     * method that adds a subscriber
+     * @param subscriber the new subscriber that is being added to mapSubscribers arraylist
+     */
     public void addMapSubscribers(MapSubscriber subscriber) {
         this.mapSubscribers.add(subscriber);
     }
+
+    /**
+     * method that notifies every subscriber in the arraylist of the changes that occur in the maps
+     * for the observer pattern
+     */
     private void notifyMapSubscribers() {
         for (MapSubscriber subscriber: mapSubscribers) {
             subscriber.updateMap(this.currentMap);
         }
     }
 
-    /*
-    public Enemy getEnemy() {
-        return enemy;
-    }
-    public void setEnemyHealth(int health) {
-        enemyHealth = health;
-    }
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
-    public void setEnemyDamage(int damage) {
-        enemyDamage = damage;
-    }
+    /**
+     * clears the game state and returns all variables to their default values
      */
-
-    public int getLevel() {
-        return level;
-    }
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-
     public void clear() {
         playerName = "";
         difficulty = "";
