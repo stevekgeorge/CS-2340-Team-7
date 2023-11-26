@@ -1,7 +1,7 @@
 package com.cs2340team7.project.models;
 
 public class SwordMasterSid implements MovementStrategy {
-    private static int speed = 5;
+    private static int speed = 9;
     private Player player;
 
     public Player getPlayer() {
