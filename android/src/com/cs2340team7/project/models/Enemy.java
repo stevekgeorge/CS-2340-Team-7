@@ -60,6 +60,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         if (sprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
+            model.setCurrentScore(model.getCurrentScore() - 1);
         } else if (!sprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
