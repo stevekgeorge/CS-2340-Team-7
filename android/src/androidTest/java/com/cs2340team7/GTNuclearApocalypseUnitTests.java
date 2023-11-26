@@ -1,36 +1,28 @@
 package com.cs2340team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import android.graphics.Rect;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.SeniorEnemy;
 import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import com.cs2340team7.project.views.TechGreen;
-import com.badlogic.gdx.math.Rectangle;
 import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
 import com.cs2340team7.project.models.PurplePersian;
 
@@ -463,8 +455,8 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         GameDataModel model = player.getGameData();
         player.setXAndY(0, 0);
         player.updatePosition(10, 10);
-        assertEquals(enemy.getSprite().getX(), 0);
-        assertEquals(enemy.getSprite().getY(), 0);
+        assertEquals(enemy.getEnemySprite().getX(), 0);
+        assertEquals(enemy.getEnemySprite().getY(), 0);
     }
     @Test
     public void scoreDownTime() throws InterruptedException {

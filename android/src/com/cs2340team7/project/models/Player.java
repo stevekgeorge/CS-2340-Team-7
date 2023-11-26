@@ -207,7 +207,7 @@ public class Player extends ViewModel implements MapSubscriber {
 
     public void attack(Rectangle playerRect) {
         if (playerSprite.getBoundingRectangle().overlaps((playerRect))) {
-
+//            sprite
         }
     }
 
