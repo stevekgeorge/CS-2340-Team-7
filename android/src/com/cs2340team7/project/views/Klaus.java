@@ -80,8 +80,6 @@ public class Klaus extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        //BitmapFont font = new BitmapFont();
-        //font.getData().setScale(2);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
