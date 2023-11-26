@@ -30,6 +30,9 @@ import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
 import java.util.ArrayList;
+/**
+ * Klaus class that implements the second screen that the player enters.
+ */
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
@@ -56,7 +59,10 @@ public class Klaus extends ApplicationAdapter {
     public Klaus(Context context) {
         this.context = context;
     }
-
+    /**
+     * create method creates creates the tilemap and adds all buttons and labels to the screen.
+     * Enemies and player sprite are also generated onto the screen.
+     */
     @Override
     public void create() {
         model = new KlausViewModel();
@@ -129,6 +135,11 @@ public class Klaus extends ApplicationAdapter {
 
 
     }
+    /**
+     * render method that is called in each frame of the game loop. This method handles
+     * the game logic that needs to be updated such as key pressed that need to be listened for
+     * in every frame. The health variable is also updated based on player position and movement.
+     */
     @Override
     public void render() {
 
@@ -194,10 +205,13 @@ public class Klaus extends ApplicationAdapter {
         }
 
     }
+    /**
+     * disposes of all variables that are no longer necessary when the game is closed. This is to
+     * free memory and clean up resources.
+     */
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();

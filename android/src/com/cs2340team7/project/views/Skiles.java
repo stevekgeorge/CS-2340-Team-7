@@ -30,6 +30,9 @@ import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
+/**
+ * Skiles class that implements the third screen that the player enters.
+ */
 
 public class Skiles extends ApplicationAdapter {
     private Context context;
@@ -57,7 +60,10 @@ public class Skiles extends ApplicationAdapter {
     public Skiles(Context context) {
         this.context = context;
     }
-
+    /**
+     * create method creates creates the tilemap and adds all buttons and labels to the screen.
+     * Enemies and player sprite are also generated onto the screen.
+     */
     @Override
     public void create() {
         model = new SkilesViewModel();
@@ -134,6 +140,11 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
     }
+    /**
+     * render method that is called in each frame of the game loop. This method handles
+     * the game logic that needs to be updated such as key pressed that need to be listened for
+     * in every frame. The health variable is also updated based on player position and movement.
+     */
     @Override
     public void render() {
         if (score != null) {
@@ -163,7 +174,7 @@ public class Skiles extends ApplicationAdapter {
         batch.end();
 
         if (attackButton.isPressed()) {
-            model.attack();
+            //model.attack();
         }
 
         if (model.getGameData().getCurrentHealth() <= 0) {
@@ -203,10 +214,13 @@ public class Skiles extends ApplicationAdapter {
 
 
     }
+    /**
+     * disposes of all variables that are no longer necessary when the game is closed. This is to
+     * free memory and clean up resources.
+     */
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();
