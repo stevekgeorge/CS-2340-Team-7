@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,7 +24,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
@@ -151,7 +149,7 @@ public class Klaus extends ApplicationAdapter {
 
         for (Enemy enemy: enemies) {
 
-            ((Sprite) enemy.getSprite()).draw(batch);
+            ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
         playerSprite.draw(batch);
@@ -197,10 +195,8 @@ public class Klaus extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();
-
     }
 }

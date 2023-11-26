@@ -13,10 +13,10 @@ public class SeniorEnemy extends Enemy {
         Texture texture = new Texture(fileHandle);
         this.setSizeX(160);
         this.setSizeY(160);
-        this.setSprite(new Sprite(texture));
-        this.getSprite().setX(x);
-        this.getSprite().setY(y);
-        this.getSprite().setSize(this.getSizeX(), this.getSizeY());
+        this.setEnemySprite(new Sprite(texture));
+        this.getEnemySprite().setX(x);
+        this.getEnemySprite().setY(y);
+        this.getEnemySprite().setSize(this.getSizeX(), this.getSizeY());
         this.speed = 1;
     }
     @Override
