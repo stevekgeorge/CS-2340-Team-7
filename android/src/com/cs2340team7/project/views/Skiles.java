@@ -47,6 +47,7 @@ public class Skiles extends ApplicationAdapter {
     private TextButton down;
     private TextButton left;
     private TextButton right;
+    private TextButton attack;
     private BitmapFont font;
     private GameDataModel dataModel;
 
@@ -80,6 +81,12 @@ public class Skiles extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(4);
 
+        font = new BitmapFont();
+        font.getData().setScale(2);
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.fontColor = Color.WHITE;
+
         TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
         BitmapFont fontLarge = new BitmapFont();
         fontLarge.getData().setScale(5);
@@ -100,7 +107,10 @@ public class Skiles extends ApplicationAdapter {
         left = new TextButton("←", textButtonStyleLarge);
         right = new TextButton("→", textButtonStyleLarge);
         down = new TextButton("↓", textButtonStyleLarge);
+        attack = new TextButton("Attack", textButtonStyle);
 
+        attack.setX(600);
+        attack.setY(900);
         up.setX(220);
         up.setY(400);
         left.setX(50);
@@ -157,6 +167,10 @@ public class Skiles extends ApplicationAdapter {
 
         stage.draw();
         batch.end();
+
+        if (attack.isPressed()) {
+            //attack enemy
+        }
 
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
