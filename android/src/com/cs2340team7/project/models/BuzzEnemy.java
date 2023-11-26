@@ -32,4 +32,8 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
             this.updatePosition(this.getPosX() + speed, this.getPosY() - speed);
         }
     }
+
+    public int getSpeed() {
+        return speed;
+    }
 }
