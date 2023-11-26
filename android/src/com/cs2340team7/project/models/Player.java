@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -203,8 +204,7 @@ public class Player extends ViewModel implements MapSubscriber {
     public void move(Player.Direction direction) {
         movementStrategy.move(direction);
     }
-<<<<<<< Updated upstream
-=======
+
     public void attack(Rectangle playerRect) {
         if (playerSprite.getBoundingRectangle().overlaps((playerRect))) {
 
@@ -219,7 +219,6 @@ public class Player extends ViewModel implements MapSubscriber {
      * @param newY the Y variable of the new tile the player is moving into
      * @return boolean determining whether it is possible for a sprite to move into a tile
      */
->>>>>>> Stashed changes
     public boolean canMove(int newX, int newY) {
         this.x = getX();
         this.y = getY();
