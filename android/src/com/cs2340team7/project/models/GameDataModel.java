@@ -135,21 +135,6 @@ public class GameDataModel extends BaseObservable {
         }
     }
 
-    /*
-    public Enemy getEnemy() {
-        return enemy;
-    }
-    public void setEnemyHealth(int health) {
-        enemyHealth = health;
-    }
-    public int getEnemyHealth() {
-        return enemyHealth;
-    }
-    public void setEnemyDamage(int damage) {
-        enemyDamage = damage;
-    }
-     */
-
     public int getLevel() {
         return level;
     }
