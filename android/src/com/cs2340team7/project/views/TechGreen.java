@@ -147,7 +147,7 @@ public class TechGreen extends ApplicationAdapter {
         batch.begin();
 
         for (Enemy enemy: enemies) {
-            ((Sprite) enemy.getSprite()).draw(batch);
+            ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
         playerSprite.draw(batch);
@@ -194,10 +194,8 @@ public class TechGreen extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();
-
     }
 }

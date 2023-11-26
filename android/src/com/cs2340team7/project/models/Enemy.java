@@ -12,12 +12,10 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private GameDataModel model;
     private boolean damagedByCurrentEnemy = false;
     private int speed;
+    private Sprite enemySprite;
 
-
-    private Sprite sprite;
-
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
+    public void setEnemySprite(Sprite enemySprite) {
+        this.enemySprite = enemySprite;
     }
 
     public void setSizeX(int sizeX) {
@@ -57,21 +55,22 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
     public void updatePlayerPosition(Rectangle playerRect) {
 
-        if (sprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
+        if (enemySprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
             model.setCurrentScore(model.getCurrentScore() - 1);
-        } else if (!sprite.getBoundingRectangle().overlaps((playerRect))) {
+        } else if (!enemySprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
+
         //add more to this method if you want the enemy to do different things when
         //the player moves
         // Determine the direction based on the player's position relative to the enemy
         float playerX = playerRect.getX();
         float playerY = playerRect.getY();
 
-        float enemyX = sprite.getX();
-        float enemyY = sprite.getY();
+        float enemyX = enemySprite.getX();
+        float enemyY = enemySprite.getY();
 
         Player.Direction direction;
 
@@ -90,14 +89,14 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
         move(direction);
     }
-    public Sprite getSprite() {
-        return sprite;
+    public Sprite getEnemySprite() {
+        return enemySprite;
     }
     public int getPosX() {
-        return (int) sprite.getX();
+        return (int) enemySprite.getX();
     }
     public int getPosY() {
-        return (int) sprite.getY();
+        return (int) enemySprite.getY();
     }
     public int getHealth() {
         return health;
@@ -107,8 +106,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     }
 
     public void updatePosition(int newX, int newY) {
-        sprite.setX(newX);
-        sprite.setY(newY);
+        enemySprite.setX(newX);
+        enemySprite.setY(newY);
     }
     public int getSpeed() {
         return speed;
