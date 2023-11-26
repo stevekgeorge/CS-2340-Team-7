@@ -49,6 +49,10 @@ public class Player extends ViewModel implements MapSubscriber {
         return gameData;
     }
 
+    /**
+     * sets the movementStrategy variable based on what player has been chosen.
+     * This is for strategy design implementation
+     */
     public void setMovementStrategy() {
         String character = gameData.getCharacter();
         switch (character) {
@@ -81,6 +85,10 @@ public class Player extends ViewModel implements MapSubscriber {
     public int getScore() {
         return gameData.getCurrentScore();
     }
+
+    /**
+     * method that creates a timer such that it counts down and decreases the score every three seconds
+     */
     public void startDecrease() {
         running = true;
         timer = new Timer();
@@ -92,6 +100,11 @@ public class Player extends ViewModel implements MapSubscriber {
         }, 3000, 3000);
 
     }
+
+    /**
+     * decreases the current score of the game by one every time the method is called.
+     * if the score has reached 0, the timer is canceled and the method is called no more
+     */
     public void decreaseScore() {
         if (gameData.getCurrentScore() > 0) {
             gameData.setCurrentScore(gameData.getCurrentScore() - 1);
@@ -99,11 +112,24 @@ public class Player extends ViewModel implements MapSubscriber {
             timer.cancel();
         }
     }
+
+    /**
+     * the timer for score decrease is canceled and the currentScore is reset back to 20.
+     */
     public void stopDecrease() {
         running = false;
         timer.cancel();
         gameData.setCurrentScore(20);
     }
+
+    /**
+     * updates position of the player every time the sprite moves.
+     * The method notifies every subscriber of the player's movement as well as
+     * the new bounding rectangle for the player
+     * This is vital for implementing the observer design pattern.
+     * @param newX the new X position of the player after it has moved
+     * @param newY the new Y position of the player after it has moved
+     */
     public void updatePosition(int newX, int newY) {
         Gdx.app.log("MOVEMENT", "update pos called");
         playerSprite.setX(newX);
@@ -124,7 +150,11 @@ public class Player extends ViewModel implements MapSubscriber {
 
     }
 
-
+    /**
+     * adds subscribers of interface type PlayerPositionSubsriber to an arrayList.
+     * This is for implementing observer pattern for player movement
+     * @param subscriber the new subsriber instance being added to the arrayList.
+     */
     public void addPlayerPositionSubscribers(PlayerPositionSubscriber subscriber) {
         this.playerPositionSubscribers.add(subscriber);
     }
@@ -134,6 +164,10 @@ public class Player extends ViewModel implements MapSubscriber {
         return movementStrategy;
     }
 
+    /**
+     * determines whether a sprite has exited the boundaries of the game screen.
+     * @return a boolean determining whether the boundaries have been exceeded by a sprite.
+     */
     public boolean exit() {
         System.out.printf("exit called, x is %d, map width is %d ",
                 getX(), (int) map.getProperties().get("width"));
@@ -143,7 +177,14 @@ public class Player extends ViewModel implements MapSubscriber {
         return false;
     }
 
-
+    /**
+     * method that determines where the player is on the screen based on coordinates, and converts that
+     * to a particular tile (32 pixels)
+     * @param pos an int representing the change in position of the sprite compared with its last position.
+     *            (either in the X or Y direction depending on the isX variable).
+     * @param isX boolean that indicates whether the sprite moved in the X direction or not
+     * @return
+     */
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
         int heightConstant = 32;
@@ -155,14 +196,29 @@ public class Player extends ViewModel implements MapSubscriber {
         }
     }
 
+    /**
+     * moves the player based on the particular movementStrategy instance chosen.
+     * This is for implementing the strategy design pattern.
+     * @param direction direction of movement
+     */
     public void move(Player.Direction direction) {
         movementStrategy.move(direction);
     }
+
     public void attack(Rectangle playerRect) {
         if (playerSprite.getBoundingRectangle().overlaps((playerRect))) {
 //            sprite
         }
     }
+
+    /**
+     * method that determines whether the next tile is solid or not and whether the player can
+     * move through it or not.
+     * This method is for determining wall collisions.
+     * @param newX the X variable of the new tile the player is moving into
+     * @param newY the Y variable of the new tile the player is moving into
+     * @return boolean determining whether it is possible for a sprite to move into a tile
+     */
     public boolean canMove(int newX, int newY) {
         this.x = getX();
         this.y = getY();
