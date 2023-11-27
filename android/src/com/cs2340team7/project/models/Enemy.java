@@ -3,7 +3,14 @@ package com.cs2340team7.project.models;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
+/**
+ * This abstract class represents an enemy in the game. It provides common properties
+ * and methods that all enemy types share.
+ */
 public abstract class Enemy implements PlayerPositionSubscriber {
+    /**
+     * Enumeration representing different types of enemies.
+     */
     public static enum EnemyType { BUZZ, FRESHMEN, SENIOR, TA }
     private int sizeX;
     private int sizeY;
@@ -12,32 +19,16 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private GameDataModel model;
     private boolean damagedByCurrentEnemy = false;
     private int speed;
+    private Sprite enemySprite;
 
-
-    private Sprite sprite;
-
-    public void setSprite(Sprite sprite) {
-        this.sprite = sprite;
-    }
-
-    public void setSizeX(int sizeX) {
-        this.sizeX = sizeX;
-    }
-
-    public void setSizeY(int sizeY) {
-        this.sizeY = sizeY;
-    }
-
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
-    }
-
+    /**
+     * Constructs an enemy object with default health and damage based on the game difficulty.
+     * The difficulty levels are "Easy", "Medium", and "Hard".
+     */
     public Enemy() {
         this.model = GameDataModel.getData();
+
+        // Set default health based on difficulty
         if (model.getDifficulty() == "Easy") {
             this.health = 25;
         } else if (model.getDifficulty() == "Medium") {
@@ -45,6 +36,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         } else {
             this.health = 100;
         }
+
+        // Set default damage based on difficulty
         if (model.getDifficulty() == "Easy") {
             this.damage = 10;
         } else if (model.getDifficulty() == "Medium") {
@@ -53,24 +46,38 @@ public abstract class Enemy implements PlayerPositionSubscriber {
             this.damage = 25;
         }
     }
+    /**
+     * Abstract method to be implemented by subclasses. It defines the movement
+     * behavior of the enemy.
+     *
+     * @param direction The direction in which the enemy should move.
+     */
     public abstract void move(Player.Direction direction);
 
+    /**
+     * Updates the position of the player and performs actions based on the player's position.
+     *
+     * @param playerRect The rectangle representing the player's position.
+     */
     public void updatePlayerPosition(Rectangle playerRect) {
 
-        if (sprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
+        if (enemySprite.getBoundingRectangle().overlaps((playerRect))
+                && !damagedByCurrentEnemy && health > 0) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
-        } else if (!sprite.getBoundingRectangle().overlaps((playerRect))) {
+            model.setCurrentScore(model.getCurrentScore() - 1);
+        } else if (!enemySprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
+
         //add more to this method if you want the enemy to do different things when
         //the player moves
         // Determine the direction based on the player's position relative to the enemy
         float playerX = playerRect.getX();
         float playerY = playerRect.getY();
 
-        float enemyX = sprite.getX();
-        float enemyY = sprite.getY();
+        float enemyX = enemySprite.getX();
+        float enemyY = enemySprite.getY();
 
         Player.Direction direction;
 
@@ -89,14 +96,49 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
         move(direction);
     }
-    public Sprite getSprite() {
-        return sprite;
+
+    /**
+     * Updates the position of the enemy.
+     *
+     * @param newX The new X-coordinate of the enemy.
+     * @param newY The new Y-coordinate of the enemy.
+     */
+    public void updatePosition(int newX, int newY) {
+        enemySprite.setX(newX);
+        enemySprite.setY(newY);
+    }
+
+    public void die() {
+        enemySprite.setRotation(90);
+    }
+
+    public void setEnemySprite(Sprite enemySprite) {
+        this.enemySprite = enemySprite;
+    }
+
+    public void setSizeX(int sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    public void setSizeY(int sizeY) {
+        this.sizeY = sizeY;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+    public Sprite getEnemySprite() {
+        return enemySprite;
     }
     public int getPosX() {
-        return (int) sprite.getX();
+        return (int) enemySprite.getX();
     }
     public int getPosY() {
-        return (int) sprite.getY();
+        return (int) enemySprite.getY();
     }
     public int getHealth() {
         return health;
@@ -104,16 +146,15 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public int getDamage() {
         return damage;
     }
-
-    public void updatePosition(int newX, int newY) {
-        sprite.setX(newX);
-        sprite.setY(newY);
-    }
     public int getSpeed() {
         return speed;
     }
+
+    public void takeDamage() {
+        this.health = 0;
+    }
+
     public GameDataModel getGameData() {
         return model;
     }
-
 }

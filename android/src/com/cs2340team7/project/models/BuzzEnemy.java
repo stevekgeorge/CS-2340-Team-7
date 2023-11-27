@@ -13,10 +13,10 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
         Texture texture = new Texture(fileHandle);
         this.setSizeX(160);
         this.setSizeY(160);
-        this.setSprite(new Sprite(texture));
-        this.getSprite().setX(x);
-        this.getSprite().setY(y);
-        this.getSprite().setSize(this.getSizeX(), this.getSizeY());
+        this.setEnemySprite(new Sprite(texture));
+        this.getEnemySprite().setX(x);
+        this.getEnemySprite().setY(y);
+        this.getEnemySprite().setSize(this.getSizeX(), this.getSizeY());
         this.speed = 5;
     }
     @Override
@@ -31,5 +31,9 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
         } else if (direction == Player.Direction.RIGHT) {
             this.updatePosition(this.getPosX() + speed, this.getPosY() - speed);
         }
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }

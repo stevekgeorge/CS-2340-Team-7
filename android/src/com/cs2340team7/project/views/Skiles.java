@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,45 +23,47 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
+/**
+ * Skiles class that implements the third screen that the player enters.
+ */
 
 public class Skiles extends ApplicationAdapter {
     private Context context;
-    private GameDataModel gameData;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-
     private SkilesViewModel model;
     private Label score;
     private Label health;
-    private Sprite sprite;
-    private Texture texture;
-    private TextButton up;
-    private TextButton down;
-    private TextButton left;
-    private TextButton right;
+    private TextButton upButton;
+    private TextButton downButton;
+    private TextButton leftButton;
+    private TextButton rightButton;
+    private TextButton attackButton;
     private BitmapFont font;
-    private GameDataModel dataModel;
-
     private float speed = 10.0f;
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
 
     private Viewport fittedviewport;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private long attackMillis;
 
 
     public Skiles(Context context) {
         this.context = context;
     }
-
+    /**
+     * create method creates creates the tilemap and adds all buttons and labels to the screen.
+     * Enemies and player sprite are also generated onto the screen.
+     */
     @Override
     public void create() {
         model = new SkilesViewModel();
@@ -80,6 +81,12 @@ public class Skiles extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(4);
 
+        font = new BitmapFont();
+        font.getData().setScale(2);
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = font;
+        textButtonStyle.fontColor = Color.WHITE;
+
         TextButton.TextButtonStyle textButtonStyleLarge = new TextButton.TextButtonStyle();
         BitmapFont fontLarge = new BitmapFont();
         fontLarge.getData().setScale(5);
@@ -96,31 +103,36 @@ public class Skiles extends ApplicationAdapter {
         score.setY(1200);
         health.setX(300);
         health.setY(1200);
-        up = new TextButton("↑", textButtonStyleLarge);
-        left = new TextButton("←", textButtonStyleLarge);
-        right = new TextButton("→", textButtonStyleLarge);
-        down = new TextButton("↓", textButtonStyleLarge);
+        upButton = new TextButton("↑", textButtonStyleLarge);
+        leftButton = new TextButton("←", textButtonStyleLarge);
+        rightButton = new TextButton("→", textButtonStyleLarge);
+        downButton = new TextButton("↓", textButtonStyleLarge);
+        attackButton = new TextButton("Attack", textButtonStyle);
 
-        up.setX(220);
-        up.setY(400);
-        left.setX(50);
-        left.setY(200);
-        right.setX(390);
-        right.setY(200);
-        down.setX(220);
-        down.setY(200);
+        attackButton.setX(600);
+        attackButton.setY(900);
+        upButton.setX(220);
+        upButton.setY(400);
+        leftButton.setX(50);
+        leftButton.setY(200);
+        rightButton.setX(390);
+        rightButton.setY(200);
+        downButton.setX(220);
+        downButton.setY(200);
 
         stage.addActor(score);
         stage.addActor(health);
-        stage.addActor(up);
-        stage.addActor(left);
-        stage.addActor(right);
-        stage.addActor(down);
+        stage.addActor(upButton);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        stage.addActor(downButton);
+        stage.addActor(attackButton);
 
         Gdx.input.setInputProcessor(stage);
 
 
         playerSprite = model.getPlayerSprite();
+        attackSprite = model.getAttackSprite();
         playerSprite.setY(800);
 
 
@@ -130,6 +142,11 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
     }
+    /**
+     * render method that is called in each frame of the game loop. This method handles
+     * the game logic that needs to be updated such as key pressed that need to be listened for
+     * in every frame. The health variable is also updated based on player position and movement.
+     */
     @Override
     public void render() {
         if (score != null) {
@@ -150,34 +167,48 @@ public class Skiles extends ApplicationAdapter {
 
 
         for (Enemy enemy: enemies) {
-            ((Sprite) enemy.getSprite()).draw(batch);
+            ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
-        playerSprite.draw(batch);
+        if (attackButton.isPressed()) {
+            attackMillis = System.currentTimeMillis();
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((
+                        enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
+        }
 
-        stage.draw();
-        batch.end();
+        if (System.currentTimeMillis() - attackMillis < 500) {
+            attackSprite.draw(batch);
+        } else {
+            playerSprite.draw(batch);
+        }
 
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
         }
 
+        stage.draw();
+        batch.end();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || leftButton.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButton.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || upButton.isPressed()) {
             model.move(Player.Direction.UP);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || downButton.isPressed()) {
             model.move(Player.Direction.DOWN);
         }
 
@@ -195,13 +226,15 @@ public class Skiles extends ApplicationAdapter {
 
 
     }
+    /**
+     * disposes of all variables that are no longer necessary when the game is closed. This is to
+     * free memory and clean up resources.
+     */
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();
-
     }
 }
