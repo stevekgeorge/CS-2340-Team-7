@@ -339,7 +339,9 @@ public class Player extends ViewModel implements MapSubscriber {
         this.x = x;
         this.y = y;
     }
-    public void resetPlayerSubscribers(){playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();}
+    public void resetPlayerSubscribers() {
+        playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
+    }
 }
 
 
