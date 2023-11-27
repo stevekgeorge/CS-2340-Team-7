@@ -205,10 +205,10 @@ public class Player extends ViewModel implements MapSubscriber {
         movementStrategy.move(direction);
     }
 
-    public void attack(Rectangle playerRect) {
-        if (playerSprite.getBoundingRectangle().overlaps((playerRect))) {
-//            sprite
-        }
+    public void attack(Enemy enemy) {
+        enemy.takeDamage();
+        playerPositionSubscribers.remove(enemy);
+        enemy.die();
     }
 
     /**

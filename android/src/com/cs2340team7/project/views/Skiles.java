@@ -124,6 +124,7 @@ public class Skiles extends ApplicationAdapter {
         stage.addActor(leftButton);
         stage.addActor(rightButton);
         stage.addActor(downButton);
+        stage.addActor(attackButton);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -172,7 +173,11 @@ public class Skiles extends ApplicationAdapter {
         batch.end();
 
         if (attackButton.isPressed()) {
-            //model.attack();
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
         }
 
         if (model.getGameData().getCurrentHealth() <= 0) {

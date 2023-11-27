@@ -175,8 +175,13 @@ public class TechGreen extends ApplicationAdapter {
         }
 
         if (attackButton.isPressed()) {
-            //attack enemy
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
         }
+
         if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || leftButton.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
