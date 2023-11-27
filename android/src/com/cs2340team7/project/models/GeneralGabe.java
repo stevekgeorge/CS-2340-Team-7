@@ -18,10 +18,11 @@ public class GeneralGabe implements MovementStrategy {
     /**
      * method that moves sprite based on button that is clicked.
      * checks to see if sprite is moving off the screen or not.
-     * Updates every subscriber in the PlayerPositionSubscriber arraylist of the sprites new location.
-     * Implementation of the movementStrategy interface is part of the strategy design pattern
+     * Updates every subscriber in the PlayerPositionSubscriber
+     * arraylist of the sprites new location. Implementation of the
+     * movementStrategy interface is part of the strategy design pattern
      * and updating subscribers is part of the observer design pattern.
-     * @param direction
+     * @param direction The direction in which the player should move.
      */
 
     @Override

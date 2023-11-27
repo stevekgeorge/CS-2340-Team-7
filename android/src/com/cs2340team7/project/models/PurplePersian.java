@@ -1,5 +1,4 @@
 package com.cs2340team7.project.models;
-import com.badlogic.gdx.Gdx;
 
 public class PurplePersian implements MovementStrategy {
     private static int speed = 8;
@@ -21,10 +20,11 @@ public class PurplePersian implements MovementStrategy {
     /**
      * method that moves sprite based on button that is clicked.
      * checks to see if sprite is moving off the screen or not.
-     * Updates every subscriber in the PlayerPositionSubscriber arraylist of the sprites new location.
-     * Implementation of the movementStrategy interface is part of the strategy design pattern
-     * and updating subscribers is part of the observer design pattern.
-     * @param direction
+     * Updates every subscriber in the PlayerPositionSubscriber arraylist of the
+     * sprites new location. Implementation of the movementStrategy interface
+     * is part of the strategy design pattern and updating subscribers is
+     * part of the observer design pattern.
+     * @param direction The direction in which the player will move.
      */
 
     @Override

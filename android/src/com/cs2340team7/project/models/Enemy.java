@@ -61,7 +61,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
      */
     public void updatePlayerPosition(Rectangle playerRect) {
 
-        if (enemySprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy && health > 0) {
+        if (enemySprite.getBoundingRectangle().overlaps((playerRect))
+                && !damagedByCurrentEnemy && health > 0) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
             model.setCurrentScore(model.getCurrentScore() - 1);

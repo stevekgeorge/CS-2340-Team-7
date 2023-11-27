@@ -158,7 +158,7 @@ public class GameDataModel extends BaseObservable {
         this.level = level;
     }
 
- /**
+    /**
      * clears the game state and returns all variables to their default values
      */
 

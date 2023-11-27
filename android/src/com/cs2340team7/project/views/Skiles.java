@@ -173,7 +173,8 @@ public class Skiles extends ApplicationAdapter {
         if (attackButton.isPressed()) {
             attackMillis = System.currentTimeMillis();
             for (Enemy enemy : enemies) {
-                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
+                if (playerSprite.getBoundingRectangle().overlaps((
+                        enemy.getEnemySprite().getBoundingRectangle()))) {
                     Player.getPlayer().attack(enemy);
                 }
             }
