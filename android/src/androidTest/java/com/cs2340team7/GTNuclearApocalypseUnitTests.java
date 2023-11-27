@@ -1,42 +1,35 @@
 package com.cs2340team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import android.graphics.Rect;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.SeniorEnemy;
 import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 import com.cs2340team7.project.views.TechGreen;
-import com.badlogic.gdx.math.Rectangle;
 import com.cs2340team7.project.viewmodels.PlayerSelectViewModel;
 import com.cs2340team7.project.models.PurplePersian;
 
 import junit.framework.TestCase;
 
 import java.util.Calendar;
+import java.util.Timer;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -462,8 +455,45 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         GameDataModel model = player.getGameData();
         player.setXAndY(0, 0);
         player.updatePosition(10, 10);
+<<<<<<< HEAD
         assertEquals(enemy.getSprite().getX(), 0);
         assertEquals(enemy.getSprite().getY(), 0);
     }
 
 }
+=======
+        assertEquals(enemy.getEnemySprite().getX(), 0);
+        assertEquals(enemy.getEnemySprite().getY(), 0);
+    }
+    @Test
+    public void scoreDownTime() throws InterruptedException {
+        Player player = Player.getPlayer();
+        player.startDecrease();
+        int score1 = player.getScore();
+        Timer timer = new Timer();
+        timer.wait((long) 1000);
+        int score2 = player.getScore();
+
+        assertTrue(score1 != score2);
+
+    }
+    @Test
+    public void testScoreUpdateDamageTaken() {
+        Player player = Player.getPlayer();
+        int score1 = player.getScore();
+
+        player.updatePosition(0, 0);
+        assertEquals(player.getGameData().getCurrentHealth(), player.getGameData().getMaxHealth());
+
+        Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+        int score2 = player.getScore();
+        assertNotEquals(score1, score2);
+    }
+
+
+    
+
+
+
+}
+>>>>>>> 200c39f4c430f99bd35253bec516b8fc922a7b4f

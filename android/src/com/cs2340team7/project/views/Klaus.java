@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,43 +24,45 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
 import java.util.ArrayList;
+/**
+ * Klaus class that implements the second screen that the player enters.
+ */
 
 public class Klaus extends ApplicationAdapter {
     private Context context;
-    private GameDataModel gameData;
     private Stage stage;
     private TiledMap map;
     private OrthographicCamera camera;
-    private TextButton nextButton;
     private KlausViewModel model;
-    private TextButton up;
-    private TextButton down;
-    private TextButton left;
-    private TextButton right;
+    private TextButton upButton;
+    private TextButton downButton;
+    private TextButton leftButton;
+    private TextButton rightButton;
+    private TextButton attackButton;
     private Label score;
     private Label health;
-    private Sprite sprite;
-
-    private Texture texture;
     private BitmapFont font;
-    private Viewport viewport;
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private Viewport fittedviewport;
+    private long attackMillis;
 
 
 
     public Klaus(Context context) {
         this.context = context;
     }
-
+    /**
+     * create method creates creates the tilemap and adds all buttons and labels to the screen.
+     * Enemies and player sprite are also generated onto the screen.
+     */
     @Override
     public void create() {
         model = new KlausViewModel();
@@ -79,8 +80,6 @@ public class Klaus extends ApplicationAdapter {
         font = new BitmapFont();
         font.getData().setScale(2);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        //BitmapFont font = new BitmapFont();
-        //font.getData().setScale(2);
         textButtonStyle.font = font;
         textButtonStyle.fontColor = Color.WHITE;
 
@@ -100,32 +99,36 @@ public class Klaus extends ApplicationAdapter {
         score.setY(900);
         health.setX(180);
         health.setY(900);
+        attackButton = new TextButton("Attack", textButtonStyle);
+        upButton = new TextButton("↑", textButtonStyleLarge);
+        leftButton = new TextButton("←", textButtonStyleLarge);
+        rightButton = new TextButton("→", textButtonStyleLarge);
+        downButton = new TextButton("↓", textButtonStyleLarge);
 
-        up = new TextButton("↑", textButtonStyleLarge);
-        left = new TextButton("←", textButtonStyleLarge);
-        right = new TextButton("→", textButtonStyleLarge);
-        down = new TextButton("↓", textButtonStyleLarge);
+        attackButton.setX(600);
+        attackButton.setY(900);
+        upButton.setX(220);
+        upButton.setY(400);
+        leftButton.setX(50);
+        leftButton.setY(200);
+        rightButton.setX(390);
+        rightButton.setY(200);
+        downButton.setX(220);
+        downButton.setY(200);
 
-        up.setX(220);
-        up.setY(400);
-        left.setX(50);
-        left.setY(200);
-        right.setX(390);
-        right.setY(200);
-        down.setX(220);
-        down.setY(200);
-
+        stage.addActor(attackButton);
         stage.addActor(score);
         stage.addActor(health);
-        stage.addActor(up);
-        stage.addActor(left);
-        stage.addActor(right);
-        stage.addActor(down);
+        stage.addActor(upButton);
+        stage.addActor(leftButton);
+        stage.addActor(rightButton);
+        stage.addActor(downButton);
 
         Gdx.input.setInputProcessor(stage);
 
 
         playerSprite = model.getPlayerSprite();
+        attackSprite = model.getAttackSprite();
 
         //using the factory
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
@@ -133,6 +136,11 @@ public class Klaus extends ApplicationAdapter {
 
 
     }
+    /**
+     * render method that is called in each frame of the game loop. This method handles
+     * the game logic that needs to be updated such as key pressed that need to be listened for
+     * in every frame. The health variable is also updated based on player position and movement.
+     */
     @Override
     public void render() {
 
@@ -155,10 +163,24 @@ public class Klaus extends ApplicationAdapter {
 
         for (Enemy enemy: enemies) {
 
-            ((Sprite) enemy.getSprite()).draw(batch);
+            ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
-        playerSprite.draw(batch);
+        if (attackButton.isPressed()) {
+            attackMillis = System.currentTimeMillis();
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((
+                        enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
+        }
+
+        if (System.currentTimeMillis() - attackMillis < 500) {
+            attackSprite.draw(batch);
+        } else {
+            playerSprite.draw(batch);
+        }
 
         stage.draw();
         batch.end();
@@ -169,20 +191,20 @@ public class Klaus extends ApplicationAdapter {
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || left.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || leftButton.isPressed()) {
             model.move(Player.Direction.LEFT);
         }
 
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || right.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || rightButton.isPressed()) {
             model.move(Player.Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || up.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_UP) || upButton.isPressed()) {
             model.move(Player.Direction.UP);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || down.isPressed()) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN) || downButton.isPressed()) {
             model.move(Player.Direction.DOWN);
         }
 
@@ -195,13 +217,15 @@ public class Klaus extends ApplicationAdapter {
         }
 
     }
+    /**
+     * disposes of all variables that are no longer necessary when the game is closed. This is to
+     * free memory and clean up resources.
+     */
     @Override
     public void dispose() {
         batch.dispose();
-        texture.dispose();
         map.dispose();
         mapRenderer.dispose();
         stage.dispose();
-
     }
 }
