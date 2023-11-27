@@ -55,6 +55,9 @@ public class GameDataModel extends BaseObservable {
     public void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
+    public void addHealth(int health) {
+        currentHealth += getCurrentHealth() + health;
+    }
 
     @Bindable
     public int getCurrentScore() {
@@ -63,6 +66,9 @@ public class GameDataModel extends BaseObservable {
     @Bindable
     public String getDifficulty() {
         return difficulty;
+    }
+    public void addScore(int score) {
+        currentScore += getCurrentScore() + score;
     }
 
 
