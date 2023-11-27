@@ -4,23 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
-public class ScorePowerUp extends BasePowerUp {
-    private int score = 10;
+public class RandomPowerUp extends BasePowerUp {
+    private int random = 5;
+    private int randomNumber;
     private boolean tileActive = true;
     private int x;
     private int y;
-    private FileHandle fileHandle = Gdx.files.internal("KlausCoin.png");
+    private FileHandle fileHandle = Gdx.files.internal("KlausFire.png");
     private Texture texture = new Texture(fileHandle);
-    public ScorePowerUp(int x, int y) {
+    public RandomPowerUp(int x, int y, int randomNumber) {
         this.x = x;
         this.y = y;
+        this.randomNumber = randomNumber;
     }
     @Override
     public void apply(GameDataModel model) {
         if (tileActive == false) {
             return;
         }
-        model.addScore(score);
+        if (randomNumber == 1) {
+            model.addHealth(random);
+        } else {
+            model.addScore(random);
+        }
         tileActive = false;
         this.texture = super.getTexture();
     }
