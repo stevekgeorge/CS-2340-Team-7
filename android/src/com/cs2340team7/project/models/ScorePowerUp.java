@@ -9,7 +9,7 @@ public class ScorePowerUp extends BasePowerUp {
     private boolean tileActive = true;
     private int x;
     private int y;
-    private FileHandle fileHandle = Gdx.files.internal("KlausCoin.png");
+    private FileHandle fileHandle = Gdx.files.internal("coin.png");
     private Texture texture = new Texture(fileHandle);
     public ScorePowerUp(int x, int y) {
         this.x = x;
