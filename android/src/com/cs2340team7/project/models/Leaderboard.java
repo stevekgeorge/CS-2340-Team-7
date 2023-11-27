@@ -37,7 +37,8 @@ public class Leaderboard {
 
     /**
      * displays dummy leaderboard if no entries have been added.
-     * @return an instance of leaderboardEntry that is not connected to any player and contains a score of 0.
+     * @return an instance of leaderboardEntry that is not connected
+     * to any player and contains a score of 0.
      */
     public LeaderboardEntry dummy() {
         return new LeaderboardEntry("Empty", 0, "");
@@ -55,7 +56,8 @@ public class Leaderboard {
     }
 
     /**
-     * represents an entry on the leaderboard. Each entry contains a player name, a score, and the date
+     * represents an entry on the leaderboard. Each entry
+     * contains a player name, a score, and the date
      * the game was played.
      */
     public class LeaderboardEntry implements Comparable {

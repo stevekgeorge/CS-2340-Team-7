@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -31,7 +30,10 @@ public class Player extends ViewModel implements MapSubscriber {
     private static Player player;
 
     private Sprite playerSprite;
+
     private ArrayList<PlayerPositionSubscriber> playerPositionSubscribers;
+
+    private Sprite attackSprite;
 
 
     protected Player() {
@@ -87,7 +89,8 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * method that creates a timer such that it counts down and decreases the score every three seconds
+     * method that creates a timer such that it counts
+     * down and decreases the score every three seconds
      */
     public void startDecrease() {
         running = true;
@@ -102,8 +105,9 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * decreases the current score of the game by one every time the method is called.
-     * if the score has reached 0, the timer is canceled and the method is called no more
+     * decreases the current score of the game by one every
+     * time the method is called if the score has reached 0,
+     * the timer is canceled and the method is called no more
      */
     public void decreaseScore() {
         if (gameData.getCurrentScore() > 0) {
@@ -134,6 +138,8 @@ public class Player extends ViewModel implements MapSubscriber {
         Gdx.app.log("MOVEMENT", "update pos called");
         playerSprite.setX(newX);
         playerSprite.setY(newY);
+        attackSprite.setX(newX);
+        attackSprite.setY(newY);
         for (PlayerPositionSubscriber subscriber: playerPositionSubscribers) {
             subscriber.updatePlayerPosition(playerSprite.getBoundingRectangle());
         }
@@ -178,12 +184,15 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * method that determines where the player is on the screen based on coordinates, and converts that
+     * method that determines where the player is on the
+     * screen based on coordinates, and converts that
      * to a particular tile (32 pixels)
-     * @param pos an int representing the change in position of the sprite compared with its last position.
+     * @param pos an int representing the change in position
+     *            of the sprite compared with its last position.
      *            (either in the X or Y direction depending on the isX variable).
-     * @param isX boolean that indicates whether the sprite moved in the X direction or not
-     * @return
+     * @param isX boolean that indicates whether the
+     *            sprite moved in the X direction or not
+     * @return A cell value.
      */
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
@@ -205,10 +214,10 @@ public class Player extends ViewModel implements MapSubscriber {
         movementStrategy.move(direction);
     }
 
-    public void attack(Rectangle playerRect) {
-        if (playerSprite.getBoundingRectangle().overlaps((playerRect))) {
-//            sprite
-        }
+    public void attack(Enemy enemy) {
+        enemy.takeDamage();
+        playerPositionSubscribers.remove(enemy);
+        enemy.die();
     }
 
     /**
@@ -291,33 +300,40 @@ public class Player extends ViewModel implements MapSubscriber {
         this.map = map;
     }
 
-    public Sprite getSprite() {
+    public Sprite getSprite(boolean attack) {
 
         String character = gameData.getCharacter();
         String filePath = null;
         switch (character) {
         case "Persian" :
-            filePath = "thepurplepersian.png";
+            filePath = "thepurplepersian" + (attack ? "attacking" : "") + ".png";
             break;
         case "Gabe" :
-            filePath = "generalgabe.png";
+            filePath = "generalgabe" + (attack ? "attacking" : "") + ".png";
             break;
         case "Sid" :
-            filePath = "swordmastersid.png";
+            filePath = "swordmastersid" + (attack ? "attacking" : "") + ".png";
             break;
         default:
-            filePath = "swordmastersid.png";
+            filePath = "swordmastersid" + (attack ? "attacking" : "") + ".png";
             break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         Texture texture = new Texture(fileHandle);
         Sprite sprite = new Sprite(texture);
         sprite.setSize(160, 160);
-        playerSprite = sprite;
-        return playerSprite;
+
+        if (!attack) {
+            playerSprite = sprite;
+            return playerSprite;
+        } else {
+            attackSprite = sprite;
+            return attackSprite;
+        }
     }
     public void  setPlayerSprite(Sprite sprite) {
         this.playerSprite = sprite;
+        this.attackSprite = getSprite(true);
     }
     public void setXAndY(int x, int y) {
         this.x = x;

@@ -47,10 +47,12 @@ public class Klaus extends ApplicationAdapter {
     private Label health;
     private BitmapFont font;
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private Viewport fittedviewport;
+    private long attackMillis;
 
 
 
@@ -126,6 +128,7 @@ public class Klaus extends ApplicationAdapter {
 
 
         playerSprite = model.getPlayerSprite();
+        attackSprite = model.getAttackSprite();
 
         //using the factory
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
@@ -163,14 +166,25 @@ public class Klaus extends ApplicationAdapter {
             ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
-        playerSprite.draw(batch);
+        if (attackButton.isPressed()) {
+            attackMillis = System.currentTimeMillis();
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((
+                        enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
+        }
+
+        if (System.currentTimeMillis() - attackMillis < 500) {
+            attackSprite.draw(batch);
+        } else {
+            playerSprite.draw(batch);
+        }
 
         stage.draw();
         batch.end();
 
-        if (attackButton.isPressed()) {
-            //attack enemy
-        }
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);

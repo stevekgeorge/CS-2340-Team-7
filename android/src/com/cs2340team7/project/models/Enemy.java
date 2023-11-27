@@ -61,7 +61,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
      */
     public void updatePlayerPosition(Rectangle playerRect) {
 
-        if (enemySprite.getBoundingRectangle().overlaps((playerRect)) && !damagedByCurrentEnemy) {
+        if (enemySprite.getBoundingRectangle().overlaps((playerRect))
+                && !damagedByCurrentEnemy && health > 0) {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
             model.setCurrentScore(model.getCurrentScore() - 1);
@@ -106,6 +107,11 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         enemySprite.setX(newX);
         enemySprite.setY(newY);
     }
+
+    public void die() {
+        enemySprite.setRotation(90);
+    }
+
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
     }
@@ -143,8 +149,12 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public int getSpeed() {
         return speed;
     }
+
+    public void takeDamage() {
+        this.health = 0;
+    }
+
     public GameDataModel getGameData() {
         return model;
     }
-
 }
