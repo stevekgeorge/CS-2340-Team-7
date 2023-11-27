@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -88,7 +87,8 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * method that creates a timer such that it counts down and decreases the score every three seconds
+     * method that creates a timer such that it counts
+     * down and decreases the score every three seconds
      */
     public void startDecrease() {
         running = true;
@@ -103,8 +103,9 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * decreases the current score of the game by one every time the method is called.
-     * if the score has reached 0, the timer is canceled and the method is called no more
+     * decreases the current score of the game by one every
+     * time the method is called if the score has reached 0,
+     * the timer is canceled and the method is called no more
      */
     public void decreaseScore() {
         if (gameData.getCurrentScore() > 0) {
@@ -181,12 +182,15 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * method that determines where the player is on the screen based on coordinates, and converts that
+     * method that determines where the player is on the
+     * screen based on coordinates, and converts that
      * to a particular tile (32 pixels)
-     * @param pos an int representing the change in position of the sprite compared with its last position.
+     * @param pos an int representing the change in position
+     *            of the sprite compared with its last position.
      *            (either in the X or Y direction depending on the isX variable).
-     * @param isX boolean that indicates whether the sprite moved in the X direction or not
-     * @return
+     * @param isX boolean that indicates whether the
+     *            sprite moved in the X direction or not
+     * @return A cell value.
      */
     private int convertCordToCell(int pos, boolean isX) {
         //assumes all maps have cells that are 32 pixels wide
