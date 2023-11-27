@@ -30,9 +30,10 @@ public class Player extends ViewModel implements MapSubscriber {
     private static Player player;
 
     private Sprite playerSprite;
+
+    private ArrayList<PlayerPositionSubscriber> playerPositionSubscribers;
+
     private Sprite attackSprite;
-    private ArrayList<PlayerPositionSubscriber>
-            playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
 
 
     protected Player() {
@@ -43,6 +44,7 @@ public class Player extends ViewModel implements MapSubscriber {
         gameData.addMapSubscribers(this);
         sizeX = 30;
         sizeY = 30;
+        playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
     }
 
     public GameDataModel getGameData() {
@@ -337,6 +339,7 @@ public class Player extends ViewModel implements MapSubscriber {
         this.x = x;
         this.y = y;
     }
+    public void resetPlayerSubscribers(){playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();}
 }
 
 
