@@ -31,6 +31,7 @@ public class Player extends ViewModel implements MapSubscriber {
     private static Player player;
 
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private ArrayList<PlayerPositionSubscriber>
             playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
 
@@ -134,6 +135,8 @@ public class Player extends ViewModel implements MapSubscriber {
         Gdx.app.log("MOVEMENT", "update pos called");
         playerSprite.setX(newX);
         playerSprite.setY(newY);
+        attackSprite.setX(newX);
+        attackSprite.setY(newY);
         for (PlayerPositionSubscriber subscriber: playerPositionSubscribers) {
             subscriber.updatePlayerPosition(playerSprite.getBoundingRectangle());
         }
@@ -291,33 +294,40 @@ public class Player extends ViewModel implements MapSubscriber {
         this.map = map;
     }
 
-    public Sprite getSprite() {
+    public Sprite getSprite(boolean attack) {
 
         String character = gameData.getCharacter();
         String filePath = null;
         switch (character) {
         case "Persian" :
-            filePath = "thepurplepersian.png";
+            filePath = "thepurplepersian" + (attack ? "attacking" : "") + ".png";
             break;
         case "Gabe" :
-            filePath = "generalgabe.png";
+            filePath = "generalgabe" + (attack ? "attacking" : "") + ".png";
             break;
         case "Sid" :
-            filePath = "swordmastersid.png";
+            filePath = "swordmastersid" + (attack ? "attacking" : "") + ".png";
             break;
         default:
-            filePath = "swordmastersid.png";
+            filePath = "swordmastersid" + (attack ? "attacking" : "") + ".png";
             break;
         }
         FileHandle fileHandle = Gdx.files.internal(filePath);
         Texture texture = new Texture(fileHandle);
         Sprite sprite = new Sprite(texture);
         sprite.setSize(160, 160);
-        playerSprite = sprite;
-        return playerSprite;
+
+        if (!attack) {
+            playerSprite = sprite;
+            return playerSprite;
+        } else {
+            attackSprite = sprite;
+            return attackSprite;
+        }
     }
     public void  setPlayerSprite(Sprite sprite) {
         this.playerSprite = sprite;
+        this.attackSprite = getSprite(true);
     }
     public void setXAndY(int x, int y) {
         this.x = x;

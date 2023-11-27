@@ -48,11 +48,13 @@ public class Skiles extends ApplicationAdapter {
     private BitmapFont font;
     private float speed = 10.0f;
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
 
     private Viewport fittedviewport;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private long attackMillis;
 
 
     public Skiles(Context context) {
@@ -130,6 +132,7 @@ public class Skiles extends ApplicationAdapter {
 
 
         playerSprite = model.getPlayerSprite();
+        attackSprite = model.getAttackSprite();
         playerSprite.setY(800);
 
 
@@ -167,12 +170,8 @@ public class Skiles extends ApplicationAdapter {
             ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
-        playerSprite.draw(batch);
-
-        stage.draw();
-        batch.end();
-
         if (attackButton.isPressed()) {
+            attackMillis = System.currentTimeMillis();
             for (Enemy enemy : enemies) {
                 if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
                     Player.getPlayer().attack(enemy);
@@ -180,10 +179,19 @@ public class Skiles extends ApplicationAdapter {
             }
         }
 
+        if (System.currentTimeMillis() - attackMillis < 500) {
+            attackSprite.draw(batch);
+        } else {
+            playerSprite.draw(batch);
+        }
+
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
         }
+
+        stage.draw();
+        batch.end();
 
 
         if (Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT) || leftButton.isPressed()) {

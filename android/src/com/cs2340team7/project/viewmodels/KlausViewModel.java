@@ -43,7 +43,10 @@ public class KlausViewModel extends ViewModel {
         player.setPlayerSprite(sprite);
     }
     public Sprite getPlayerSprite() {
-        return player.getSprite();
+        return player.getSprite(false);
+    }
+    public Sprite getAttackSprite() {
+        return player.getSprite(true);
     }
     public Boolean exit() {
         return player.exit();
