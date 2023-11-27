@@ -10,7 +10,7 @@ public class HealthPowerUp extends BasePowerUp {
     private boolean tileActive = true;
     private int x;
     private int y;
-    private FileHandle fileHandle = Gdx.files.internal("KlausMedkit.png");
+    private FileHandle fileHandle = Gdx.files.internal("medkit.png");
     private Texture texture = new Texture(fileHandle);
     public HealthPowerUp(int x, int y) {
         this.x = x;

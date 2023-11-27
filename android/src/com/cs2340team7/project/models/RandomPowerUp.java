@@ -10,7 +10,7 @@ public class RandomPowerUp extends BasePowerUp {
     private boolean tileActive = true;
     private int x;
     private int y;
-    private FileHandle fileHandle = Gdx.files.internal("KlausFire.png");
+    private FileHandle fileHandle = Gdx.files.internal("random.png");
     private Texture texture = new Texture(fileHandle);
     public RandomPowerUp(int x, int y, int randomNumber) {
         this.x = x;
