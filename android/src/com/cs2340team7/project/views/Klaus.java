@@ -169,8 +169,13 @@ public class Klaus extends ApplicationAdapter {
         batch.end();
 
         if (attackButton.isPressed()) {
-            //attack enemy
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
         }
+
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
