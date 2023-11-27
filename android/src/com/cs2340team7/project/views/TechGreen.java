@@ -52,6 +52,7 @@ public class TechGreen extends ApplicationAdapter {
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     private Sprite playerSprite;
+    private Sprite attackSprite;
     private Viewport fittedviewport;
     public TechGreen(Context context) {
         this.context = context;
@@ -60,6 +61,7 @@ public class TechGreen extends ApplicationAdapter {
     public TextButton getDownButton() { //for testing purposes
         return downButton;
     }
+    private long attackMillis;
 
     /**
      * create method creates creates the tilemap and adds all buttons and labels to the screen.
@@ -131,7 +133,7 @@ public class TechGreen extends ApplicationAdapter {
 
 
         playerSprite = model.getPlayerSprite();
-
+        attackSprite = model.getAttackSprite();
 
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
@@ -164,7 +166,20 @@ public class TechGreen extends ApplicationAdapter {
             ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
 
-        playerSprite.draw(batch);
+        if (attackButton.isPressed()) {
+            attackMillis = System.currentTimeMillis();
+            for (Enemy enemy : enemies) {
+                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
+                    Player.getPlayer().attack(enemy);
+                }
+            }
+        }
+
+        if (System.currentTimeMillis() - attackMillis < 500) {
+            attackSprite.draw(batch);
+        } else {
+            playerSprite.draw(batch);
+        }
 
         stage.draw();
         batch.end();
@@ -172,14 +187,6 @@ public class TechGreen extends ApplicationAdapter {
         if (model.getGameData().getCurrentHealth() <= 0) {
             Intent nextLevel = new Intent(context, GameOverScreen.class);
             context.startActivity(nextLevel);
-        }
-
-        if (attackButton.isPressed()) {
-            for (Enemy enemy : enemies) {
-                if (playerSprite.getBoundingRectangle().overlaps((enemy.getEnemySprite().getBoundingRectangle()))) {
-                    Player.getPlayer().attack(enemy);
-                }
-            }
         }
 
         if (Gdx.input.isKeyPressed(Keys.DPAD_LEFT) || leftButton.isPressed()) {
