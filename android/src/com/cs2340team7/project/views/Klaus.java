@@ -22,9 +22,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import com.cs2340team7.project.models.BasePowerUp;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.HealthPowerUp;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.ScorePowerUp;
 import com.cs2340team7.project.viewmodels.KlausViewModel;
 
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class Klaus extends ApplicationAdapter {
     private OrthogonalTiledMapRenderer mapRenderer;
     private Batch batch;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<BasePowerUp> powerups = new ArrayList<BasePowerUp>();
     private Viewport fittedviewport;
     private long attackMillis;
 
@@ -134,7 +138,8 @@ public class Klaus extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
-
+        powerups.add(new HealthPowerUp(100, 500));
+        powerups.add(new ScorePowerUp(100, 200));
     }
     /**
      * render method that is called in each frame of the game loop. This method handles
@@ -164,6 +169,9 @@ public class Klaus extends ApplicationAdapter {
         for (Enemy enemy: enemies) {
 
             ((Sprite) enemy.getEnemySprite()).draw(batch);
+        }
+        for (BasePowerUp powers : powerups) {
+            ((Sprite) powers.getPowerUp()).draw(batch);
         }
 
         if (attackButton.isPressed()) {

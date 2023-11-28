@@ -21,13 +21,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.cs2340team7.project.models.BasePowerUp;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.HealthPowerUp;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.RandomPowerUp;
+import com.cs2340team7.project.models.ScorePowerUp;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Skiles class that implements the third screen that the player enters.
  */
@@ -54,6 +60,7 @@ public class Skiles extends ApplicationAdapter {
 
     private Viewport fittedviewport;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<BasePowerUp> powerups = new ArrayList<BasePowerUp>();
     private long attackMillis;
 
 
@@ -141,6 +148,11 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.BUZZ));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
+        Random random = new Random();
+        int randomZeroOrOne = random.nextInt(2);
+        powerups.add(new HealthPowerUp(500, 500));
+        powerups.add(new RandomPowerUp(500, 200, randomZeroOrOne));
+
     }
     /**
      * render method that is called in each frame of the game loop. This method handles
@@ -168,6 +180,9 @@ public class Skiles extends ApplicationAdapter {
 
         for (Enemy enemy: enemies) {
             ((Sprite) enemy.getEnemySprite()).draw(batch);
+        }
+        for (BasePowerUp powers : powerups) {
+            ((Sprite) powers.getPowerUp()).draw(batch);
         }
 
         if (attackButton.isPressed()) {
