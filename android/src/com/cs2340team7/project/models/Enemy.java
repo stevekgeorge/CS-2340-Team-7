@@ -124,7 +124,9 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
     }
-    public void setAttackSprite(Sprite attackSprite) { this.attackSprite = attackSprite; }
+    public void setAttackSprite(Sprite attackSprite) {
+        this.attackSprite = attackSprite;
+    }
 
     public void setSizeX(int sizeX) {
         this.sizeX = sizeX;
@@ -144,7 +146,9 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public Sprite getEnemySprite() {
         return enemySprite;
     }
-    public Sprite getAttackSprite() { return attackSprite; }
+    public Sprite getAttackSprite() {
+        return attackSprite;
+    }
     public int getPosX() {
         return (int) enemySprite.getX();
     }
@@ -165,7 +169,9 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         this.health = 0;
     }
 
-    public long getAttackMillis() { return attackMillis; }
+    public long getAttackMillis() {
+        return attackMillis;
+    }
 
     public GameDataModel getGameData() {
         return model;
