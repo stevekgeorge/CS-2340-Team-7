@@ -29,10 +29,10 @@ public class EnemyFactory {
             SeniorEnemy seniorEnemy = new SeniorEnemy(x, y);
             Player.getPlayer().addPlayerPositionSubscribers(seniorEnemy);
             return seniorEnemy;
-        case TA:
-            TAEnemy taEnemy = new TAEnemy(x, y);
-            Player.getPlayer().addPlayerPositionSubscribers(taEnemy);
-            return taEnemy;
+            case TA:
+                TAEnemy taEnemy = new TAEnemy(x, y);
+                Player.getPlayer().addPlayerPositionSubscribers(taEnemy);
+                return taEnemy;
         default:
             return null;
         }

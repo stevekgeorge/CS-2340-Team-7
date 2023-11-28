@@ -5,8 +5,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 /**
- * The FreshmenEnemy class represents an enemy in the game
- * that is the second fastest among enemy types.
+ * The FreshmenEnemy class represents an enemy in
+ * the game that is the second fastest among enemy types.
  * It extends the Enemy class and includes additional
  * properties specific to freshmen-level enemies.
  */
