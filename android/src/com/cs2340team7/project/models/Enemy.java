@@ -108,9 +108,14 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         enemySprite.setY(newY);
     }
 
+    /**
+     * method responsible for showing that enemy is dead by rotating sprite 90 degrees.
+     */
+
     public void die() {
         enemySprite.setRotation(90);
     }
+
 
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
