@@ -21,14 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.cs2340team7.project.models.BasePowerUp;
+import com.cs2340team7.project.models.BasePowerUpDecorator;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
-import com.cs2340team7.project.models.HealthPowerUp;
+import com.cs2340team7.project.models.HealthPowerUpDecorator;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
-import com.cs2340team7.project.models.RandomPowerUp;
-import com.cs2340team7.project.models.ScorePowerUp;
+import com.cs2340team7.project.models.RandomPowerUpDecorator;
+import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Skiles extends ApplicationAdapter {
 
     private Viewport fittedviewport;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-    private ArrayList<BasePowerUp> powerups = new ArrayList<BasePowerUp>();
+    private ArrayList<BasePowerUpDecorator> powerUps = new ArrayList<>();
     private long attackMillis;
 
 
@@ -148,11 +148,14 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.BUZZ));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
-        Random random = new Random();
-        int randomZeroOrOne = random.nextInt(2);
-        powerups.add(new HealthPowerUp(500, 500));
-        powerups.add(new RandomPowerUp(500, 200, randomZeroOrOne));
-
+        BasePowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
+        powerUps.add(healthPowerUp);
+        BasePowerUpDecorator scorePowerUp1 = new ScorePowerUpDecorator(300, 300);
+        powerUps.add(scorePowerUp1);
+        BasePowerUpDecorator scorePowerUp2 = new ScorePowerUpDecorator(500, 100);
+        powerUps.add(scorePowerUp2);
+        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500);
+        powerUps.add(randomPowerUp);
     }
     /**
      * render method that is called in each frame of the game loop. This method handles
@@ -181,8 +184,8 @@ public class Skiles extends ApplicationAdapter {
         for (Enemy enemy: enemies) {
             ((Sprite) enemy.getEnemySprite()).draw(batch);
         }
-        for (BasePowerUp powers : powerups) {
-            ((Sprite) powers.getPowerUp()).draw(batch);
+        for (BasePowerUpDecorator power: powerUps) {
+            ((Sprite) power.getPowerUpSprite()).draw(batch);
         }
 
         if (attackButton.isPressed()) {
