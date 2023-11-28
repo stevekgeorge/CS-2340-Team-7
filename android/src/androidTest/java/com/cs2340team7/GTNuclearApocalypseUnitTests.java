@@ -535,4 +535,25 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
 
         Assert.assertTrue(System.currentTimeMillis() - enemy.getAttackMillis() < 500);
     }
+
+    @Test
+    public void testAttackKillsEnemy() {
+        Player player = Player.getPlayer();
+        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+
+        player.attack(enemy);
+
+        assertTrue(enemy.getHealth() == 0);
+
+    }
+
+    @Test
+    public void testAttackShowsEnemyDeathAnimation() {
+        Player player = Player.getPlayer();
+        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
+
+        player.attack(enemy);
+
+        assertTrue(enemy.getEnemyRotation() == 90);
+    }
 }
