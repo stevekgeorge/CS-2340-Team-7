@@ -214,6 +214,11 @@ public class Player extends ViewModel implements MapSubscriber {
         movementStrategy.move(direction);
     }
 
+    /**
+     * method kills enemy by decreasing its damage, removing it from the subscribers playlist and rotating enemy.
+     * @param enemy an Enemy instance that has been attacked.
+     */
+
     public void attack(Enemy enemy) {
         enemy.takeDamage();
         playerPositionSubscribers.remove(enemy);
