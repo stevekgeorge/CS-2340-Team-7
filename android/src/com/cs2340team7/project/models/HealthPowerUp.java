@@ -5,6 +5,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.compression.lzma.Base;
 
+/**
+ * an extension of the BasePowerUp abstract class that deals specifically with Health Powerups that are collected.
+ */
 public class HealthPowerUp extends BasePowerUp {
     private int health = 50;
     private boolean tileActive = true;
@@ -16,6 +19,11 @@ public class HealthPowerUp extends BasePowerUp {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * override of apply method that increases the health when you collect a health powerup.
+     * @param model The game data model to which the power-up is applied.
+     */
     @Override
     public void apply(GameDataModel model) {
         if (tileActive == false) {
