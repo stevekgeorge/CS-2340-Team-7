@@ -136,6 +136,10 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         this.attackSprite = attackSprite;
     }
 
+    public float getEnemyRotation() {
+        return enemySprite.getRotation();
+    }
+
     public void inflictDamage() {
         model.setCurrentHealth(model.getCurrentHealth() - damage);
         damagedByCurrentEnemy = true;
