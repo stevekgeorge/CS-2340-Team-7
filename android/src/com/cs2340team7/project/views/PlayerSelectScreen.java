@@ -1,6 +1,8 @@
 /**
- * PlayerSelectScreen class represents the screen where the player selects a character before starting the game.
- * It allows the player to choose from different characters and initiates the game with the selected character.
+ * PlayerSelectScreen class represents the screen where
+ * the player selects a character before starting the game.
+ * It allows the player to choose from different characters
+ * and initiates the game with the selected character.
  */
 package com.cs2340team7.project.views;
 

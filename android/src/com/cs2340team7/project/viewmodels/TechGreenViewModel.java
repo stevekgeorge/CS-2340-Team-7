@@ -7,8 +7,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.cs2340team7.project.models.GameDataModel;
 import com.cs2340team7.project.models.Player;
 /**
- * The TechGreenViewModel class serves as a ViewModel in the MVVM architecture for controlling the game's logic and data.
- * It manages interactions between the game data, player, and graphical representations of the player's character.
+ * The TechGreenViewModel class serves as a ViewModel in
+ * the MVVM architecture for controlling the game's logic and data.
+ * It manages interactions between the game data, player,
+ * and graphical representations of the player's character.
  */
 
 public class TechGreenViewModel extends ViewModel {

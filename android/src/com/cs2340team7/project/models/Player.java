@@ -215,7 +215,8 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * method kills enemy by decreasing its damage, removing it from the subscribers playlist and rotating enemy.
+     * method kills enemy by decreasing its damage, removing
+     * it from the subscribers playlist and rotating enemy.
      * @param enemy an Enemy instance that has been attacked.
      */
 
@@ -306,10 +307,13 @@ public class Player extends ViewModel implements MapSubscriber {
     }
 
     /**
-     * Retrieves a Sprite based on the current character in the game and the specified attack status.
+     * Retrieves a Sprite based on the current character
+     * in the game and the specified attack status.
      *
-     * @param attack A boolean indicating whether the character is in an attacking state.
-     *               If true, the corresponding attacking sprite is retrieved; otherwise, the default sprite is retrieved.
+     * @param attack A boolean indicating whether the
+     *               character is in an attacking state.
+     *               If true, the corresponding attacking sprite
+     *               is retrieved; otherwise, the default sprite is retrieved.
      * @return A Sprite object representing the character's current state (attacking or default).
      */
     public Sprite getSprite(boolean attack) {

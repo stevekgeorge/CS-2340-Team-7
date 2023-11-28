@@ -1,6 +1,8 @@
 /**
- * RandomPowerUp class represents a specific type of power-up that adds either health or score randomly.
- * It extends the BasePowerUp class and implements the apply method to define the power-up's behavior.
+ * RandomPowerUp class represents a specific type of
+ * power-up that adds either health or score randomly.
+ * It extends the BasePowerUp class and implements the
+ * apply method to define the power-up's behavior.
  */
 package com.cs2340team7.project.models;
 
