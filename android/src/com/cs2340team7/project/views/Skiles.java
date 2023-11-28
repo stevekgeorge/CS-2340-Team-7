@@ -164,10 +164,12 @@ public class Skiles extends ApplicationAdapter {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-
-
         for (Enemy enemy: enemies) {
-            ((Sprite) enemy.getEnemySprite()).draw(batch);
+            if (System.currentTimeMillis() - enemy.getAttackMillis() < 500) {
+                ((Sprite) enemy.getAttackSprite()).draw(batch);
+            } else {
+                ((Sprite) enemy.getEnemySprite()).draw(batch);
+            }
         }
 
         if (attackButton.isPressed()) {

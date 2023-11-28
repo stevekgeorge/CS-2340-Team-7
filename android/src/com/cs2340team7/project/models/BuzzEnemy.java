@@ -11,12 +11,20 @@ public class BuzzEnemy extends Enemy { //Fastest Enemy type.
         super();
         FileHandle fileHandle = Gdx.files.internal("buzzenemy.png");
         Texture texture = new Texture(fileHandle);
+
+        FileHandle attackHandle = Gdx.files.internal("buzzenemyattacking.png");
+        Texture attackTexture = new Texture(attackHandle);
+
         this.setSizeX(160);
         this.setSizeY(160);
         this.setEnemySprite(new Sprite(texture));
+        this.setAttackSprite(new Sprite(attackTexture));
         this.getEnemySprite().setX(x);
         this.getEnemySprite().setY(y);
+        this.getAttackSprite().setX(x);
+        this.getAttackSprite().setY(y);
         this.getEnemySprite().setSize(this.getSizeX(), this.getSizeY());
+        this.getAttackSprite().setSize(this.getSizeX(), this.getSizeY());
         this.speed = 5;
     }
     @Override

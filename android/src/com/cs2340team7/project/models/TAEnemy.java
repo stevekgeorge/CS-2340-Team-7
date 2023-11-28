@@ -10,14 +10,20 @@ public class TAEnemy extends Enemy { //TA enemies do not move.
     public TAEnemy(int x, int y) {
         super();
         FileHandle fileHandle = Gdx.files.internal("taenemy.png");
-        //The files are causing the problem, can't find them!!!
         Texture texture = new Texture(fileHandle);
+        FileHandle attackHandle = Gdx.files.internal("taenemyattacking.png");
+        Texture attackTexture = new Texture(attackHandle);
+
         this.setSizeX(160);
         this.setSizeY(160);
         this.setEnemySprite(new Sprite(texture));
+        this.setAttackSprite(new Sprite(attackTexture));
         this.getEnemySprite().setX(x);
         this.getEnemySprite().setY(y);
+        this.getAttackSprite().setX(x);
+        this.getAttackSprite().setY(y);
         this.getEnemySprite().setSize(this.getSizeX(), this.getSizeY());
+        this.getAttackSprite().setSize(this.getSizeX(), this.getSizeY());
         this.speed = 0;
     }
     @Override
