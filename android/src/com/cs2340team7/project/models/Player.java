@@ -305,6 +305,13 @@ public class Player extends ViewModel implements MapSubscriber {
         this.map = map;
     }
 
+    /**
+     * Retrieves a Sprite based on the current character in the game and the specified attack status.
+     *
+     * @param attack A boolean indicating whether the character is in an attacking state.
+     *               If true, the corresponding attacking sprite is retrieved; otherwise, the default sprite is retrieved.
+     * @return A Sprite object representing the character's current state (attacking or default).
+     */
     public Sprite getSprite(boolean attack) {
 
         String character = gameData.getCharacter();
