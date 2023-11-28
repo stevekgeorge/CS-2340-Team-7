@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public class ScorePowerUpDecorator extends BasePowerUpDecorator {
+    private int scoreBonus = 15;
     public ScorePowerUpDecorator(int x, int y) {
         super();
         FileHandle fileHandle = Gdx.files.internal("coin.png");
@@ -21,8 +22,11 @@ public class ScorePowerUpDecorator extends BasePowerUpDecorator {
     @Override
     public void updatePlayerPosition(Rectangle playerRect) {
         if (super.getPowerUpSprite().getBoundingRectangle().overlaps((playerRect)) && super.getPowerUpActive()) {
-            super.model.setCurrentScore(model.getCurrentScore() + 15);
+            super.model.setCurrentScore(model.getCurrentScore() + scoreBonus);
             super.updatePlayerPosition(playerRect);
         }
+    }
+    public int getScoreBonus() {
+        return scoreBonus;
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public class HealthPowerUpDecorator extends BasePowerUpDecorator {
+    private int healthBonus = 25;
     public HealthPowerUpDecorator(int x, int y) {
         super();
         FileHandle fileHandle = Gdx.files.internal("medkit.png");
@@ -21,8 +22,11 @@ public class HealthPowerUpDecorator extends BasePowerUpDecorator {
     @Override
     public void updatePlayerPosition(Rectangle playerRect) {
         if (super.getPowerUpSprite().getBoundingRectangle().overlaps((playerRect)) && super.getPowerUpActive()) {
-            super.model.setCurrentHealth(model.getCurrentHealth() + 25);
+            super.model.setCurrentHealth(model.getCurrentHealth() + healthBonus);
             super.updatePlayerPosition(playerRect);
         }
+    }
+    public int getHealthBonus() {
+        return healthBonus;
     }
 }

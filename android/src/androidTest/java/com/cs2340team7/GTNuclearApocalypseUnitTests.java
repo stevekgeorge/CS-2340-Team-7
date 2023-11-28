@@ -12,12 +12,16 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.cs2340team7.project.models.BasePowerUpDecorator;
 import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
+import com.cs2340team7.project.models.HealthPowerUpDecorator;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.RandomPowerUpDecorator;
+import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.models.TAEnemy;
 import com.cs2340team7.project.viewmodels.GameOverViewModel;
 import com.cs2340team7.project.viewmodels.IntroScreenViewModel;
@@ -481,6 +485,17 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         Enemy testEnemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
         int score2 = player.getScore();
         assertNotEquals(score1, score2);
+    }
+
+    @Test
+    public void testPowerUpValues() {
+        HealthPowerUpDecorator health = new HealthPowerUpDecorator(0, 0);
+        assertEquals(health.getHealthBonus(), 25);
+        ScorePowerUpDecorator score = new ScorePowerUpDecorator(0, 0);
+        assertEquals(score.getScoreBonus(), 15);
+        RandomPowerUpDecorator random = new RandomPowerUpDecorator(0, 0);
+        assertEquals(random.getHealthBonus(), 25);
+        assertEquals(random.getScoreBonus(), 15);
     }
 
 

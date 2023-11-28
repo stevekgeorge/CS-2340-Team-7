@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 
 public class RandomPowerUpDecorator extends BasePowerUpDecorator {
+    private int healthBonus = 25;
+    private int scoreBonus = 15;
     public RandomPowerUpDecorator(int x, int y) {
         super();
         FileHandle fileHandle = Gdx.files.internal("random.png");
@@ -21,9 +23,15 @@ public class RandomPowerUpDecorator extends BasePowerUpDecorator {
     @Override
     public void updatePlayerPosition(Rectangle playerRect) {
         if (super.getPowerUpSprite().getBoundingRectangle().overlaps((playerRect)) && super.getPowerUpActive()) {
-            super.model.setCurrentHealth(model.getCurrentHealth() + 25);
-            super.model.setCurrentScore(model.getCurrentScore() + 15);
+            super.model.setCurrentHealth(model.getCurrentHealth() + healthBonus);
+            super.model.setCurrentScore(model.getCurrentScore() + scoreBonus);
             super.updatePlayerPosition(playerRect);
         }
+    }
+    public int getScoreBonus() {
+        return scoreBonus;
+    }
+    public int getHealthBonus() {
+        return healthBonus;
     }
 }
