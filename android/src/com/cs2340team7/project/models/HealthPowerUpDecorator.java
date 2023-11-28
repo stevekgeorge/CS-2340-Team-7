@@ -20,7 +20,8 @@ public class HealthPowerUpDecorator extends BasePowerUpDecorator {
     }
     @Override
     public void updatePlayerPosition(Rectangle playerRect) {
-        if (super.getPowerUpSprite().getBoundingRectangle().overlaps((playerRect)) && super.getPowerUpActive()) {
+        if (super.getPowerUpSprite().getBoundingRectangle().
+                overlaps((playerRect)) && super.getPowerUpActive()) {
             super.model.setCurrentHealth(model.getCurrentHealth() + 25);
             super.updatePlayerPosition(playerRect);
         }
