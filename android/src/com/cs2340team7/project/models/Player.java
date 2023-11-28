@@ -339,6 +339,10 @@ public class Player extends ViewModel implements MapSubscriber {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * resets the playerPositionSubscriber arraylist so that enemies don't leave a trail of damage.
+     */
     public void resetPlayerSubscribers() {
         playerPositionSubscribers = new ArrayList<PlayerPositionSubscriber>();
     }

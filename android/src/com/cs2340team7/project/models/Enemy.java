@@ -116,7 +116,6 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         enemySprite.setRotation(90);
     }
 
-
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
     }
