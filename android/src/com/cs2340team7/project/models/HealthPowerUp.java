@@ -3,10 +3,10 @@ package com.cs2340team7.project.models;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 
 /**
- * an extension of the BasePowerUp abstract class that deals specifically with Health Powerups that are collected.
+ * an extension of the BasePowerUp abstract class that deals
+ * specifically with Health Powerups that are collected.
  */
 public class HealthPowerUp extends BasePowerUp {
     private int health = 50;
@@ -26,7 +26,7 @@ public class HealthPowerUp extends BasePowerUp {
      */
     @Override
     public void apply(GameDataModel model) {
-        if (tileActive == false) {
+        if (!tileActive) {
             return;
         }
         model.addHealth(health);

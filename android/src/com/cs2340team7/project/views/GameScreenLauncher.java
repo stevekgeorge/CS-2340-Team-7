@@ -16,8 +16,10 @@ public class GameScreenLauncher extends AndroidApplication {
     private GameScreenLauncherViewModel model;
 
     /**
-     * Overrides the onCreate method of AndroidApplication to initialize the game screen launcher.
-     * It sets up the view model, checks the current game state, and launches the appropriate game screen.
+     * Overrides the onCreate method of AndroidApplication to
+     * initialize the game screen launcher.
+     * It sets up the view model, checks the current game state,
+     * and launches the appropriate game screen.
      * @param savedInstanceState The saved instance state bundle.
      */
     @Override

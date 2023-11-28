@@ -49,7 +49,8 @@ public class IntroScreen extends AppCompatActivity {
         Button continueButton = findViewById(R.id.startButton7);
         Button exitButton = findViewById(R.id.exitButton);
 
-        // Observe the status message from the ViewModel to handle game start or display error messages
+        // Observe the status message from the ViewModel
+        // to handle game start or display error messages
         viewModel.getStatusMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
