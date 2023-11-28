@@ -8,6 +8,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * The BasePowerUp class is an abstract implementation of the PowerUps interface
+ * providing a foundation for creating specific power-up types in a game.
+ * This class includes a default texture (replacementTile) and methods for applying the power-up
+ * retrieving its texture, and disposing of resources when necessary.
+ */
+
 public abstract class BasePowerUp implements PowerUps {
     // File handle for the power-up texture
     private FileHandle fileHandle = Gdx.files.internal("KlausWall.png");
