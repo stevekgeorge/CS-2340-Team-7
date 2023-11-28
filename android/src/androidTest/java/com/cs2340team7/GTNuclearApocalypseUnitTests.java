@@ -12,6 +12,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Rectangle;
 import com.cs2340team7.project.models.BasePowerUpDecorator;
 import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
@@ -486,7 +487,6 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         int score2 = player.getScore();
         assertNotEquals(score1, score2);
     }
-
     @Test
     public void testPowerUpValues() {
         HealthPowerUpDecorator health = new HealthPowerUpDecorator(0, 0);
@@ -498,6 +498,16 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         assertEquals(random.getScoreBonus(), 15);
     }
 
+    @Test
+    public void testDecoratorPattern() {
+        GameDataModel model = GameDataModel.getData();
+        model.setCurrentScore(50);
+        model.setCurrentHealth(50);
+        HealthPowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
+        healthPowerUp.updatePlayerPosition(new Rectangle(500, 500, 64, 64));
+        assertEquals(75, model.getCurrentHealth());
+        assertEquals(false, healthPowerUp.getPowerUpActive());
+    }
 
     
 
