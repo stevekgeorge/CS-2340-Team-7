@@ -22,9 +22,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.cs2340team7.project.models.BasePowerUpDecorator;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
+import com.cs2340team7.project.models.HealthPowerUpDecorator;
 import com.cs2340team7.project.models.Player;
+import com.cs2340team7.project.models.RandomPowerUpDecorator;
+import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 import java.util.ArrayList;
@@ -50,6 +54,7 @@ public class TechGreen extends ApplicationAdapter {
     private Batch batch;
     private BitmapFont font;
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+    private ArrayList<BasePowerUpDecorator> powerUps = new ArrayList<>();
 
     private Sprite playerSprite;
     private Sprite attackSprite;
@@ -62,6 +67,7 @@ public class TechGreen extends ApplicationAdapter {
         return downButton;
     }
     private long attackMillis;
+
 
     /**
      * create method creates creates the tilemap and adds all buttons and labels to the screen.
@@ -137,6 +143,15 @@ public class TechGreen extends ApplicationAdapter {
 
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
+
+        BasePowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
+        powerUps.add(healthPowerUp);
+        BasePowerUpDecorator scorePowerUp1 = new ScorePowerUpDecorator(300, 300);
+        powerUps.add(scorePowerUp1);
+        BasePowerUpDecorator scorePowerUp2 = new ScorePowerUpDecorator(500, 100);
+        powerUps.add(scorePowerUp2);
+        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500);
+        powerUps.add(randomPowerUp);
     }
 
     /**
@@ -163,8 +178,22 @@ public class TechGreen extends ApplicationAdapter {
         batch.begin();
 
         for (Enemy enemy: enemies) {
-            ((Sprite) enemy.getEnemySprite()).draw(batch);
+            if (System.currentTimeMillis() - enemy.getAttackMillis() < 500) {
+                ((Sprite) enemy.getAttackSprite()).draw(batch);
+            } else {
+                ((Sprite) enemy.getEnemySprite()).draw(batch);
+            }
+
+            if (System.currentTimeMillis() - enemy.getAttackMillis() >= 500 && enemy.getActiveAttack()) {
+                enemy.inflictDamage();
+                enemy.setActiveAttack(false);
+            }
         }
+
+        for (BasePowerUpDecorator power: powerUps) {
+            ((Sprite) power.getPowerUpSprite()).draw(batch);
+        }
+
 
         if (attackButton.isPressed()) {
             attackMillis = System.currentTimeMillis();

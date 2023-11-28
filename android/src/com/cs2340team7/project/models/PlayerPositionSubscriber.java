@@ -7,5 +7,5 @@ import com.badlogic.gdx.math.Rectangle;
  * The updatePlayerPosition method is implemented in Enemy and Player class.
  */
 public interface PlayerPositionSubscriber {
-    public void updatePlayerPosition(Rectangle playerRect);
+    void updatePlayerPosition(Rectangle playerRect);
 }
