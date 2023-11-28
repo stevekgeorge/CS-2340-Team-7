@@ -20,6 +20,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private boolean damagedByCurrentEnemy = false;
     private int speed;
     private Sprite enemySprite;
+    private Sprite attackSprite;
+    private long attackMillis;
 
     /**
      * Constructs an enemy object with default health and damage based on the game difficulty.
@@ -66,6 +68,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
             model.setCurrentHealth(model.getCurrentHealth() - damage);
             damagedByCurrentEnemy = true;
             model.setCurrentScore(model.getCurrentScore() - 1);
+            attackMillis = System.currentTimeMillis();
         } else if (!enemySprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
@@ -106,6 +109,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public void updatePosition(int newX, int newY) {
         enemySprite.setX(newX);
         enemySprite.setY(newY);
+        attackSprite.setX(newX);
+        attackSprite.setY(newY);
     }
 
     /**
@@ -119,6 +124,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public void setEnemySprite(Sprite enemySprite) {
         this.enemySprite = enemySprite;
     }
+    public void setAttackSprite(Sprite attackSprite) { this.attackSprite = attackSprite; }
 
     public void setSizeX(int sizeX) {
         this.sizeX = sizeX;
@@ -138,6 +144,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public Sprite getEnemySprite() {
         return enemySprite;
     }
+    public Sprite getAttackSprite() { return attackSprite; }
     public int getPosX() {
         return (int) enemySprite.getX();
     }
@@ -157,6 +164,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     public void takeDamage() {
         this.health = 0;
     }
+
+    public long getAttackMillis() { return attackMillis; }
 
     public GameDataModel getGameData() {
         return model;
