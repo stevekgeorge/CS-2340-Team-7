@@ -179,6 +179,11 @@ public class Klaus extends ApplicationAdapter {
             } else {
                 ((Sprite) enemy.getEnemySprite()).draw(batch);
             }
+
+            if (System.currentTimeMillis() - enemy.getAttackMillis() >= 500 && enemy.getActiveAttack()) {
+                enemy.inflictDamage();
+                enemy.setActiveAttack(false);
+            }
         }
         for (BasePowerUpDecorator power: powerUps) {
             ((Sprite) power.getPowerUpSprite()).draw(batch);
@@ -191,6 +196,7 @@ public class Klaus extends ApplicationAdapter {
                         enemy.getEnemySprite().getBoundingRectangle()))) {
                     Player.getPlayer().attack(enemy);
                 }
+
             }
         }
 
@@ -199,6 +205,7 @@ public class Klaus extends ApplicationAdapter {
         } else {
             playerSprite.draw(batch);
         }
+
 
         stage.draw();
         batch.end();

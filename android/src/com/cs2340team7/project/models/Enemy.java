@@ -22,6 +22,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     private Sprite enemySprite;
     private Sprite attackSprite;
     private long attackMillis;
+    private boolean activeAttack;
 
     /**
      * Constructs an enemy object with default health and damage based on the game difficulty.
@@ -65,10 +66,8 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
         if (enemySprite.getBoundingRectangle().overlaps((playerRect))
                 && !damagedByCurrentEnemy && health > 0) {
-            model.setCurrentHealth(model.getCurrentHealth() - damage);
-            damagedByCurrentEnemy = true;
-            model.setCurrentScore(model.getCurrentScore() - 1);
             attackMillis = System.currentTimeMillis();
+            activeAttack = true;
         } else if (!enemySprite.getBoundingRectangle().overlaps((playerRect))) {
             damagedByCurrentEnemy = false;
         }
@@ -100,6 +99,14 @@ public abstract class Enemy implements PlayerPositionSubscriber {
         move(direction);
     }
 
+    public boolean getActiveAttack() {
+        return activeAttack;
+    }
+
+    public void setActiveAttack(boolean activeAttack) {
+        this.activeAttack = activeAttack;
+    }
+
     /**
      * Updates the position of the enemy.
      *
@@ -119,6 +126,7 @@ public abstract class Enemy implements PlayerPositionSubscriber {
 
     public void die() {
         enemySprite.setRotation(90);
+        activeAttack = false;
     }
 
     public void setEnemySprite(Sprite enemySprite) {
@@ -126,6 +134,12 @@ public abstract class Enemy implements PlayerPositionSubscriber {
     }
     public void setAttackSprite(Sprite attackSprite) {
         this.attackSprite = attackSprite;
+    }
+
+    public void inflictDamage() {
+        model.setCurrentHealth(model.getCurrentHealth() - damage);
+        damagedByCurrentEnemy = true;
+        model.setCurrentScore(model.getCurrentScore() - 1);
     }
 
     public void setSizeX(int sizeX) {

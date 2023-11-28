@@ -32,7 +32,6 @@ import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Skiles class that implements the third screen that the player enters.
@@ -184,6 +183,11 @@ public class Skiles extends ApplicationAdapter {
                 ((Sprite) enemy.getAttackSprite()).draw(batch);
             } else {
                 ((Sprite) enemy.getEnemySprite()).draw(batch);
+            }
+
+            if (System.currentTimeMillis() - enemy.getAttackMillis() >= 500 && enemy.getActiveAttack()) {
+                enemy.inflictDamage();
+                enemy.setActiveAttack(false);
             }
         }
         for (BasePowerUpDecorator power: powerUps) {

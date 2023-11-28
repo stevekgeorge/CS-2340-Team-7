@@ -20,7 +20,8 @@ public class ScorePowerUpDecorator extends BasePowerUpDecorator {
     }
     @Override
     public void updatePlayerPosition(Rectangle playerRect) {
-        if (super.getPowerUpSprite().getBoundingRectangle().overlaps((playerRect)) && super.getPowerUpActive()) {
+        if (super.getPowerUpSprite().getBoundingRectangle().
+                overlaps((playerRect)) && super.getPowerUpActive()) {
             super.model.setCurrentScore(model.getCurrentScore() + 15);
             super.updatePlayerPosition(playerRect);
         }

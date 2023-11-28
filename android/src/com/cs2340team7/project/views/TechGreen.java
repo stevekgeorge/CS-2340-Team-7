@@ -17,11 +17,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.cs2340team7.project.models.BasePowerUpDecorator;
@@ -184,6 +182,11 @@ public class TechGreen extends ApplicationAdapter {
                 ((Sprite) enemy.getAttackSprite()).draw(batch);
             } else {
                 ((Sprite) enemy.getEnemySprite()).draw(batch);
+            }
+
+            if (System.currentTimeMillis() - enemy.getAttackMillis() >= 500 && enemy.getActiveAttack()) {
+                enemy.inflictDamage();
+                enemy.setActiveAttack(false);
             }
         }
 
