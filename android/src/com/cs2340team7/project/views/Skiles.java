@@ -25,6 +25,7 @@ import com.cs2340team7.project.models.BasePowerUpDecorator;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.HealthPowerUpDecorator;
+import com.cs2340team7.project.models.InvincibilityPowerUpDecorator;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.RandomPowerUpDecorator;
@@ -159,6 +160,8 @@ public class Skiles extends ApplicationAdapter {
         powerUps.add(scorePowerUp2);
         BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, random_number);
         powerUps.add(randomPowerUp);
+        BasePowerUpDecorator invincibility = new InvincibilityPowerUpDecorator(200, 200);
+        powerUps.add(invincibility);
     }
     /**
      * render method that is called in each frame of the game loop. This method handles
