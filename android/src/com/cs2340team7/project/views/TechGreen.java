@@ -32,6 +32,7 @@ import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.viewmodels.TechGreenViewModel;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * TechGreen class that implements the first screen that the player enters.
@@ -144,13 +145,16 @@ public class TechGreen extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.SENIOR));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
 
+        Random random = new Random();
+        int random_number = random.nextInt(3);
+
         BasePowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
         powerUps.add(healthPowerUp);
         BasePowerUpDecorator scorePowerUp1 = new ScorePowerUpDecorator(300, 300);
         powerUps.add(scorePowerUp1);
         BasePowerUpDecorator scorePowerUp2 = new ScorePowerUpDecorator(500, 100);
         powerUps.add(scorePowerUp2);
-        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500);
+        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, random_number);
         powerUps.add(randomPowerUp);
     }
 
