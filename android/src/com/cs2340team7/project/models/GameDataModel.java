@@ -150,7 +150,7 @@ public class GameDataModel extends BaseObservable {
                     // This code will be executed after 5 seconds
                     setInvincibility(false);
                 }
-            }, 5000);
+            }, 10000);
         } else {
             this.invincibility = false;
         }

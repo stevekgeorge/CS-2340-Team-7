@@ -160,7 +160,7 @@ public class Skiles extends ApplicationAdapter {
         powerUps.add(scorePowerUp2);
         BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, random_number);
         powerUps.add(randomPowerUp);
-        BasePowerUpDecorator invincibility = new InvincibilityPowerUpDecorator(200, 200);
+        BasePowerUpDecorator invincibility = new InvincibilityPowerUpDecorator(300, 600);
         powerUps.add(invincibility);
     }
     /**
