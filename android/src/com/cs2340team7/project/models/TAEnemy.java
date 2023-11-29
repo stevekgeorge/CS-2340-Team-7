@@ -13,7 +13,7 @@ public class TAEnemy extends Enemy { //TA enemies do not move.
         Texture texture = new Texture(fileHandle);
         FileHandle attackHandle = Gdx.files.internal("taenemyattacking.png");
         Texture attackTexture = new Texture(attackHandle);
-
+    
         this.setSizeX(160);
         this.setSizeY(160);
         this.setEnemySprite(new Sprite(texture));

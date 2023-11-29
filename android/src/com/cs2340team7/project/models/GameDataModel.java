@@ -5,12 +5,10 @@ import androidx.databinding.Bindable;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.cs2340team7.project.BR;
 
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Handler;
 
 /**
  * main DataModel class that contains necessary data for the player
@@ -83,7 +81,7 @@ public class GameDataModel extends BaseObservable {
     }
 
     public void setCurrentHealth(int health) {
-        if (invincibility == true) {
+        if (invincibility) {
             return;
         }
         this.currentHealth = health;
@@ -141,7 +139,7 @@ public class GameDataModel extends BaseObservable {
         return invincibility;
     }
     public void setInvincibility(boolean invincibility) {
-        if (this.invincibility == true) {
+        if (this.invincibility) {
             this.invincibility = invincibility;
             Timer timer = new Timer();
             timer.schedule(new TimerTask() {

@@ -147,7 +147,7 @@ public class TechGreen extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.TA));
 
         Random random = new Random();
-        int random_number = random.nextInt(3);
+        int randomNumber = random.nextInt(3);
 
         BasePowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
         powerUps.add(healthPowerUp);
@@ -155,7 +155,7 @@ public class TechGreen extends ApplicationAdapter {
         powerUps.add(scorePowerUp1);
         BasePowerUpDecorator scorePowerUp2 = new ScorePowerUpDecorator(500, 100);
         powerUps.add(scorePowerUp2);
-        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, random_number);
+        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, randomNumber);
         powerUps.add(randomPowerUp);
         BasePowerUpDecorator invincibility = new InvincibilityPowerUpDecorator(200, 200);
         powerUps.add(invincibility);
@@ -191,7 +191,8 @@ public class TechGreen extends ApplicationAdapter {
                 ((Sprite) enemy.getEnemySprite()).draw(batch);
             }
 
-            if (System.currentTimeMillis() - enemy.getAttackMillis() >= 500 && enemy.getActiveAttack()) {
+            if (System.currentTimeMillis() - enemy.getAttackMillis()
+                    >= 500 && enemy.getActiveAttack()) {
                 enemy.inflictDamage();
                 enemy.setActiveAttack(false);
             }
