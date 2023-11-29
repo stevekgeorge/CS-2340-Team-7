@@ -32,6 +32,7 @@ import com.cs2340team7.project.models.ScorePowerUpDecorator;
 import com.cs2340team7.project.viewmodels.SkilesViewModel;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Skiles class that implements the third screen that the player enters.
@@ -147,13 +148,16 @@ public class Skiles extends ApplicationAdapter {
         enemies.add(EnemyFactory.generateEnemy(600, 600, Enemy.EnemyType.BUZZ));
         enemies.add(EnemyFactory.generateEnemy(400, 400, Enemy.EnemyType.FRESHMEN));
 
+        Random random = new Random();
+        int random_number = random.nextInt(3);
+
         BasePowerUpDecorator healthPowerUp = new HealthPowerUpDecorator(500, 500);
         powerUps.add(healthPowerUp);
         BasePowerUpDecorator scorePowerUp1 = new ScorePowerUpDecorator(300, 300);
         powerUps.add(scorePowerUp1);
         BasePowerUpDecorator scorePowerUp2 = new ScorePowerUpDecorator(500, 100);
         powerUps.add(scorePowerUp2);
-        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500);
+        BasePowerUpDecorator randomPowerUp = new RandomPowerUpDecorator(100, 500, random_number);
         powerUps.add(randomPowerUp);
     }
     /**
