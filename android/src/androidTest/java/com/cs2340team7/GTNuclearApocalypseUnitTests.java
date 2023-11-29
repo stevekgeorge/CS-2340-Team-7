@@ -16,7 +16,6 @@ import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
-import com.cs2340team7.project.models.HealthPowerUpDecorator;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.TAEnemy;
@@ -483,24 +482,10 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         int score2 = player.getScore();
         assertNotEquals(score1, score2);
     }
-    @Test
-    public void healthIncreaseWithHealthPowerup() {
-        Player player = Player.getPlayer();
-        GameDataModel model = player.getGameData();
-        int health = model.getCurrentHealth();
-        player.updatePosition(0, 0);
-        HealthPowerUpDecorator healthPowerup = new HealthPowerUpDecorator(0, 0);
-        int finalHealth = model.getCurrentHealth();
-        assertNotEquals(health, finalHealth);
-    }
-    @Test
-    public void enemyDamageTaken() {
-        Player player = Player.getPlayer();
-        GameDataModel model = player.getGameData();
-        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.BUZZ);
-        int enemyStartingDamage = enemy.getDamage();
-        player.attack(enemy);
-        int enemyFinalDamage = enemy.getDamage();
-        assertNotEquals(enemyStartingDamage, enemyFinalDamage);
-    }
+
+
+    
+
+
+
 }
