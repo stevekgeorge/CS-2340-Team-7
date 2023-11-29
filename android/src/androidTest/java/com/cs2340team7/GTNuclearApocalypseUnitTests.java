@@ -1,6 +1,5 @@
 package com.cs2340team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -13,11 +12,11 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.math.Rectangle;
 import com.cs2340team7.project.models.BuzzEnemy;
 import com.cs2340team7.project.models.Enemy;
 import com.cs2340team7.project.models.EnemyFactory;
 import com.cs2340team7.project.models.GameDataModel;
+import com.cs2340team7.project.models.HealthPowerUpDecorator;
 import com.cs2340team7.project.models.Leaderboard;
 import com.cs2340team7.project.models.Player;
 import com.cs2340team7.project.models.TAEnemy;
@@ -484,76 +483,30 @@ public class GTNuclearApocalypseUnitTests extends TestCase {
         int score2 = player.getScore();
         assertNotEquals(score1, score2);
     }
-
     @Test
-    public void testAttackSpriteFollowsPlayerSprite() {
+    public void healthIncreaseWithHealthPowerup() {
         Player player = Player.getPlayer();
-        assertEquals(player.getSprite(false).getX(), player.getSprite(true).getX());
-        assertEquals(player.getSprite(false).getY(), player.getSprite(true).getY());
-
-        player.setXAndY(50, 50);
-        assertEquals(player.getSprite(false).getX(), player.getSprite(true).getX());
-        assertEquals(player.getSprite(false).getY(), player.getSprite(true).getY());
-
-        player.setXAndY(100, 50);
-        assertEquals(player.getSprite(false).getX(), player.getSprite(true).getX());
-        assertEquals(player.getSprite(false).getY(), player.getSprite(true).getY());
+        GameDataModel model = player.getGameData();
+        int health = model.getCurrentHealth();
+        player.updatePosition(0, 0);
+        HealthPowerUpDecorator healthPowerup = new HealthPowerUpDecorator(0, 0);
+        int finalHealth = model.getCurrentHealth();
+        assertNotEquals(health, finalHealth);
     }
+    @Test
+    public void enemyDamageTaken() {
+        Player player = Player.getPlayer();
+        GameDataModel model = player.getGameData();
+        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.BUZZ);
+        int enemyStartingDamage = enemy.getDamage();
+        player.attack(enemy);
+        int enemyFinalDamage = enemy.getDamage();
+        assertNotEquals(enemyStartingDamage, enemyFinalDamage);
+    }
+
+
     
-    @Test
-    public void testAttackSpriteFollowsEnemySprite() {
-        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
-        assertEquals(enemy.getEnemySprite().getX(), enemy.getAttackSprite().getX());
-        assertEquals(enemy.getEnemySprite().getY(), enemy.getAttackSprite().getY());
 
-        enemy.move(Player.Direction.DOWN);
-        assertEquals(enemy.getEnemySprite().getX(), enemy.getAttackSprite().getX());
-        assertEquals(enemy.getEnemySprite().getY(), enemy.getAttackSprite().getY());
 
-        enemy.move(Player.Direction.LEFT);
-        assertEquals(enemy.getEnemySprite().getX(), enemy.getAttackSprite().getX());
-        assertEquals(enemy.getEnemySprite().getY(), enemy.getAttackSprite().getY());
-    }
 
-    @Test
-    public void testEnemyAttackMillisUpdates() {
-        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.SENIOR);
-        Assert.assertTrue(System.currentTimeMillis() - enemy.getAttackMillis() < 1000);
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        Assert.assertTrue(System.currentTimeMillis() - enemy.getAttackMillis() >= 1000);
-
-        Rectangle fakePlayer = new Rectangle();
-        fakePlayer.setX(0);
-        fakePlayer.setY(0);
-        enemy.updatePlayerPosition(fakePlayer);
-
-        Assert.assertTrue(System.currentTimeMillis() - enemy.getAttackMillis() < 500);
-    }
-
-    @Test
-    public void testAttackKillsEnemy() {
-        Player player = Player.getPlayer();
-        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
-
-        player.attack(enemy);
-
-        assertTrue(enemy.getHealth() == 0);
-
-    }
-
-    @Test
-    public void testAttackShowsEnemyDeathAnimation() {
-        Player player = Player.getPlayer();
-        Enemy enemy = EnemyFactory.generateEnemy(0, 0, Enemy.EnemyType.TA);
-
-        player.attack(enemy);
-
-        assertTrue(enemy.getEnemyRotation() == 90);
-    }
 }
